@@ -1,47 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surprise for Niha</title>
     <style>
         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             background-color: black;
-            color: white;
-            text-align: center;
-            font-family: Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
         }
         .gift-box {
-            font-size: 80px;
-            cursor: pointer;
-            animation: shake 1s infinite;
-        }
-        @keyframes shake {
-            0%, 100% { transform: rotate(0); }
-            25% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
-        }
-        .emojis {
-            font-size: 40px;
+            width: 150px;
+            height: 150px;
+            background-color: red;
             position: absolute;
-            animation: burst 1.5s forwards;
+            bottom: 50px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: white;
         }
-        @keyframes burst {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(2) translateY(-200px); opacity: 0; }
+        .emoji {
+            position: absolute;
+            font-size: 40px;
+            opacity: 1;
+            animation: floatUp 2s ease-out forwards;
         }
-        .heart-container {
-            font-size: 100px;
-            position: relative;
-            display: none;
+        .heart {
+            position: absolute;
+            font-size: 60px;
+            opacity: 0;
+            transform: scale(0);
+            animation: heartGlow 2s ease-in-out forwards 2s;
         }
         .name {
-            font-size: 40px;
             position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            font-size: 30px;
+            color: white;
             opacity: 0;
-            animation: fadeIn 2s forwards 2s;
+            animation: fadeIn 1s ease-in forwards 3s;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+        @keyframes heartGlow {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
         }
         @keyframes fadeIn {
             0% { opacity: 0; }
@@ -51,31 +66,29 @@
 </head>
 <body>
 
-    <h1>Click the gift box 🎁</h1>
     <div class="gift-box" onclick="openGift()">🎁</div>
-    
-    <div class="heart-container">
-        ❤️
-        <div class="name">Niha</div>
-    </div>
+    <div class="heart">❤️</div>
+    <div class="name">Niha</div>
 
     <script>
         function openGift() {
             document.querySelector(".gift-box").style.display = "none";
 
-            for (let i = 0; i < 20; i++) {
+            const emojis = ["🎉", "🎊", "✨", "💖", "🎶"];
+            for (let i = 0; i < 15; i++) {
                 let emoji = document.createElement("div");
-                emoji.className = "emojis";
-                emoji.innerHTML = ["🎉", "✨", "💖", "💫", "🎊"][Math.floor(Math.random() * 5)];
-                document.body.appendChild(emoji);
+                emoji.classList.add("emoji");
+                emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
                 emoji.style.left = Math.random() * window.innerWidth + "px";
                 emoji.style.top = Math.random() * window.innerHeight + "px";
+                document.body.appendChild(emoji);
+                setTimeout(() => emoji.remove(), 2000);
             }
 
             setTimeout(() => {
-                document.querySelectorAll(".emojis").forEach(e => e.remove());
-                document.querySelector(".heart-container").style.display = "block";
-            }, 1500);
+                document.querySelector(".heart").style.opacity = "1";
+                document.querySelector(".name").style.opacity = "1";
+            }, 2000);
         }
     </script>
 
