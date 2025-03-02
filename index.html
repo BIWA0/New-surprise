@@ -3,92 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise for Niha</title>
+    <title>Love Quest ❤️</title>
     <style>
         body {
+            background-color: #000;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: black;
-            overflow: hidden;
-            margin: 0;
         }
-        .gift-box {
-            width: 150px;
-            height: 150px;
-            background-color: red;
-            position: absolute;
-            bottom: 50px;
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .question-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
             border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            max-width: 300px;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff4081;
+            color: white;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 40px;
-            color: white;
+            font-size: 16px;
         }
-        .emoji {
-            position: absolute;
-            font-size: 40px;
-            opacity: 1;
-            animation: floatUp 2s ease-out forwards;
+
+        .hidden {
+            display: none;
         }
-        .heart {
-            position: absolute;
-            font-size: 60px;
+
+        .love-message {
+            font-size: 20px;
+            margin-top: 20px;
             opacity: 0;
-            transform: scale(0);
-            animation: heartGlow 2s ease-in-out forwards 2s;
+            animation: fadeIn 2s forwards;
         }
-        .name {
-            position: absolute;
-            font-size: 30px;
-            color: white;
-            opacity: 0;
-            animation: fadeIn 1s ease-in forwards 3s;
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: red;
+            animation: floatUp 3s infinite;
         }
 
         @keyframes floatUp {
             0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-200px); opacity: 0; }
-        }
-        @keyframes heartGlow {
-            0% { transform: scale(0); opacity: 0; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="gift-box" onclick="openGift()">🎁</div>
-    <div class="heart">❤️</div>
-    <div class="name">Niha</div>
+    <h1>Welcome, Niha! ❤️</h1>
+    <div class="question-box">
+        <p>Who loves you the most? 🤔</p>
+        <input type="text" id="answer" placeholder="Type here..." />
+        <button onclick="checkAnswer()">Submit</button>
+    </div>
+
+    <p id="loveMessage" class="love-message hidden">Correct! 💖 Bhargav loves you more than anything! 😘</p>
+    <p id="wrongMessage" class="love-message hidden">Nope! Try again 😜</p>
 
     <script>
-        function openGift() {
-            document.querySelector(".gift-box").style.display = "none";
+        function checkAnswer() {
+            let input = document.getElementById("answer").value.trim().toLowerCase();
+            let loveMessage = document.getElementById("loveMessage");
+            let wrongMessage = document.getElementById("wrongMessage");
 
-            const emojis = ["🎉", "🎊", "✨", "💖", "🎶"];
-            for (let i = 0; i < 15; i++) {
-                let emoji = document.createElement("div");
-                emoji.classList.add("emoji");
-                emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-                emoji.style.left = Math.random() * window.innerWidth + "px";
-                emoji.style.top = Math.random() * window.innerHeight + "px";
-                document.body.appendChild(emoji);
-                setTimeout(() => emoji.remove(), 2000);
+            if (input === "bhargav") {
+                loveMessage.classList.remove("hidden");
+                wrongMessage.classList.add("hidden");
+                showHearts();
+            } else {
+                wrongMessage.classList.remove("hidden");
+                loveMessage.classList.add("hidden");
             }
+        }
 
-            setTimeout(() => {
-                document.querySelector(".heart").style.opacity = "1";
-                document.querySelector(".name").style.opacity = "1";
-            }, 2000);
+        function showHearts() {
+            for (let i = 0; i < 10; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.classList.add("hearts");
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }
         }
     </script>
 
