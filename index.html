@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Map Adventure</title>
+    <title>Grand Love Journey</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,6 +16,7 @@
             background: url('https://cdn.pixabay.com/photo/2017/08/30/22/47/sky-2695562_960_720.jpg') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
+            animation: bgAnimation 10s infinite alternate;
         }
         #map {
             height: 90vh;
@@ -27,6 +29,7 @@
             padding: 20px;
             background: rgba(0, 0, 0, 0.5);
             margin: 0;
+            animation: titleAnimation 3s ease-out;
         }
         #finalMessage {
             color: white;
@@ -37,12 +40,26 @@
             border-radius: 10px;
             width: 70%;
             margin: 20px auto;
+            animation: fadeIn 3s ease-out forwards;
+        }
+        @keyframes bgAnimation {
+            0% { background-color: #4e4376; }
+            50% { background-color: #2b5876; }
+            100% { background-color: #1a2980; }
+        }
+        @keyframes titleAnimation {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <h1>Love Map Adventure</h1>
+    <h1>Embark on a Love Journey</h1>
     <div id="map"></div>
     <div id="finalMessage">In this whole world, one person is missing you a lot, Niha. Let me take you there ❤️</div>
 
@@ -67,41 +84,39 @@
 
         // Add markers
         locations.forEach((location) => {
-            var marker = L.marker(location.coords).addTo(map);
+            var marker = L.marker(location.coords).addTo(map).bindPopup(location.message);
             marker.on('click', function() {
-                alert(location.message);
+                // SweetAlert for message display
+                Swal.fire({
+                    title: location.message,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
                 clickedMarkers++;
 
                 // If all markers are clicked, show final surprise
                 if (clickedMarkers === totalMarkers) {
                     setTimeout(() => {
-                        // Zoom out slowly with an animation to create an epic view
                         map.flyTo([10.8505, 76.2711], 4, {
-                            duration: 3 // Increase duration for slower zoom out
+                            duration: 4
                         });
 
                         setTimeout(() => {
-                            // Smoothly zoom into Srikalahasti, but add a long, grand effect
                             map.flyTo([13.7490, 79.7037], 12, {
                                 duration: 6
                             });
 
-                            // Display the final message with an animated effect
                             setTimeout(() => {
                                 let finalMessage = document.getElementById("finalMessage");
                                 finalMessage.style.display = 'block';
-                                finalMessage.style.animation = 'fadeIn 3s ease-out forwards';
-                            }, 2000); // Wait for zoom-in before revealing message
-                        }, 5000); // Delay before zoom-in for an epic buildup
-                    }, 1000); // Wait 1 second before starting the zoom-out
+                            }, 2000);
+                        }, 5000);
+                    }, 1000);
                 }
             });
         });
-
-        // Add keyframes animation for the final message
-        var styleSheet = document.styleSheets[0];
-        styleSheet.insertRule('@keyframes fadeIn { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }', styleSheet.cssRules.length);
-
     </script>
 
 </body>
