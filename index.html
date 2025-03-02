@@ -5,103 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love Quest</title>
     <style>
-        /* Basic hidden class */
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            margin-top: 20%;
+        }
         .hidden {
             display: none;
         }
-
-        /* Animation for fade-out */
-        .fadeOut {
-            animation: fadeOut 1s forwards;
-        }
-
-        /* Animation for fade-in */
-        .fadeIn {
-            animation: fadeIn 1s forwards;
-        }
-
-        /* Fade-out animation */
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* Style for the full-page background image */
-        #momImage {
-            position: absolute;
+        #fullImage {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://drive.google.com/uc?export=view&id=1hUxUZvabbKxLNt6_kgB2oFXXrZ7xR1lU');
-            background-size: cover;
-            background-position: center;
-            display: none;  /* Hidden by default */
+            background: url('https://raw.githubusercontent.com/BIWA0/New-surprise/refs/heads/main/IMG_20250211_155406_160.jpg') no-repeat center center/cover;
             text-align: center;
             color: white;
-            font-size: 48px;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
         }
-
-        /* Text styling */
-        #momMessage {
+        #fullImage h1 {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            font-size: 30px;
             text-shadow: 2px 2px 5px black;
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div id="question">Who is the most beautiful girl in the world? 💖</div>
-    <input type="text" id="answer" placeholder="Type your answer..." />
-    <button onclick="checkAnswer()">Submit</button>
+    <div class="container" id="quizContainer">
+        <h1>Who is the most beautiful girl in the world?</h1>
+        <input type="text" id="answerInput" placeholder="Type your answer...">
+        <button onclick="checkAnswer()">Submit</button>
+    </div>
 
-    <!-- Hidden message for wrong answers -->
-    <div id="wrongMessage" class="hidden">Oops! Try again. 😢</div>
-
-    <!-- The image of her mom that will appear when the answer is correct -->
-    <div id="momImage" class="hidden">
-        <div id="momMessage">Yes, you are the most beautiful girl, baby ❤️</div>
+    <div id="fullImage">
+        <h1>Yes, you are the most beautiful girl, baby</h1>
     </div>
 
     <script>
         function checkAnswer() {
-            let input = document.getElementById("answer").value.trim().toLowerCase();
-            let loveMessage = document.getElementById("loveMessage");
-            let wrongMessage = document.getElementById("wrongMessage");
-            let momImage = document.getElementById("momImage");
-            let question = document.getElementById("question");
-            let answer = document.getElementById("answer");
-
-            if (input === "niha") {  // Correct answer
-                // Add fade-out effect to the question, input, and wrong message
-                question.classList.add("fadeOut");
-                answer.classList.add("fadeOut");
-                wrongMessage.classList.add("fadeOut");
-
-                // After the fade-out, hide the elements completely and show the image
-                setTimeout(function() {
-                    question.classList.add("hidden");
-                    answer.classList.add("hidden");
-                    wrongMessage.classList.add("hidden");
-
-                    // Now show the mom image with a fade-in effect
-                    momImage.style.display = "flex";  // Make the image visible
-                    momImage.classList.add("fadeIn");  // Fade-in animation
-                }, 1000);  // Wait for the fade-out to complete (1 second)
-            } else {
-                // Wrong answer, show the wrong message
-                wrongMessage.classList.remove("hidden");
-                momImage.style.display = "none";  // Hide the mom image if the answer is wrong
+            let answer = document.getElementById("answerInput").value.toLowerCase().trim();
+            if (answer === "niha") {
+                document.getElementById("quizContainer").classList.add("hidden");
+                document.getElementById("fullImage").style.display = "block";
             }
         }
     </script>
