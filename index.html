@@ -3,130 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Quest ❤️</title>
+    <title>Love Quest</title>
     <style>
-        body {
-            background-color: #000;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        h1 {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-
-        .question-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            max-width: 300px;
-        }
-
-        input {
-            width: 80%;
-            padding: 10px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        button {
-            margin-top: 10px;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #ff4081;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
+        /* Basic hidden class */
         .hidden {
             display: none;
         }
 
-        .love-message {
-            font-size: 20px;
-            margin-top: 20px;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
+        /* Animation for fade-out */
+        .fadeOut {
+            animation: fadeOut 1s forwards;
         }
 
+        /* Animation for fade-in */
+        .fadeIn {
+            animation: fadeIn 1s forwards;
+        }
+
+        /* Fade-out animation */
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Fade-in animation */
         @keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
-        .hearts {
-            position: fixed;
+        /* Style for the full-page background image */
+        #momImage {
+            position: absolute;
             top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-            color: red;
-            animation: floatUp 3s infinite;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://drive.google.com/uc?export=view&id=1hUxUZvabbKxLNt6_kgB2oFXXrZ7xR1lU');
+            background-size: cover;
+            background-position: center;
+            display: none;  /* Hidden by default */
+            text-align: center;
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100vh); opacity: 0; }
+        /* Text styling */
+        #momMessage {
+            text-shadow: 2px 2px 5px black;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+    <div id="question">Who is the most beautiful girl in the world? 💖</div>
+    <input type="text" id="answer" placeholder="Type your answer..." />
+    <button onclick="checkAnswer()">Submit</button>
 
-    <h1>Welcome, Niha! ❤️</h1>
-    <div class="question-box">
-        <p>Who loves you the most? 🤔</p>
-        <input type="text" id="answer" placeholder="Type here..." />
-        <button onclick="checkAnswer()">Submit</button>
+    <!-- Hidden message for wrong answers -->
+    <div id="wrongMessage" class="hidden">Oops! Try again. 😢</div>
+
+    <!-- The image of her mom that will appear when the answer is correct -->
+    <div id="momImage" class="hidden">
+        <div id="momMessage">Yes, you are the most beautiful girl, baby ❤️</div>
     </div>
-
-    <p id="loveMessage" class="love-message hidden">Correct! 💖 Bhargav loves you more than anything! 😘</p>
-    <p id="wrongMessage" class="love-message hidden">Nope! Try again 😜</p>
 
     <script>
         function checkAnswer() {
             let input = document.getElementById("answer").value.trim().toLowerCase();
             let loveMessage = document.getElementById("loveMessage");
             let wrongMessage = document.getElementById("wrongMessage");
+            let momImage = document.getElementById("momImage");
+            let question = document.getElementById("question");
+            let answer = document.getElementById("answer");
 
-            if (input === "bhargav") {
-                loveMessage.classList.remove("hidden");
-                wrongMessage.classList.add("hidden");
-                showHearts();
+            if (input === "niha") {  // Correct answer
+                // Add fade-out effect to the question, input, and wrong message
+                question.classList.add("fadeOut");
+                answer.classList.add("fadeOut");
+                wrongMessage.classList.add("fadeOut");
+
+                // After the fade-out, hide the elements completely and show the image
+                setTimeout(function() {
+                    question.classList.add("hidden");
+                    answer.classList.add("hidden");
+                    wrongMessage.classList.add("hidden");
+
+                    // Now show the mom image with a fade-in effect
+                    momImage.style.display = "flex";  // Make the image visible
+                    momImage.classList.add("fadeIn");  // Fade-in animation
+                }, 1000);  // Wait for the fade-out to complete (1 second)
             } else {
+                // Wrong answer, show the wrong message
                 wrongMessage.classList.remove("hidden");
-                loveMessage.classList.add("hidden");
-            }
-        }
-
-        function showHearts() {
-            for (let i = 0; i < 10; i++) {
-                let heart = document.createElement("div");
-                heart.innerHTML = "❤️";
-                heart.classList.add("hearts");
-                heart.style.left = Math.random() * 100 + "vw";
-                heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-                document.body.appendChild(heart);
-
-                setTimeout(() => {
-                    heart.remove();
-                }, 3000);
+                momImage.style.display = "none";  // Hide the mom image if the answer is wrong
             }
         }
     </script>
-
 </body>
 </html>
