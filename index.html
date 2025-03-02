@@ -58,18 +58,27 @@
     <div id="message">Every click brings us closer, Niha! ✨</div>
 
     <script>
-        const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33F6', '#F0E130', '#FF1493', '#00FFFF']; // Vibrant colors for lights
+        // Adding more vibrant colors and gradient combinations
+        const colors = [
+            '#FF5733', '#33FF57', '#3357FF', '#FF33F6', '#F0E130', '#FF1493', '#00FFFF', 
+            '#FF8C00', '#8A2BE2', '#FFD700', '#4B0082', '#F5A9B8', '#A52A2A', '#32CD32', '#FF6347'
+        ];
+
         const gradients = [
             'linear-gradient(to right, #FF5733, #33FF57)',
             'linear-gradient(to right, #3357FF, #FF33F6)',
             'linear-gradient(to right, #F0E130, #FF1493)',
-            'linear-gradient(to right, #00FFFF, #FF33F6)'
-        ]; // Gradient backgrounds for variety
+            'linear-gradient(to right, #00FFFF, #FF33F6)',
+            'linear-gradient(to right, #FF8C00, #FFD700)',
+            'linear-gradient(to right, #8A2BE2, #4B0082)',
+            'linear-gradient(to right, #F5A9B8, #A52A2A)',
+            'linear-gradient(to right, #32CD32, #FF6347)'
+        ];
 
         let colorIndex = 0;
         let gradientIndex = 0;
 
-        // Add sound effect
+        // Add sound effect for each click
         const sound = new Audio('https://www.soundjay.com/button/beep-07.wav'); // You can replace with your own sound
 
         // Function to create a full-screen disco effect on click
