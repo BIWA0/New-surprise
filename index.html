@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Love Journey</title>
+    <title>Love Journey</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -13,58 +13,43 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            background: url('https://cdn.pixabay.com/photo/2017/08/30/22/47/sky-2695562_960_720.jpg') no-repeat center center fixed;
-            background-size: cover;
-            height: 100vh;
-            animation: bgAnimation 10s infinite alternate;
+            background: #ffecd2; /* Warm gradient background */
+            animation: backgroundAnim 10s infinite alternate;
         }
+
+        h1 {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            margin: 0;
+            font-size: 36px;
+            animation: fadeIn 3s ease-in-out;
+        }
+
         #map {
             height: 90vh;
             width: 100%;
-            opacity: 0.9;
         }
-        h1 {
-            color: white;
-            font-size: 3em;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            margin: 0;
-            animation: titleAnimation 3s ease-out;
+
+        @keyframes backgroundAnim {
+            0% { background: #ffecd2; }
+            50% { background: #ffb3b3; }
+            100% { background: #ffecd2; }
         }
-        #finalMessage {
-            color: white;
-            font-size: 2em;
-            display: none;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 10px;
-            width: 70%;
-            margin: 20px auto;
-            animation: fadeIn 3s ease-out forwards;
-        }
-        @keyframes bgAnimation {
-            0% { background-color: #4e4376; }
-            50% { background-color: #2b5876; }
-            100% { background-color: #1a2980; }
-        }
-        @keyframes titleAnimation {
-            0% { transform: translateY(-50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <h1>Embark on a Love Journey</h1>
+    <h1>Love Journey - A Map Adventure</h1>
     <div id="map"></div>
-    <div id="finalMessage">In this whole world, one person is missing you a lot, Niha. Let me take you there ❤️</div>
 
     <script>
-        // Initialize the map
+        // Initialize the map centered on Kerala
         var map = L.map('map').setView([10.8505, 76.2711], 7);
 
         // Add OpenStreetMap tiles
@@ -82,41 +67,38 @@
         var clickedMarkers = 0; // Track clicked markers
         var totalMarkers = locations.length;
 
-        // Add markers
+        // Add markers with click events
         locations.forEach((location) => {
-            var marker = L.marker(location.coords).addTo(map).bindPopup(location.message);
+            var marker = L.marker(location.coords).addTo(map);
             marker.on('click', function() {
-                // SweetAlert for message display
+                // SweetAlert for a stylish popup
                 Swal.fire({
-                    title: location.message,
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500
+                    title: 'Message',
+                    text: location.message,
+                    icon: 'info',
+                    confirmButtonText: 'Close'
                 });
-
                 clickedMarkers++;
 
-                // If all markers are clicked, show final surprise
+                // If all markers are clicked, show the final surprise message
                 if (clickedMarkers === totalMarkers) {
                     setTimeout(() => {
-                        map.flyTo([10.8505, 76.2711], 4, {
-                            duration: 4
+                        map.setView([13.7490, 79.7037], 12); // Zoom into Srikalahasti
+                        Swal.fire({
+                            title: 'In this whole world',
+                            text: 'One person is missing you a lot, Niha. Let me take you there ❤️',
+                            icon: 'success',
+                            confirmButtonText: 'Thank you!'
                         });
-
-                        setTimeout(() => {
-                            map.flyTo([13.7490, 79.7037], 12, {
-                                duration: 6
-                            });
-
-                            setTimeout(() => {
-                                let finalMessage = document.getElementById("finalMessage");
-                                finalMessage.style.display = 'block';
-                            }, 2000);
-                        }, 5000);
                     }, 1000);
                 }
             });
         });
+
+        // Animation to smoothly zoom and change views
+        setTimeout(() => {
+            map.setView([13.7490, 79.7037], 10); // Zoom out and slowly zoom into the location
+        }, 3000);
     </script>
 
 </body>
