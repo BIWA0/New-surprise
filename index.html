@@ -3,118 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Surprise</title>
+    <title>Love Quest</title>
     <style>
         body {
             background-color: black;
-            overflow: hidden;
-            margin: 0;
-            text-align: center;
-            font-family: Arial, sans-serif;
             color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
         }
 
         #container {
             position: relative;
-            width: 100vw;
             height: 100vh;
         }
 
-        #question-box {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 10px;
+        #question {
+            font-size: 24px;
+            margin-top: 20%;
         }
 
-        #answer-input {
+        #answerInput {
             padding: 10px;
-            border-radius: 5px;
-            border: none;
-            font-size: 16px;
+            font-size: 18px;
+            margin-top: 20px;
         }
 
-        #submit-btn {
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            background: red;
-            color: white;
-            font-size: 16px;
+        #submitBtn {
+            padding: 10px 20px;
+            font-size: 18px;
             cursor: pointer;
+            margin-top: 10px;
         }
 
         .balloon {
             position: absolute;
             bottom: -100px;
-            width: 40px;
-            height: 50px;
+            width: 50px;
+            height: 70px;
             background: red;
             border-radius: 50%;
+            opacity: 0.8;
             animation: floatUp 5s linear infinite;
         }
 
         @keyframes floatUp {
             0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-110vh); opacity: 0; }
+            100% { transform: translateY(-120vh); opacity: 0; }
         }
 
-        #photo {
-            display: none;
+        #finalImage {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: url('https://raw.githubusercontent.com/BIWA0/New-surprise/refs/heads/main/IMG_20250211_155406_160.jpg') no-repeat center center/cover;
             opacity: 0;
             transition: opacity 2s ease-in-out;
+        }
+
+        #finalText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+            color: white;
+            text-shadow: 2px 2px 10px black;
+            opacity: 0;
+            transition: opacity 2s ease-in-out 1s;
         }
     </style>
 </head>
 <body>
-
-<div id="container">
-    <div id="question-box">
-        <h1>Who is the most beautiful girl in the world?</h1>
-        <input type="text" id="answer-input" placeholder="Your answer">
-        <button id="submit-btn">Submit</button>
+    <div id="container">
+        <div id="question">Who is the most beautiful girl in the world?</div>
+        <input type="text" id="answerInput" placeholder="Type your answer...">
+        <button id="submitBtn">Submit</button>
     </div>
-</div>
+    <div id="finalImage"></div>
+    <div id="finalText">Yes, you are the most beautiful girl, baby ❤️</div>
 
-<img id="photo" src="https://raw.githubusercontent.com/BIWA0/New-surprise/main/IMG_20250211_155406_160.jpg" alt="Surprise Image">
+    <script>
+        document.getElementById("submitBtn").addEventListener("click", function() {
+            let answer = document.getElementById("answerInput").value.trim().toLowerCase();
+            if (answer === "niha") {
+                let container = document.getElementById("container");
 
-<script>
-    document.getElementById('submit-btn').addEventListener('click', function() {
-        let answer = document.getElementById('answer-input').value.trim().toLowerCase();
-        if (answer === "niha") {
-            showBalloons();
-            setTimeout(() => {
-                document.getElementById('container').style.display = 'none';
-                let photo = document.getElementById('photo');
-                photo.style.display = 'block';
+                // Create multiple balloons
+                for (let i = 0; i < 20; i++) {
+                    let balloon = document.createElement("div");
+                    balloon.classList.add("balloon");
+                    balloon.style.left = Math.random() * 100 + "vw";
+                    balloon.style.animationDuration = (Math.random() * 2 + 3) + "s";
+                    document.body.appendChild(balloon);
+
+                    setTimeout(() => { balloon.remove(); }, 5000);
+                }
+
+                // After 3 seconds, hide everything and show the image + text
                 setTimeout(() => {
-                    photo.style.opacity = 1;
-                }, 500);
-            }, 5000);
-        }
-    });
-
-    function showBalloons() {
-        for (let i = 0; i < 50; i++) {
-            let balloon = document.createElement('div');
-            balloon.classList.add('balloon');
-            balloon.style.left = Math.random() * 100 + 'vw';
-            balloon.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            document.body.appendChild(balloon);
-
-            setTimeout(() => balloon.remove(), 5000);
-        }
-    }
-</script>
-
+                    container.style.display = "none";
+                    document.getElementById("finalImage").style.opacity = "1";
+                    document.getElementById("finalText").style.opacity = "1";
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>
