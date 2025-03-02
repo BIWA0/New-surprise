@@ -31,15 +31,11 @@
         @keyframes discoAnim {
             0% {
                 opacity: 1;
-                background-color: #000;
-            }
-            50% {
-                opacity: 1;
-                background-color: #ff1493; /* Vibrant color at midpoint */
+                background-color: transparent;
             }
             100% {
                 opacity: 0;
-                background-color: #000; /* Fade to black at the end */
+                background-color: transparent;
             }
         }
 
@@ -62,13 +58,13 @@
     <div id="message">Every click brings us closer, Niha! ✨</div>
 
     <script>
-        const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33F6', '#F0E130', '#FF1493', '#00FFFF']; // Disco lights colors
+        const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33F6', '#F0E130', '#FF1493', '#00FFFF']; // Vibrant colors for lights
         const gradients = [
             'linear-gradient(to right, #FF5733, #33FF57)',
             'linear-gradient(to right, #3357FF, #FF33F6)',
             'linear-gradient(to right, #F0E130, #FF1493)',
             'linear-gradient(to right, #00FFFF, #FF33F6)'
-        ]; // Gradient backgrounds for more flair
+        ]; // Gradient backgrounds for variety
 
         let colorIndex = 0;
         let gradientIndex = 0;
