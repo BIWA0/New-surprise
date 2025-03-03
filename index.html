@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Love Disco Lights!</title>
+    <title>Ultimate Love Explosion! 💖🎆</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,110 +13,137 @@
             overflow: hidden;
             color: white;
             text-align: center;
-            background-color: #000;
+            background: black;
             transition: background 1s ease;
         }
 
-        .disco {
+        .heart {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            opacity: 0;
-            pointer-events: none;
-            animation: discoAnim 1s ease-out;
+            font-size: 2rem;
+            color: red;
+            animation: floatUp 2s linear forwards;
         }
 
-        @keyframes discoAnim {
-            0% {
-                opacity: 1;
-                background-color: transparent;
-            }
-            100% {
-                opacity: 0;
-                background-color: transparent;
-            }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
         }
 
-        #message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            opacity: 0;
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: yellow;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(5); opacity: 0; }
+        }
+
+        .message {
+            position: absolute;
+            font-size: 2rem;
             color: #FF1493;
-            transition: opacity 1s ease;
+            animation: fadeOut 2s ease-in forwards;
         }
 
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-50px); }
+        }
+
+        .cursor-trail {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: disappear 0.5s ease-out forwards;
+        }
+
+        @keyframes disappear {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(2); }
+        }
     </style>
 </head>
 <body>
 
-    <h1>Ultimate Love Disco Lights!</h1>
-    <div id="message">Every click brings us closer, Niha! ✨</div>
+    <h1>🔥 Ultimate Love Explosion 🔥</h1>
+
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
-        // Adding more vibrant colors and gradient combinations
-        const colors = [
-            '#FF5733', '#33FF57', '#3357FF', '#FF33F6', '#F0E130', '#FF1493', '#00FFFF', 
-            '#FF8C00', '#8A2BE2', '#FFD700', '#4B0082', '#F5A9B8', '#A52A2A', '#32CD32', '#FF6347'
+        const messages = [
+            "Niha, you are my everything! 💖",
+            "Every moment with you is magic! ✨",
+            "Our love shines brighter than the stars! 🌟",
+            "I miss you so much! 😘",
+            "Love you more than words can say! ❤️"
         ];
 
-        const gradients = [
-            'linear-gradient(to right, #FF5733, #33FF57)',
-            'linear-gradient(to right, #3357FF, #FF33F6)',
-            'linear-gradient(to right, #F0E130, #FF1493)',
-            'linear-gradient(to right, #00FFFF, #FF33F6)',
-            'linear-gradient(to right, #FF8C00, #FFD700)',
-            'linear-gradient(to right, #8A2BE2, #4B0082)',
-            'linear-gradient(to right, #F5A9B8, #A52A2A)',
-            'linear-gradient(to right, #32CD32, #FF6347)'
-        ];
-
-        let colorIndex = 0;
-        let gradientIndex = 0;
-
-        // Add sound effect for each click
-        const sound = new Audio('https://www.soundjay.com/button/beep-07.wav'); // You can replace with your own sound
-
-        // Function to create a full-screen disco effect on click
-        function createDiscoLight() {
-            const disco = document.createElement('div');
-            disco.classList.add('disco');
-            document.body.appendChild(disco);
-
-            // Change color and gradient of the full screen light
-            disco.style.backgroundColor = colors[colorIndex];
-            document.body.style.background = gradients[gradientIndex];
-
-            // Play sound
-            sound.play();
-
-            // Change colors and gradients for next click
-            colorIndex = (colorIndex + 1) % colors.length;
-            gradientIndex = (gradientIndex + 1) % gradients.length;
-
-            // Show the disco effect by setting opacity to 1
-            disco.style.opacity = 1;
-
-            // Fade out and remove after the effect
-            setTimeout(() => {
-                disco.style.opacity = 0;
-                setTimeout(() => {
-                    disco.remove();
-                }, 500); // Remove after fade-out
-            }, 1000); // Hold for 1 second
+        function createHeart(x, y) {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.style.left = `${x}px`;
+            heart.style.top = `${y}px`;
+            heart.innerHTML = "❤️";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 2000);
         }
 
-        // Add event listener for clicks
-        document.body.addEventListener('click', createDiscoLight);
+        function createFirework(x, y) {
+            for (let i = 0; i < 10; i++) {
+                const firework = document.createElement("div");
+                firework.classList.add("firework");
+                firework.style.left = `${x + Math.random() * 40 - 20}px`;
+                firework.style.top = `${y + Math.random() * 40 - 20}px`;
+                firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 1000);
+            }
+        }
 
-        // Message fade-in effect after a brief delay
-        setTimeout(() => {
-            document.getElementById('message').style.opacity = 1;
-        }, 1000);
+        function showMessage(x, y) {
+            const msg = document.createElement("div");
+            msg.classList.add("message");
+            msg.style.left = `${x}px`;
+            msg.style.top = `${y}px`;
+            msg.innerText = messages[Math.floor(Math.random() * messages.length)];
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 2000);
+        }
+
+        function createCursorTrail(e) {
+            const trail = document.createElement("div");
+            trail.classList.add("cursor-trail");
+            trail.style.left = `${e.clientX}px`;
+            trail.style.top = `${e.clientY}px`;
+            trail.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 500);
+        }
+
+        document.body.addEventListener("click", (e) => {
+            createHeart(e.clientX, e.clientY);
+            createFirework(e.clientX, e.clientY);
+            showMessage(e.clientX, e.clientY);
+        });
+
+        document.addEventListener("mousemove", createCursorTrail);
+
+        document.body.addEventListener("click", () => {
+            const music = document.getElementById("bg-music");
+            if (music.paused) {
+                music.play();
+            }
+        });
 
     </script>
 
