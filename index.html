@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Love Explosion! 💖🎆</title>
+    <title>Love Explosion! 💖🎆</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,6 +15,15 @@
             text-align: center;
             background: black;
             transition: background 1s ease;
+        }
+
+        h1 {
+            font-size: 5vw;
+            text-align: center;
+            margin: 20px 0;
+            background: linear-gradient(45deg, red, pink, orange, yellow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .heart {
@@ -31,16 +40,16 @@
 
         .firework {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 4px;
+            height: 4px;
             background-color: yellow;
             border-radius: 50%;
-            animation: explode 1s ease-out forwards;
+            animation: explode 1.2s ease-out forwards;
         }
 
         @keyframes explode {
             0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(5); opacity: 0; }
+            100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
         }
 
         .message {
@@ -73,7 +82,7 @@
 </head>
 <body>
 
-    <h1>🔥 Ultimate Love Explosion 🔥</h1>
+    <h1>💖 Love Explosion! 🎆</h1>
 
     <audio id="bg-music" loop>
         <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
@@ -99,14 +108,21 @@
         }
 
         function createFirework(x, y) {
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 20; i++) {
                 const firework = document.createElement("div");
                 firework.classList.add("firework");
-                firework.style.left = `${x + Math.random() * 40 - 20}px`;
-                firework.style.top = `${y + Math.random() * 40 - 20}px`;
+                firework.style.left = `${x}px`;
+                firework.style.top = `${y}px`;
+
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = Math.random() * 80 + 20;
+
+                firework.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+                firework.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+
                 firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
                 document.body.appendChild(firework);
-                setTimeout(() => firework.remove(), 1000);
+                setTimeout(() => firework.remove(), 1200);
             }
         }
 
