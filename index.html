@@ -3,189 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Explosion! 💖🎆</title>
+    <title>Love Lights Up</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            height: 100vh;
             overflow: hidden;
-            color: white;
-            text-align: center;
-            background: black;
-            transition: background 1s ease;
+            background-color: black;
+            font-family: Arial, sans-serif;
         }
-
-        h1 {
-            font-size: 5vw;
-            text-align: center;
-            margin: 20px 0;
-            background: linear-gradient(45deg, red, pink, orange, yellow);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .heart {
+        
+        .love-message {
             position: absolute;
-            font-size: 2rem;
-            color: red;
-            animation: floatUp 2s linear forwards;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
-        }
-
-        .firework {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background-color: yellow;
-            border-radius: 50%;
-            animation: explode 1.5s ease-out forwards;
-        }
-
-        @keyframes explode {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: translate(var(--x), var(--y)) scale(2); opacity: 0; }
-        }
-
-        .message {
-            position: absolute;
-            font-size: 2rem;
-            color: #FF1493;
-            animation: fadeOut 2s ease-in forwards;
-        }
-
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(-50px); }
-        }
-
-        .cursor-trail {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: white;
-            border-radius: 50%;
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 1;
+            transition: opacity 2s ease-out, transform 2s ease-out;
             pointer-events: none;
-            animation: disappear 0.5s ease-out forwards;
-        }
-
-        @keyframes disappear {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(2); }
-        }
-
-        .screen-flash {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            white-space: nowrap;
         }
     </style>
 </head>
 <body>
 
-    <h1>💖 Love Explosion! 🎆</h1>
-    <div class="screen-flash"></div>
+<script>
+    const messages = [
+        "Niha, you're my brightest star! ✨",
+        "Every spark in the sky is a whisper of my love for you! 💖",
+        "You're my forever kind of happiness! 😊",
+        "With every heartbeat, I say your name! ❤️",
+        "You're the reason my world is so colorful! 🎨",
+        "Every firework is my love bursting for you! 🎆",
+        "You're my greatest adventure! 🚀",
+        "If love had a color, it would be all of them—just like this screen! 🌈",
+        "Biwa ❤️ Niha forever! 💞",
+        "Everywhere I look, I see love… because of you! 💕",
+        "Niha, you're my home, my heart, my everything! 🏡❤️",
+        "Even the stars envy our love! ✨💖",
+        "Every heartbeat spells your name, Niha! 💓",
+        "If I could, I'd write your name across the sky! 🌌💙",
+        "You're the only song my heart ever wants to play! 🎶💕",
+        "No distance, no time—just us, forever! ⏳❤️",
+        "Love isn't a word, it's you! 🥰💖",
+        "Your smile is my favorite sunrise! ☀️💛"
+    ];
 
-    <audio id="bg-music" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-    </audio>
+    function getRandomColor() {
+        const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FFD700", "#8A2BE2", "#FF4500", "#00FFFF", "#FF1493"];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
 
-    <script>
-        const messages = [
-            "Niha, you are my everything! 💖",
-            "Every moment with you is magic! ✨",
-            "Our love shines brighter than the stars! 🌟",
-            "I miss you so much! 😘",
-            "Love you more than words can say! ❤️"
-        ];
+    document.body.addEventListener("click", function(event) {
+        // Create a new message element
+        let message = document.createElement("div");
+        message.className = "love-message";
+        message.textContent = messages[Math.floor(Math.random() * messages.length)];
+        message.style.left = event.clientX + "px";
+        message.style.top = event.clientY + "px";
+        message.style.color = getRandomColor();
+        
+        // Add slight movement effect
+        message.style.transform = "translateY(-20px)";
 
-        function createHeart(x, y) {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.style.left = `${x}px`;
-            heart.style.top = `${y}px`;
-            heart.innerHTML = "❤️";
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 2000);
-        }
+        // Add message to the body
+        document.body.appendChild(message);
 
-        function createFirework(x, y) {
-            for (let i = 0; i < 30; i++) {
-                const firework = document.createElement("div");
-                firework.classList.add("firework");
-                firework.style.left = `${x}px`;
-                firework.style.top = `${y}px`;
-
-                const angle = Math.random() * 2 * Math.PI;
-                const distance = Math.random() * 100 + 30;
-
-                firework.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
-                firework.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
-
-                firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                document.body.appendChild(firework);
-                setTimeout(() => firework.remove(), 1500);
-            }
-        }
-
-        function showMessage(x, y) {
-            const msg = document.createElement("div");
-            msg.classList.add("message");
-            msg.style.left = `${x}px`;
-            msg.style.top = `${y}px`;
-            msg.innerText = messages[Math.floor(Math.random() * messages.length)];
-            document.body.appendChild(msg);
-            setTimeout(() => msg.remove(), 2000);
-        }
-
-        function createCursorTrail(e) {
-            const trail = document.createElement("div");
-            trail.classList.add("cursor-trail");
-            trail.style.left = `${e.clientX}px`;
-            trail.style.top = `${e.clientY}px`;
-            trail.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-            document.body.appendChild(trail);
-            setTimeout(() => trail.remove(), 500);
-        }
-
-        function flashScreen() {
-            const flash = document.querySelector(".screen-flash");
-            const colors = ["red", "blue", "green", "yellow", "pink", "purple", "orange"];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            flash.style.background = randomColor;
-            flash.style.opacity = "1";
-            setTimeout(() => {
-                flash.style.opacity = "0";
-            }, 500);
-        }
-
-        document.body.addEventListener("click", (e) => {
-            createHeart(e.clientX, e.clientY);
-            createFirework(e.clientX, e.clientY);
-            showMessage(e.clientX, e.clientY);
-            flashScreen();
-        });
-
-        document.addEventListener("mousemove", createCursorTrail);
-
-        document.body.addEventListener("click", () => {
-            const music = document.getElementById("bg-music");
-            if (music.paused) {
-                music.play();
-            }
-        });
-
-    </script>
+        // Make it fade out and disappear
+        setTimeout(() => {
+            message.style.opacity = "0";
+            message.style.transform = "translateY(-50px)";
+            setTimeout(() => message.remove(), 2000); // Remove after fade out
+        }, 1000);
+    });
+</script>
 
 </body>
 </html>
