@@ -108,7 +108,7 @@
                             setTimeout(() => {
                                 firstImageContainer.style.display = "none"; // Hide after a short delay
                             }, 3000); // Image stays for 3 seconds
-                        } else if (index === 7) { // After "Let’s get our first pic, baby!", show countdown and lightning
+                        } else if (index === 7) { // After "Let’s get our first pic, baby!", show countdown
                             setTimeout(() => {
                                 showLightingEffect();
                             }, 500); // Lightning effect before countdown
@@ -123,13 +123,13 @@
                             }, 2500);
                             setTimeout(() => {
                                 textElement.textContent = "";
-                                showLightingEffect();
-                            }, 3500); // Lightning effect after countdown
+                                showLightingEffect(); // Lightning after countdown
+                            }, 3500);
                             setTimeout(() => {
-                                finalImageContainer.style.display = "block";
+                                finalImageContainer.style.display = "block"; // Final image appears
                                 finalImageContainer.style.opacity = 1;
-                                showLightingEffect();
-                            }, 4500); // Show final image after lightning
+                                showLightingEffect(); // Lightning after final image
+                            }, 4500); // Final image appears after countdown and lightning
                         }
                         setTimeout(typeEffect, 1000);
                     } else {
