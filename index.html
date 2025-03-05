@@ -78,6 +78,8 @@
             "Clearing disturbances...",
             "Activating love from the universe...",
             "Getting energy...",
+            "", // Lightning effect
+            "3", "2", "1", "", // Countdown
         ];
 
         let index = 0;
@@ -105,6 +107,13 @@
                                 firstImageContainer.style.display = "none"; // Hide after a short delay
                             }, 3000); // Image stays for 3 seconds
                         }
+                        if (index >= 10) { // Lightning effect and final image
+                            setTimeout(() => {
+                                finalImageContainer.style.display = "block";
+                                finalImageContainer.style.opacity = 1;
+                                showLightingEffect();
+                            }, 1000);
+                        }
                         setTimeout(typeEffect, 1000);
                     } else {
                         setTimeout(typeEffect, 100);
@@ -129,32 +138,7 @@
             }
         }
 
-        // Function to show the countdown without typing effect
-        function showCountdown() {
-            const countdown = ["3...", "2...", "1..."];
-            countdown.forEach((num, i) => {
-                setTimeout(() => {
-                    textElement.textContent = num;
-                    if (i === countdown.length - 1) {
-                        setTimeout(() => {
-                            showLightingEffect();
-                            setTimeout(() => {
-                                finalImageContainer.style.display = "block";
-                                finalImageContainer.style.opacity = 1;
-                                showLightingEffect();
-                            }, 2000);
-                        }, 1000);
-                    }
-                }, i * 1000);
-            });
-        }
-
         typeEffect();
-
-        // Show countdown after "Let’s get our first pic, baby!"
-        setTimeout(() => {
-            showCountdown();
-        }, 4000); // Adjust this time based on when you want the countdown to start
     </script>
 </body>
 </html>
