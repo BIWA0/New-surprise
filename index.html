@@ -3,179 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise for Niha</title>
+    <title>Grand Surprise</title>
     <style>
         body {
             background-color: black;
-            color: #00FF00;
+            color: #00ff00;
             font-family: 'Courier New', monospace;
             text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             overflow: hidden;
         }
-        #text {
-            white-space: pre-line;
-            overflow: hidden;
+        #text-box {
+            font-size: 2em;
+            font-weight: bold;
+            white-space: pre-wrap;
             display: inline-block;
-            border-right: 5px solid #00FF00;
-            padding-right: 5px;
         }
         #image-container {
             display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            text-align: center;
+            margin-top: 20px;
         }
-        #image-container img {
-            width: 80%;
-            max-width: 500px;
-            transition: transform 3s ease-in-out;
+        #final-image {
+            width: 100vw;
+            height: auto;
+            display: none;
         }
-        .countdown {
-            font-size: 50px;
+        @keyframes blink {
+            0%, 50%, 100% { background-color: black; }
+            25%, 75% { background-color: white; }
         }
-        .blink {
-            animation: blink-animation 0.1s infinite;
-        }
-        @keyframes blink-animation {
-            50% { background-color: white; color: black; }
+        @keyframes lightning {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-<div id="text"></div>
+<div id="text-box"></div>
 <div id="image-container">
-    <img id="surprise-image" src="niha-surprise.jpg" alt="Surprise">
+    <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" width="500">
 </div>
+<img id="final-image" src="niha-surprise.jpg">
 
 <script>
+    const textBox = document.getElementById("text-box");
+    const firstImage = document.getElementById("first-image");
+    const finalImage = document.getElementById("final-image");
+
     const messages = [
         "Hey Niha, want to see something?",
-        "Backspacing...",
+        "",
         "See, it's us!",
-        "But something looks off...",
-        "They don't look like us...",
-        "Let's get our first pic, baby!",
-        "Backspacing...",
-        "3...",
-        "2...",
-        "1...",
-        "Processing...",
-        "Clearing all difficulties...",
-        "Getting love from the universe..."
+        "But wait...",
+        "Something looks off...",
+        "They don't look like us!",
+        "Let's get our first pic, baby!"
     ];
 
-    let index = 0;
-    let textElement = document.getElementById("text");
+    function typeMessage(index, callback) {
+        if (index >= messages.length) {
+            callback();
+            return;
+        }
 
-    function typeMessage(message, speed = 100, callback) {
-        textElement.innerHTML = "";
+        let text = messages[index];
         let i = 0;
+        textBox.innerHTML = "";
+        
         function type() {
-            if (i < message.length) {
-                textElement.innerHTML += message[i];
-                i++;
-                setTimeout(type, speed);
+            if (i < text.length) {
+                textBox.innerHTML += text[i++];
+                setTimeout(type, 100);
             } else {
-                setTimeout(callback, 1000);
+                setTimeout(() => backspaceMessage(callback), 800);
             }
         }
         type();
     }
 
     function backspaceMessage(callback) {
-        let text = textElement.innerHTML;
-        function erase() {
-            if (text.length > 0) {
-                text = text.slice(0, -1);
-                textElement.innerHTML = text;
-                setTimeout(erase, 50);
+        let text = textBox.innerHTML;
+        let i = text.length;
+        
+        function backspace() {
+            if (i > 0) {
+                textBox.innerHTML = text.substring(0, --i);
+                setTimeout(backspace, 50);
             } else {
-                setTimeout(callback, 500);
+                setTimeout(() => typeMessage(callback.index++, callback), 500);
             }
         }
-        erase();
-    }
-
-    function showImage() {
-        let imageContainer = document.getElementById("image-container");
-        let image = document.getElementById("surprise-image");
-        imageContainer.style.display = "block";
-        setTimeout(() => {
-            image.style.transform = "scale(0.5)";
-            setTimeout(startCountdown, 2000);
-        }, 1000);
-    }
-
-    function startCountdown() {
-        textElement.classList.add("countdown");
-        let countdownNumbers = ["3...", "2...", "1..."];
-        let i = 0;
-        function nextCountdown() {
-            if (i < countdownNumbers.length) {
-                typeMessage(countdownNumbers[i], 500, () => {
-                    i++;
-                    nextCountdown();
-                });
-            } else {
-                processLoading();
-            }
-        }
-        nextCountdown();
-    }
-
-    function processLoading() {
-        textElement.classList.remove("countdown");
-        let processingMessages = ["Processing...", "Clearing all difficulties...", "Getting love from the universe..."];
-        let i = 0;
-        function nextProcessing() {
-            if (i < processingMessages.length) {
-                typeMessage(processingMessages[i], 100, () => {
-                    i++;
-                    nextProcessing();
-                });
-            } else {
-                flashScreen();
-            }
-        }
-        nextProcessing();
-    }
-
-    function flashScreen() {
-        document.body.classList.add("blink");
-        setTimeout(() => {
-            document.body.classList.remove("blink");
-            showFinalImage();
-        }, 2000);
-    }
-
-    function showFinalImage() {
-        document.getElementById("image-container").innerHTML = `<img src="niha-surprise.jpg" style="width: 100%; max-width: 600px;">`;
+        backspace();
     }
 
     function startSequence() {
-        function nextMessage() {
-            if (index < messages.length) {
-                if (messages[index] === "Backspacing...") {
-                    backspaceMessage(nextMessage);
-                } else {
-                    typeMessage(messages[index], 100, nextMessage);
-                }
-                index++;
+        let step = { index: 0 };
+        typeMessage(0, () => {
+            firstImage.style.display = "block";
+            setTimeout(() => {
+                typeMessage(2, () => {
+                    firstImage.style.display = "none";
+                    typeMessage(3, () => {
+                        setTimeout(showCountdown, 1000);
+                    });
+                });
+            }, 1000);
+        });
+    }
+
+    function showCountdown() {
+        let count = 3;
+        function countdown() {
+            if (count > 0) {
+                textBox.innerHTML = count--;
+                setTimeout(countdown, 1000);
             } else {
-                showImage();
+                textBox.innerHTML = "Processing...";
+                setTimeout(() => {
+                    textBox.innerHTML = "Clearing all difficulties...";
+                    setTimeout(() => {
+                        textBox.innerHTML = "Getting love from the universe...";
+                        setTimeout(triggerLightning, 1000);
+                    }, 1000);
+                }, 1000);
             }
         }
-        nextMessage();
+        countdown();
+    }
+
+    function triggerLightning() {
+        document.body.style.animation = "blink 0.2s infinite";
+        setTimeout(() => {
+            document.body.style.animation = "";
+            finalImage.style.display = "block";
+            finalImage.style.animation = "lightning 1s infinite";
+        }, 2000);
     }
 
     startSequence();
