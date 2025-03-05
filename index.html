@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click Surprise</title>
+    <title>Click for Surprise</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             text-align: center;
-            margin: 50px;
-            background-color: #f0f0f0;
+            padding: 50px;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
         }
-        #hidden-text {
+        #surprise {
             display: none;
-            font-size: 24px;
             margin-top: 20px;
-            color: red;
+            width: 80%;
+            max-width: 500px;
         }
         button {
             padding: 10px 20px;
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
-
-    <h1>Click the Button for a Surprise</h1>
-    <button onclick="showText()">Click Me</button>
-    <p id="hidden-text">Disconlitws</p>
-
+    <h1>Click Below for a Surprise!</h1>
+    <button onclick="showSurprise()">Click Me</button>
+    <br>
+    <img id="surprise" src="niha-surprise.jpg" alt="Surprise Image">
+    
     <script>
-        function showText() {
-            document.getElementById("hidden-text").style.display = "block";
+        function showSurprise() {
+            document.getElementById("surprise").style.display = "block";
         }
     </script>
-
 </body>
 </html>
-
