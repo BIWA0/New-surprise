@@ -78,8 +78,10 @@
             "Clearing disturbances...",
             "Activating love from the universe...",
             "Getting energy...",
-            "", // Lightning effect
-            "3", "2", "1", "", // Countdown
+            "",
+            "3",
+            "2",
+            "1"
         ];
 
         let index = 0;
@@ -90,7 +92,7 @@
             lighting.style.display = "block";
             setTimeout(() => {
                 lighting.style.display = "none";
-            }, 2000);
+            }, 1000);
         }
 
         function typeEffect() {
@@ -106,13 +108,23 @@
                             setTimeout(() => {
                                 firstImageContainer.style.display = "none"; // Hide after a short delay
                             }, 3000); // Image stays for 3 seconds
-                        }
-                        if (index >= 10) { // Lightning effect and final image
+                        } else if (index === 7) { // After "Let’s get our first pic, baby!", show countdown and lighting
+                            setTimeout(() => {
+                                showLightingEffect();
+                            }, 500); // Lightning effect before countdown
+                            setTimeout(() => {
+                                index++; // Proceed to next message (Countdown)
+                                charIndex = 0; // Reset character index for next message
+                                deleting = false;
+                                setTimeout(typeEffect, 1000);
+                            }, 2000); // Wait before starting countdown
+                            return;
+                        } else if (index === 11) { // After "1", show the final image
                             setTimeout(() => {
                                 finalImageContainer.style.display = "block";
                                 finalImageContainer.style.opacity = 1;
                                 showLightingEffect();
-                            }, 1000);
+                            }, 500);
                         }
                         setTimeout(typeEffect, 1000);
                     } else {
@@ -128,13 +140,6 @@
                         setTimeout(typeEffect, 50);
                     }
                 }
-            } else {
-                // After all messages, show the final image with a lighting effect
-                setTimeout(() => {
-                    finalImageContainer.style.display = "block";
-                    finalImageContainer.style.opacity = 1;
-                    showLightingEffect();
-                }, 1000);
             }
         }
 
