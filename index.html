@@ -32,8 +32,9 @@
             position: relative;
         }
         #image-container img, #final-image-container img {
-            width: 60%;
-            max-width: 500px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transition: transform 2s ease-in-out;
         }
         #countdown {
@@ -108,29 +109,14 @@
                     }
                 }
             } else {
-                startCountdown();
+                showFirstImage();
             }
         }
 
-        function startCountdown() {
+        function showFirstImage() {
             textElement.style.display = "none";
-            countdownElement.style.display = "block";
-            let count = 3;
-            countdownElement.textContent = count;
-            
-            let countdownInterval = setInterval(() => {
-                count--;
-                countdownElement.textContent = count;
-                if (count === 0) {
-                    clearInterval(countdownInterval);
-                    countdownElement.textContent = "Processing...";
-                    setTimeout(showLoadingMessages, 1000);
-                }
-            }, 1000);
-        }
-
-        function showLoadingMessages() {
-            countdownElement.innerHTML = "Clearing all difficulties...<br>Getting love from the universe...";
+            imageContainer.style.display = "block";
+            firstImage.style.transform = "scale(1.5)";
             setTimeout(triggerFlash, 2000);
         }
 
@@ -138,20 +124,14 @@
             document.body.classList.add("flash");
             setTimeout(() => {
                 document.body.classList.remove("flash");
-                revealFirstImage();
+                revealFinalImage();
             }, 2000);
-        }
-
-        function revealFirstImage() {
-            countdownElement.style.display = "none";
-            imageContainer.style.display = "block";
-            firstImage.style.transform = "scale(1.5)";
-            setTimeout(revealFinalImage, 2000);
         }
 
         function revealFinalImage() {
             imageContainer.style.display = "none";
             finalImageContainer.style.display = "block";
+            finalText.style.display = "block";  // Display the final text
         }
 
         typeEffect();
