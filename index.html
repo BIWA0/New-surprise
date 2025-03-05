@@ -74,7 +74,13 @@
             "But something looks off...",
             "They don’t look like us...",
             "",
-            "Let’s get our first pic, baby!"
+            "Let’s get our first pic, baby!",
+            "Clearing disturbances...",
+            "Activating love from the universe...",
+            "Getting energy...",
+            "3...",
+            "2...",
+            "1..."
         ];
 
         let index = 0;
@@ -101,6 +107,8 @@
                             setTimeout(() => {
                                 firstImageContainer.style.display = "none"; // Hide after a short delay
                             }, 3000); // Image stays for 3 seconds
+                        } else if (index === 10) { // Show countdown at the end
+                            setTimeout(typeEffect, 500);
                         }
                         setTimeout(typeEffect, 1000);
                     } else {
