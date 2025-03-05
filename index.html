@@ -49,12 +49,6 @@
             50% { background-color: white; }
             100% { background-color: black; }
         }
-        #final-text {
-            display: none;
-            color: #00ff00;
-            font-size: 36px;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -62,10 +56,10 @@
         <div id="text"></div>
         <div id="countdown"></div>
         <div id="image-container">
-            <img id="first-image" src="surprises/297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="First Image">
+            <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="See, it's us!">
             <img id="final-image" src="niha-surprise.jpg" alt="Surprise!">
+            <div id="final-text" style="color: #00ff00; font-size: 30px; display: none;">Now it's perfect!</div>
         </div>
-        <div id="final-text">Now it's perfect</div>
     </div>
 
     <script>
@@ -97,9 +91,6 @@
                     textElement.textContent = messages[index].substring(0, charIndex++);
                     if (charIndex > messages[index].length) {
                         deleting = true;
-                        if (messages[index] === "See, it's us!") {
-                            showFirstImage();
-                        }
                         setTimeout(typeEffect, 1000);
                     } else {
                         setTimeout(typeEffect, 100);
@@ -117,10 +108,6 @@
             } else {
                 startCountdown();
             }
-        }
-
-        function showFirstImage() {
-            firstImage.style.display = "block";
         }
 
         function startCountdown() {
@@ -149,19 +136,25 @@
             document.body.classList.add("flash");
             setTimeout(() => {
                 document.body.classList.remove("flash");
-                revealFinalImage();
+                revealFirstImage();
             }, 2000);
         }
 
-        function revealFinalImage() {
-            countdownElement.style.display = "none";
-            imageContainer.style.display = "block";
-            finalImage.style.transform = "scale(1.5)";
-            showFinalText();
+        function revealFirstImage() {
+            firstImage.style.display = "block";
+            setTimeout(() => {
+                firstImage.style.transform = "scale(1.5)";
+                setTimeout(revealFinalImage, 2000);
+            }, 1000);
         }
 
-        function showFinalText() {
-            finalText.style.display = "block";
+        function revealFinalImage() {
+            firstImage.style.display = "none";
+            finalImage.style.display = "block";
+            finalImage.style.transform = "scale(1.5)";
+            setTimeout(() => {
+                finalText.style.display = "block";
+            }, 1000);
         }
 
         typeEffect();
