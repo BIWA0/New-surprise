@@ -12,6 +12,7 @@
             font-size: 24px;
             text-align: center;
             overflow: hidden;
+            margin: 0;
         }
         #container {
             display: flex;
@@ -27,14 +28,14 @@
             width: fit-content;
             font-weight: bold;
         }
-        #image-container {
+        #first-image, #final-image {
             display: none;
-            position: relative;
-        }
-        #image-container img {
             width: 100%;
-            max-width: 100%;
-            transition: transform 2s ease-in-out;
+            height: 100vh;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
         #countdown {
             display: none;
@@ -55,21 +56,15 @@
     <div id="container">
         <div id="text"></div>
         <div id="countdown"></div>
-        <div id="image-container">
-            <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="First image">
-        </div>
-        <div id="final-image-container" style="display:none;">
-            <img id="final-image" src="niha-surprise.jpg" alt="Niha Surprise">
-            <p>Now it's perfect</p>
-        </div>
+        <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="First Image">
+        <img id="final-image" src="niha-surprise.jpg" alt="Niha Surprise">
     </div>
 
     <script>
         const textElement = document.getElementById("text");
         const countdownElement = document.getElementById("countdown");
-        const imageContainer = document.getElementById("image-container");
         const firstImage = document.getElementById("first-image");
-        const finalImageContainer = document.getElementById("final-image-container");
+        const finalImage = document.getElementById("final-image");
 
         const messages = [
             "Hey Niha, want to see something?",
@@ -91,8 +86,16 @@
                 if (!deleting) {
                     textElement.textContent = messages[index].substring(0, charIndex++);
                     if (charIndex > messages[index].length) {
-                        deleting = true;
-                        setTimeout(typeEffect, 1000);
+                        if (index === 2) { // Show first image after "See, it's us!"
+                            firstImage.style.display = "block";
+                            setTimeout(() => {
+                                firstImage.style.display = "none";
+                                deleting = true;
+                                setTimeout(typeEffect, 1000);
+                            }, 4000); // Display for 4 seconds
+                        } else {
+                            setTimeout(typeEffect, 100);
+                        }
                     } else {
                         setTimeout(typeEffect, 100);
                     }
@@ -137,20 +140,21 @@
             document.body.classList.add("flash");
             setTimeout(() => {
                 document.body.classList.remove("flash");
-                revealFirstImage();
+                revealFinalImage();
             }, 2000);
         }
 
-        function revealFirstImage() {
-            firstImage.style.display = "block"; // Display first image after "See, it's us!"
-            setTimeout(() => {
-                firstImage.style.display = "none"; // Hide first image after some time
-                revealFinalImage();
-            }, 4000); // First image will show for 4 seconds
-        }
-
         function revealFinalImage() {
-            finalImageContainer.style.display = "block"; // Display final image and message
+            countdownElement.style.display = "none";
+            finalImage.style.display = "block";
+            setTimeout(() => {
+                finalImage.style.opacity = 1;
+            }, 0);
+            setTimeout(() => {
+                finalImage.style.opacity = 0;
+                finalImage.style.display = "none";
+                alert("Now it's perfect!");
+            }, 4000); // Display for 4 seconds
         }
 
         typeEffect();
