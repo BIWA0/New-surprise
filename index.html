@@ -56,9 +56,8 @@
         <div id="text"></div>
         <div id="countdown"></div>
         <div id="image-container">
-            <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="See, it's us!">
-            <img id="final-image" src="niha-surprise.jpg" alt="Surprise!">
-            <div id="final-text" style="color: #00ff00; font-size: 30px; display: none;">Now it's perfect!</div>
+            <!-- First image -->
+            <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="Surprise!">
         </div>
     </div>
 
@@ -67,8 +66,6 @@
         const countdownElement = document.getElementById("countdown");
         const imageContainer = document.getElementById("image-container");
         const firstImage = document.getElementById("first-image");
-        const finalImage = document.getElementById("final-image");
-        const finalText = document.getElementById("final-text");
 
         const messages = [
             "Hey Niha, want to see something?",
@@ -136,25 +133,15 @@
             document.body.classList.add("flash");
             setTimeout(() => {
                 document.body.classList.remove("flash");
-                revealFirstImage();
+                revealFinalImage();
             }, 2000);
         }
 
-        function revealFirstImage() {
-            firstImage.style.display = "block";
-            setTimeout(() => {
-                firstImage.style.transform = "scale(1.5)";
-                setTimeout(revealFinalImage, 2000);
-            }, 1000);
-        }
-
         function revealFinalImage() {
-            firstImage.style.display = "none";
-            finalImage.style.display = "block";
-            finalImage.style.transform = "scale(1.5)";
-            setTimeout(() => {
-                finalText.style.display = "block";
-            }, 1000);
+            countdownElement.style.display = "none";
+            imageContainer.style.display = "block";
+            firstImage.style.transform = "scale(1.5)";
+            firstImage.src = "niha-surprise.jpg"; // Update to final image
         }
 
         typeEffect();
