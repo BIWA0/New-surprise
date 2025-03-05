@@ -70,7 +70,7 @@
             "Hey Niha, want to see something?",
             "",
             "See, it's us!",
-            "", // This is where the first image will appear
+            "",
             "But something looks off...",
             "They don’t look like us...",
             "",
@@ -108,23 +108,28 @@
                             setTimeout(() => {
                                 firstImageContainer.style.display = "none"; // Hide after a short delay
                             }, 3000); // Image stays for 3 seconds
-                        } else if (index === 7) { // After "Let’s get our first pic, baby!", show countdown and lighting
+                        } else if (index === 7) { // After "Let’s get our first pic, baby!", show countdown and lightning
                             setTimeout(() => {
                                 showLightingEffect();
                             }, 500); // Lightning effect before countdown
                             setTimeout(() => {
-                                index++; // Proceed to next message (Countdown)
-                                charIndex = 0; // Reset character index for next message
-                                deleting = false;
-                                setTimeout(typeEffect, 1000);
-                            }, 2000); // Wait before starting countdown
-                            return;
-                        } else if (index === 11) { // After "1", show the final image
+                                textElement.textContent = "3";
+                            }, 500);
+                            setTimeout(() => {
+                                textElement.textContent = "2";
+                            }, 1500);
+                            setTimeout(() => {
+                                textElement.textContent = "1";
+                            }, 2500);
+                            setTimeout(() => {
+                                textElement.textContent = "";
+                                showLightingEffect();
+                            }, 3500); // Lightning effect after countdown
                             setTimeout(() => {
                                 finalImageContainer.style.display = "block";
                                 finalImageContainer.style.opacity = 1;
                                 showLightingEffect();
-                            }, 500); // Lighting effect before final image
+                            }, 4500); // Show final image after lightning
                         }
                         setTimeout(typeEffect, 1000);
                     } else {
