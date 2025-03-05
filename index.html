@@ -3,146 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Surprise</title>
+    <title>Surprise for Niha</title>
     <style>
         body {
             background-color: black;
             color: #00ff00;
             font-family: 'Courier New', monospace;
+            font-size: 24px;
             text-align: center;
             overflow: hidden;
         }
-        #text-box {
-            font-size: 2em;
-            font-weight: bold;
+        #container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #text {
             white-space: pre-wrap;
-            display: inline-block;
+            overflow: hidden;
+            border-right: 2px solid #00ff00;
+            width: fit-content;
+            font-weight: bold;
         }
         #image-container {
             display: none;
-            margin-top: 20px;
+            position: relative;
         }
-        #final-image {
-            width: 100vw;
-            height: auto;
+        #image-container img {
+            width: 60%;
+            max-width: 500px;
+            transition: transform 2s ease-in-out;
+        }
+        #countdown {
             display: none;
+            font-size: 50px;
+            font-weight: bold;
         }
-        @keyframes blink {
-            0%, 50%, 100% { background-color: black; }
-            25%, 75% { background-color: white; }
+        .flash {
+            animation: flashEffect 0.1s infinite;
         }
-        @keyframes lightning {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
+        @keyframes flashEffect {
+            0% { background-color: black; }
+            50% { background-color: white; }
+            100% { background-color: black; }
         }
     </style>
 </head>
 <body>
+    <div id="container">
+        <div id="text"></div>
+        <div id="countdown"></div>
+        <div id="image-container">
+            <img id="final-image" src="niha-surprise.jpg" alt="Surprise!">
+        </div>
+    </div>
 
-<div id="text-box"></div>
-<div id="image-container">
-    <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" width="500">
-</div>
-<img id="final-image" src="niha-surprise.jpg">
+    <script>
+        const textElement = document.getElementById("text");
+        const countdownElement = document.getElementById("countdown");
+        const imageContainer = document.getElementById("image-container");
+        const finalImage = document.getElementById("final-image");
 
-<script>
-    const textBox = document.getElementById("text-box");
-    const firstImage = document.getElementById("first-image");
-    const finalImage = document.getElementById("final-image");
-
-    const messages = [
-        "Hey Niha, want to see something?",
-        "",
-        "See, it's us!",
-        "But wait...",
-        "Something looks off...",
-        "They don't look like us!",
-        "Let's get our first pic, baby!"
-    ];
-
-    function typeMessage(index, callback) {
-        if (index >= messages.length) {
-            callback();
-            return;
-        }
-
-        let text = messages[index];
-        let i = 0;
-        textBox.innerHTML = "";
+        const messages = [
+            "Hey Niha, want to see something?",
+            "",
+            "See, it's us!",
+            "",
+            "But something looks off...",
+            "They don’t look like us...",
+            "",
+            "Let’s get our first pic, baby!"
+        ];
         
-        function type() {
-            if (i < text.length) {
-                textBox.innerHTML += text[i++];
-                setTimeout(type, 100);
+        let index = 0;
+        let charIndex = 0;
+        let deleting = false;
+
+        function typeEffect() {
+            if (index < messages.length) {
+                if (!deleting) {
+                    textElement.textContent = messages[index].substring(0, charIndex++);
+                    if (charIndex > messages[index].length) {
+                        deleting = true;
+                        setTimeout(typeEffect, 1000);
+                    } else {
+                        setTimeout(typeEffect, 100);
+                    }
+                } else {
+                    textElement.textContent = messages[index].substring(0, charIndex--);
+                    if (charIndex < 0) {
+                        deleting = false;
+                        index++;
+                        setTimeout(typeEffect, 500);
+                    } else {
+                        setTimeout(typeEffect, 50);
+                    }
+                }
             } else {
-                setTimeout(() => backspaceMessage(callback), 800);
+                startCountdown();
             }
         }
-        type();
-    }
 
-    function backspaceMessage(callback) {
-        let text = textBox.innerHTML;
-        let i = text.length;
-        
-        function backspace() {
-            if (i > 0) {
-                textBox.innerHTML = text.substring(0, --i);
-                setTimeout(backspace, 50);
-            } else {
-                setTimeout(() => typeMessage(callback.index++, callback), 500);
-            }
-        }
-        backspace();
-    }
-
-    function startSequence() {
-        let step = { index: 0 };
-        typeMessage(0, () => {
-            firstImage.style.display = "block";
-            setTimeout(() => {
-                typeMessage(2, () => {
-                    firstImage.style.display = "none";
-                    typeMessage(3, () => {
-                        setTimeout(showCountdown, 1000);
-                    });
-                });
+        function startCountdown() {
+            textElement.style.display = "none";
+            countdownElement.style.display = "block";
+            let count = 3;
+            countdownElement.textContent = count;
+            
+            let countdownInterval = setInterval(() => {
+                count--;
+                countdownElement.textContent = count;
+                if (count === 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = "Processing...";
+                    setTimeout(showLoadingMessages, 1000);
+                }
             }, 1000);
-        });
-    }
-
-    function showCountdown() {
-        let count = 3;
-        function countdown() {
-            if (count > 0) {
-                textBox.innerHTML = count--;
-                setTimeout(countdown, 1000);
-            } else {
-                textBox.innerHTML = "Processing...";
-                setTimeout(() => {
-                    textBox.innerHTML = "Clearing all difficulties...";
-                    setTimeout(() => {
-                        textBox.innerHTML = "Getting love from the universe...";
-                        setTimeout(triggerLightning, 1000);
-                    }, 1000);
-                }, 1000);
-            }
         }
-        countdown();
-    }
 
-    function triggerLightning() {
-        document.body.style.animation = "blink 0.2s infinite";
-        setTimeout(() => {
-            document.body.style.animation = "";
-            finalImage.style.display = "block";
-            finalImage.style.animation = "lightning 1s infinite";
-        }, 2000);
-    }
+        function showLoadingMessages() {
+            countdownElement.innerHTML = "Clearing all difficulties...<br>Getting love from the universe...";
+            setTimeout(triggerFlash, 2000);
+        }
 
-    startSequence();
-</script>
+        function triggerFlash() {
+            document.body.classList.add("flash");
+            setTimeout(() => {
+                document.body.classList.remove("flash");
+                revealFinalImage();
+            }, 2000);
+        }
 
+        function revealFinalImage() {
+            countdownElement.style.display = "none";
+            imageContainer.style.display = "block";
+            finalImage.style.transform = "scale(1.5)";
+        }
+
+        typeEffect();
+    </script>
 </body>
 </html>
