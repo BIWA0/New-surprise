@@ -50,6 +50,14 @@
             50% { background-color: white; }
             100% { background-color: black; }
         }
+        #final-text {
+            display: none;
+            color: #00ff00;
+            font-size: 30px;
+            font-weight: bold;
+            position: absolute;
+            bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -77,13 +85,13 @@
             "Hey Niha, want to see something?",
             "",
             "See, it's us!",
-            "",
+            "", 
             "But something looks off...",
             "They don’t look like us...",
             "",
             "Let’s get our first pic, baby!"
         ];
-        
+
         let index = 0;
         let charIndex = 0;
         let deleting = false;
@@ -117,7 +125,11 @@
             textElement.style.display = "none";
             imageContainer.style.display = "block";
             firstImage.style.transform = "scale(1.5)";
-            setTimeout(triggerFlash, 2000);
+            setTimeout(showFinalText, 2000); // Wait for the first image to appear before the lightning effect
+        }
+
+        function showFinalText() {
+            setTimeout(triggerFlash, 2000); // Trigger the flash effect before the second image shows
         }
 
         function triggerFlash() {
@@ -125,7 +137,7 @@
             setTimeout(() => {
                 document.body.classList.remove("flash");
                 revealFinalImage();
-            }, 2000);
+            }, 2000); // Wait for the flash effect to finish
         }
 
         function revealFinalImage() {
