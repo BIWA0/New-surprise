@@ -3,145 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Niha's Surprise</title>
+    <title>Surprise for Niha</title>
     <style>
         body {
             background-color: black;
-            color: green;
+            color: #00FF00;
             font-family: 'Courier New', monospace;
-            font-size: 20px;
             text-align: center;
-            padding-top: 50px;
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
-        #typing, #countdown, #loading, #final-text {
+        #text {
+            white-space: pre-line;
+            overflow: hidden;
+            display: inline-block;
+            border-right: 5px solid #00FF00;
+            padding-right: 5px;
+        }
+        #image-container {
             display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            text-align: center;
         }
-        #first-image, #final-image {
-            display: none;
-            width: 400px;
-            transition: width 2s ease-in-out;
+        #image-container img {
+            width: 80%;
+            max-width: 500px;
+            transition: transform 3s ease-in-out;
         }
-        #flash {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            opacity: 0;
-            animation: flash-effect 0.2s 5 alternate;
+        .countdown {
+            font-size: 50px;
         }
-        @keyframes flash-effect {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        .blink {
+            animation: blink-animation 0.1s infinite;
+        }
+        @keyframes blink-animation {
+            50% { background-color: white; color: black; }
         }
     </style>
 </head>
 <body>
 
-    <div id="typing"></div>
-    <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="First Image">
-    <div id="countdown"></div>
-    <div id="loading"></div>
-    <div id="flash"></div>
-    <img id="final-image" src="niha-surprise.jpg" alt="Final Image">
-    <div id="final-text"></div>
+<div id="text"></div>
+<div id="image-container">
+    <img id="surprise-image" src="niha-surprise.jpg" alt="Surprise">
+</div>
 
-    <script>
-        const typingText = [
-            "Hey Niha, want to see something?",
-            "Wait... something looks off...",
-            "They don't look like us...",
-            "Let's get our first pic, baby!"
-        ];
-        const loadingMessages = [
-            "Processing...",
-            "Clearing all difficulties...",
-            "Getting love from the universe..."
-        ];
+<script>
+    const messages = [
+        "Hey Niha, want to see something?",
+        "Backspacing...",
+        "See, it's us!",
+        "But something looks off...",
+        "They don't look like us...",
+        "Let's get our first pic, baby!",
+        "Backspacing...",
+        "3...",
+        "2...",
+        "1...",
+        "Processing...",
+        "Clearing all difficulties...",
+        "Getting love from the universe..."
+    ];
 
-        function typeEffect(element, text, delay, callback) {
-            let i = 0;
-            element.style.display = "block";
-            let interval = setInterval(() => {
-                element.innerHTML += text[i];
+    let index = 0;
+    let textElement = document.getElementById("text");
+
+    function typeMessage(message, speed = 100, callback) {
+        textElement.innerHTML = "";
+        let i = 0;
+        function type() {
+            if (i < message.length) {
+                textElement.innerHTML += message[i];
                 i++;
-                if (i === text.length) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        element.innerHTML = "";
-                        if (callback) callback();
-                    }, 1000);
-                }
-            }, delay);
-        }
-
-        function showImage() {
-            let img = document.getElementById("first-image");
-            img.style.display = "block";
-            setTimeout(() => {
-                img.style.width = "100px";
-                setTimeout(() => showTypingText(1), 2000);
-            }, 2000);
-        }
-
-        function showTypingText(index) {
-            if (index < typingText.length) {
-                typeEffect(document.getElementById("typing"), typingText[index], 50, () => {
-                    if (index === 3) {
-                        showCountdown();
-                    } else {
-                        showTypingText(index + 1);
-                    }
-                });
+                setTimeout(type, speed);
+            } else {
+                setTimeout(callback, 1000);
             }
         }
+        type();
+    }
 
-        function showCountdown() {
-            let count = 3;
-            let countdown = document.getElementById("countdown");
-            countdown.style.display = "block";
-            let interval = setInterval(() => {
-                countdown.innerHTML = count;
-                count--;
-                if (count < 0) {
-                    clearInterval(interval);
-                    showLoadingMessages();
+    function backspaceMessage(callback) {
+        let text = textElement.innerHTML;
+        function erase() {
+            if (text.length > 0) {
+                text = text.slice(0, -1);
+                textElement.innerHTML = text;
+                setTimeout(erase, 50);
+            } else {
+                setTimeout(callback, 500);
+            }
+        }
+        erase();
+    }
+
+    function showImage() {
+        let imageContainer = document.getElementById("image-container");
+        let image = document.getElementById("surprise-image");
+        imageContainer.style.display = "block";
+        setTimeout(() => {
+            image.style.transform = "scale(0.5)";
+            setTimeout(startCountdown, 2000);
+        }, 1000);
+    }
+
+    function startCountdown() {
+        textElement.classList.add("countdown");
+        let countdownNumbers = ["3...", "2...", "1..."];
+        let i = 0;
+        function nextCountdown() {
+            if (i < countdownNumbers.length) {
+                typeMessage(countdownNumbers[i], 500, () => {
+                    i++;
+                    nextCountdown();
+                });
+            } else {
+                processLoading();
+            }
+        }
+        nextCountdown();
+    }
+
+    function processLoading() {
+        textElement.classList.remove("countdown");
+        let processingMessages = ["Processing...", "Clearing all difficulties...", "Getting love from the universe..."];
+        let i = 0;
+        function nextProcessing() {
+            if (i < processingMessages.length) {
+                typeMessage(processingMessages[i], 100, () => {
+                    i++;
+                    nextProcessing();
+                });
+            } else {
+                flashScreen();
+            }
+        }
+        nextProcessing();
+    }
+
+    function flashScreen() {
+        document.body.classList.add("blink");
+        setTimeout(() => {
+            document.body.classList.remove("blink");
+            showFinalImage();
+        }, 2000);
+    }
+
+    function showFinalImage() {
+        document.getElementById("image-container").innerHTML = `<img src="niha-surprise.jpg" style="width: 100%; max-width: 600px;">`;
+    }
+
+    function startSequence() {
+        function nextMessage() {
+            if (index < messages.length) {
+                if (messages[index] === "Backspacing...") {
+                    backspaceMessage(nextMessage);
+                } else {
+                    typeMessage(messages[index], 100, nextMessage);
                 }
-            }, 1000);
+                index++;
+            } else {
+                showImage();
+            }
         }
+        nextMessage();
+    }
 
-        function showLoadingMessages() {
-            let loadingDiv = document.getElementById("loading");
-            loadingDiv.style.display = "block";
-            let i = 0;
-            let interval = setInterval(() => {
-                loadingDiv.innerHTML = loadingMessages[i];
-                i++;
-                if (i === loadingMessages.length) {
-                    clearInterval(interval);
-                    setTimeout(showFlashEffect, 1000);
-                }
-            }, 1500);
-        }
-
-        function showFlashEffect() {
-            document.getElementById("flash").style.display = "block";
-            setTimeout(() => {
-                document.getElementById("flash").style.display = "none";
-                showFinalImage();
-            }, 2000);
-        }
-
-        function showFinalImage() {
-            document.getElementById("final-image").style.display = "block";
-            typeEffect(document.getElementById("final-text"), "Now it's perfect! ❤️", 50);
-        }
-
-        // Start the sequence
-        typeEffect(document.getElementById("typing"), typingText[0], 50, showImage);
-    </script>
+    startSequence();
+</script>
 
 </body>
 </html>
