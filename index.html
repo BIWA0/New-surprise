@@ -98,6 +98,9 @@
                             firstImageContainer.style.display = "block";
                             firstImageContainer.style.opacity = 1;
                             showLightingEffect();
+                            setTimeout(() => {
+                                firstImageContainer.style.display = "none"; // Hide after a short delay
+                            }, 3000); // Image stays for 3 seconds
                         }
                         setTimeout(typeEffect, 1000);
                     } else {
