@@ -12,7 +12,6 @@
             font-size: 24px;
             text-align: center;
             overflow: hidden;
-            margin: 0;
         }
         #container {
             display: flex;
@@ -28,74 +27,79 @@
             width: fit-content;
             font-weight: bold;
         }
-        #first-image, #final-image {
-            display: none;
+        #first-image-container img, #final-image-container img {
             width: 100%;
-            height: 100vh;
-            object-fit: cover;
+            max-width: 1000px;
+        }
+        #first-image-container, #final-image-container {
+            display: none;
+            transition: opacity 1s ease-in-out;
+        }
+        #lighting {
             position: absolute;
             top: 0;
             left: 0;
-        }
-        #countdown {
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            pointer-events: none;
             display: none;
-            font-size: 50px;
-            font-weight: bold;
-        }
-        .flash {
-            animation: flashEffect 0.1s infinite;
-        }
-        @keyframes flashEffect {
-            0% { background-color: black; }
-            50% { background-color: white; }
-            100% { background-color: black; }
         }
     </style>
 </head>
 <body>
+    <div id="lighting"></div>
     <div id="container">
         <div id="text"></div>
-        <div id="countdown"></div>
-        <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="First Image">
-        <img id="final-image" src="niha-surprise.jpg" alt="Niha Surprise">
+        <div id="first-image-container">
+            <img src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="First Image">
+        </div>
+        <div id="final-image-container">
+            <img src="niha-surprise.jpg" alt="Niha's Surprise">
+            <p>Now it's perfect</p>
+        </div>
     </div>
 
     <script>
         const textElement = document.getElementById("text");
-        const countdownElement = document.getElementById("countdown");
-        const firstImage = document.getElementById("first-image");
-        const finalImage = document.getElementById("final-image");
+        const firstImageContainer = document.getElementById("first-image-container");
+        const finalImageContainer = document.getElementById("final-image-container");
+        const lighting = document.getElementById("lighting");
 
         const messages = [
             "Hey Niha, want to see something?",
             "",
             "See, it's us!",
-            "",
+            "", // This is where the first image will appear
             "But something looks off...",
             "They don’t look like us...",
             "",
             "Let’s get our first pic, baby!"
         ];
-        
+
         let index = 0;
         let charIndex = 0;
         let deleting = false;
+
+        function showLightingEffect() {
+            lighting.style.display = "block";
+            setTimeout(() => {
+                lighting.style.display = "none";
+            }, 2000);
+        }
 
         function typeEffect() {
             if (index < messages.length) {
                 if (!deleting) {
                     textElement.textContent = messages[index].substring(0, charIndex++);
                     if (charIndex > messages[index].length) {
-                        if (index === 2) { // Show first image after "See, it's us!"
-                            firstImage.style.display = "block";
-                            setTimeout(() => {
-                                firstImage.style.display = "none";
-                                deleting = true;
-                                setTimeout(typeEffect, 1000);
-                            }, 4000); // Display for 4 seconds
-                        } else {
-                            setTimeout(typeEffect, 100);
+                        deleting = true;
+                        if (index === 2) { // After "See, it's us!", show first image
+                            firstImageContainer.style.display = "block";
+                            firstImageContainer.style.opacity = 1;
+                            showLightingEffect();
                         }
+                        setTimeout(typeEffect, 1000);
                     } else {
                         setTimeout(typeEffect, 100);
                     }
@@ -110,51 +114,13 @@
                     }
                 }
             } else {
-                startCountdown();
+                // After all messages, show the final image with a lighting effect
+                setTimeout(() => {
+                    finalImageContainer.style.display = "block";
+                    finalImageContainer.style.opacity = 1;
+                    showLightingEffect();
+                }, 1000);
             }
-        }
-
-        function startCountdown() {
-            textElement.style.display = "none";
-            countdownElement.style.display = "block";
-            let count = 3;
-            countdownElement.textContent = count;
-            
-            let countdownInterval = setInterval(() => {
-                count--;
-                countdownElement.textContent = count;
-                if (count === 0) {
-                    clearInterval(countdownInterval);
-                    countdownElement.textContent = "Processing...";
-                    setTimeout(showLoadingMessages, 1000);
-                }
-            }, 1000);
-        }
-
-        function showLoadingMessages() {
-            countdownElement.innerHTML = "Clearing all difficulties...<br>Getting love from the universe...";
-            setTimeout(triggerFlash, 2000);
-        }
-
-        function triggerFlash() {
-            document.body.classList.add("flash");
-            setTimeout(() => {
-                document.body.classList.remove("flash");
-                revealFinalImage();
-            }, 2000);
-        }
-
-        function revealFinalImage() {
-            countdownElement.style.display = "none";
-            finalImage.style.display = "block";
-            setTimeout(() => {
-                finalImage.style.opacity = 1;
-            }, 0);
-            setTimeout(() => {
-                finalImage.style.opacity = 0;
-                finalImage.style.display = "none";
-                alert("Now it's perfect!");
-            }, 4000); // Display for 4 seconds
         }
 
         typeEffect();
