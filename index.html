@@ -3,121 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Love Surprise</title>
+    <title>Surprise for Niha ❤️</title>
     <style>
         body {
-            margin: 0;
-            overflow: hidden;
             background-color: black;
-            position: relative;
-        }
-        .firework, .heart, .star, .text {
-            position: absolute;
-        }
-        .firework {
-            width: 10px;
-            height: 10px;
-            background-color: red;
-            border-radius: 50%;
-            animation: explode 1s ease-out forwards;
-        }
-        .heart {
-            font-size: 2rem;
-            color: red;
-            animation: floatUp 2s ease-out forwards;
-        }
-        .star {
-            font-size: 1.5rem;
-            color: yellow;
-            animation: twinkle 1.5s ease-in-out forwards;
-        }
-        .text {
-            font-size: 2rem;
             color: white;
-            font-weight: bold;
-            animation: fadeOut 2s ease-in-out forwards;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding: 20px;
         }
-        @keyframes explode {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(5); opacity: 0; }
+        h1 {
+            font-size: 40px;
+            animation: glow 1.5s infinite alternate;
         }
-        @keyframes floatUp {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100px); opacity: 0; }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px pink, 0 0 20px red; }
+            100% { text-shadow: 0 0 20px pink, 0 0 30px red; }
         }
-        @keyframes twinkle {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-        }
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
+        img {
+            border: 5px solid white;
+            border-radius: 20px;
+            max-width: 80%;
+            height: auto;
+            margin-top: 20px;
+            box-shadow: 0 0 20px pink;
         }
     </style>
 </head>
-<body onclick="createEffects(event)">
+<body>
 
-<script>
-    function createEffects(event) {
-        let x = event.clientX;
-        let y = event.clientY;
-
-        // Background flash effect
-        document.body.style.backgroundColor = getRandomColor();
-        setTimeout(() => { document.body.style.backgroundColor = "black"; }, 200);
-
-        // Firework
-        let firework = document.createElement("div");
-        firework.className = "firework";
-        firework.style.left = x + "px";
-        firework.style.top = y + "px";
-        document.body.appendChild(firework);
-        setTimeout(() => firework.remove(), 1000);
-
-        // Heart
-        let heart = document.createElement("div");
-        heart.className = "heart";
-        heart.style.left = x + "px";
-        heart.style.top = y + "px";
-        heart.innerHTML = "❤️";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 2000);
-
-        // Star
-        let star = document.createElement("div");
-        star.className = "star";
-        star.style.left = (x + 30) + "px";
-        star.style.top = (y - 20) + "px";
-        star.innerHTML = "✨";
-        document.body.appendChild(star);
-        setTimeout(() => star.remove(), 1500);
-
-        // Love message
-        let text = document.createElement("div");
-        text.className = "text";
-        text.style.left = (x - 50) + "px";
-        text.style.top = (y - 50) + "px";
-        text.innerHTML = getRandomMessage();
-        document.body.appendChild(text);
-        setTimeout(() => text.remove(), 2000);
-    }
-
-    function getRandomColor() {
-        const colors = ["red", "blue", "purple", "pink", "yellow", "orange", "green"];
-        return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    function getRandomMessage() {
-        const messages = [
-            "Love you Niha! ❤️",
-            "You are my world! 🌍",
-            "My heart beats for you! 💖",
-            "Thinking of you always! 😊",
-            "You light up my life! ✨"
-        ];
-        return messages[Math.floor(Math.random() * messages.length)];
-    }
-</script>
+    <h1>✨ A Special Surprise for You, Niha! ❤️✨</h1>
+    
+    <img src="https://raw.githubusercontent.com/BIWA0/New-surprise/main/niha-surprise.jpg" alt="Surprise for Niha">
 
 </body>
 </html>
