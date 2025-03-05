@@ -31,7 +31,7 @@
             width: 100%;
             max-width: 1000px;
         }
-        #first-image-container, #final-image-container {
+        #first-image-container, #final-image-container, #countdown {
             display: none;
             transition: opacity 1s ease-in-out;
         }
@@ -54,6 +54,7 @@
         <div id="first-image-container">
             <img src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="First Image">
         </div>
+        <div id="countdown"></div>
         <div id="final-image-container">
             <img src="niha-surprise.jpg" alt="Niha's Surprise">
             <p>Now it's perfect</p>
@@ -64,24 +65,22 @@
         const textElement = document.getElementById("text");
         const firstImageContainer = document.getElementById("first-image-container");
         const finalImageContainer = document.getElementById("final-image-container");
+        const countdownElement = document.getElementById("countdown");
         const lighting = document.getElementById("lighting");
 
         const messages = [
             "Hey Niha, want to see something?",
             "",
             "See, it's us!",
-            "",
+            "", // This is where the first image will appear
             "But something looks off...",
             "They don’t look like us...",
             "",
             "Let’s get our first pic, baby!",
+            "",
             "Clearing disturbances...",
             "Activating love from the universe...",
-            "Getting energy...",
-            "",
-            "3",
-            "2",
-            "1"
+            "Getting energy..."
         ];
 
         let index = 0;
@@ -92,7 +91,22 @@
             lighting.style.display = "block";
             setTimeout(() => {
                 lighting.style.display = "none";
-            }, 1000);
+            }, 1500); // Lightning effect duration
+        }
+
+        function showCountdown() {
+            countdownElement.style.display = "block";
+            countdownElement.innerHTML = "<br>3";
+            setTimeout(() => countdownElement.innerHTML = "<br>2", 1000);
+            setTimeout(() => countdownElement.innerHTML = "<br>1", 2000);
+            setTimeout(() => {
+                countdownElement.style.display = "none";
+                showLightingEffect();
+                setTimeout(() => {
+                    finalImageContainer.style.display = "block";
+                    finalImageContainer.style.opacity = 1;
+                }, 1500); // Show final image after lightning
+            }, 3000);
         }
 
         function typeEffect() {
@@ -104,32 +118,9 @@
                         if (index === 2) { // After "See, it's us!", show first image
                             firstImageContainer.style.display = "block";
                             firstImageContainer.style.opacity = 1;
-                            showLightingEffect();
                             setTimeout(() => {
                                 firstImageContainer.style.display = "none"; // Hide after a short delay
-                            }, 3000); // Image stays for 3 seconds
-                        } else if (index === 7) { // After "Let’s get our first pic, baby!", show countdown
-                            setTimeout(() => {
-                                showLightingEffect();
-                            }, 500); // Lightning effect before countdown
-                            setTimeout(() => {
-                                textElement.textContent = "3";
-                            }, 500);
-                            setTimeout(() => {
-                                textElement.textContent = "2";
-                            }, 1500);
-                            setTimeout(() => {
-                                textElement.textContent = "1";
-                            }, 2500);
-                            setTimeout(() => {
-                                textElement.textContent = "";
-                                showLightingEffect(); // Lightning after countdown
-                            }, 3500);
-                            setTimeout(() => {
-                                finalImageContainer.style.display = "block"; // Final image appears
-                                finalImageContainer.style.opacity = 1;
-                                showLightingEffect(); // Lightning after final image
-                            }, 4500); // Final image appears after countdown and lightning
+                            }, 3000);
                         }
                         setTimeout(typeEffect, 1000);
                     } else {
@@ -140,7 +131,11 @@
                     if (charIndex < 0) {
                         deleting = false;
                         index++;
-                        setTimeout(typeEffect, 500);
+                        if (index === messages.length) {
+                            showCountdown();
+                        } else {
+                            setTimeout(typeEffect, 500);
+                        }
                     } else {
                         setTimeout(typeEffect, 50);
                     }
