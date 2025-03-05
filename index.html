@@ -49,6 +49,12 @@
             50% { background-color: white; }
             100% { background-color: black; }
         }
+        #final-text {
+            display: none;
+            color: #00ff00;
+            font-size: 36px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -56,15 +62,19 @@
         <div id="text"></div>
         <div id="countdown"></div>
         <div id="image-container">
-            <img id="final-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="Surprise!">
+            <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="First Image">
+            <img id="final-image" src="niha-surprise.jpg" alt="Surprise!">
         </div>
+        <div id="final-text">Now it's perfect</div>
     </div>
 
     <script>
         const textElement = document.getElementById("text");
         const countdownElement = document.getElementById("countdown");
         const imageContainer = document.getElementById("image-container");
+        const firstImage = document.getElementById("first-image");
         const finalImage = document.getElementById("final-image");
+        const finalText = document.getElementById("final-text");
 
         const messages = [
             "Hey Niha, want to see something?",
@@ -87,6 +97,9 @@
                     textElement.textContent = messages[index].substring(0, charIndex++);
                     if (charIndex > messages[index].length) {
                         deleting = true;
+                        if (messages[index] === "See, it's us!") {
+                            showFirstImage();
+                        }
                         setTimeout(typeEffect, 1000);
                     } else {
                         setTimeout(typeEffect, 100);
@@ -104,6 +117,10 @@
             } else {
                 startCountdown();
             }
+        }
+
+        function showFirstImage() {
+            firstImage.style.display = "block";
         }
 
         function startCountdown() {
@@ -140,6 +157,11 @@
             countdownElement.style.display = "none";
             imageContainer.style.display = "block";
             finalImage.style.transform = "scale(1.5)";
+            showFinalText();
+        }
+
+        function showFinalText() {
+            finalText.style.display = "block";
         }
 
         typeEffect();
