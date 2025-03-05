@@ -3,38 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click for Surprise</title>
+    <title>Niha's Surprise</title>
     <style>
         body {
-            text-align: center;
-            padding: 50px;
             background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        #surprise {
-            display: none;
-            margin-top: 20px;
-            width: 80%;
-            max-width: 500px;
-        }
-        button {
-            padding: 10px 20px;
+            color: green;
+            font-family: 'Courier New', monospace;
             font-size: 20px;
-            cursor: pointer;
+            text-align: center;
+            padding-top: 50px;
+        }
+        #typing, #countdown, #loading, #final-text {
+            display: none;
+        }
+        #first-image, #final-image {
+            display: none;
+            width: 400px;
+            transition: width 2s ease-in-out;
+        }
+        #flash {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            animation: flash-effect 0.2s 5 alternate;
+        }
+        @keyframes flash-effect {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <h1>Click Below for a Surprise!</h1>
-    <button onclick="showSurprise()">Click Me</button>
-    <br>
-    <img id="surprise" src="niha-surprise.jpg" alt="Surprise Image">
-    
+
+    <div id="typing"></div>
+    <img id="first-image" src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="First Image">
+    <div id="countdown"></div>
+    <div id="loading"></div>
+    <div id="flash"></div>
+    <img id="final-image" src="niha-surprise.jpg" alt="Final Image">
+    <div id="final-text"></div>
+
     <script>
-        function showSurprise() {
-            document.getElementById("surprise").style.display = "block";
+        const typingText = [
+            "Hey Niha, want to see something?",
+            "Wait... something looks off...",
+            "They don't look like us...",
+            "Let's get our first pic, baby!"
+        ];
+        const loadingMessages = [
+            "Processing...",
+            "Clearing all difficulties...",
+            "Getting love from the universe..."
+        ];
+
+        function typeEffect(element, text, delay, callback) {
+            let i = 0;
+            element.style.display = "block";
+            let interval = setInterval(() => {
+                element.innerHTML += text[i];
+                i++;
+                if (i === text.length) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        element.innerHTML = "";
+                        if (callback) callback();
+                    }, 1000);
+                }
+            }, delay);
         }
+
+        function showImage() {
+            let img = document.getElementById("first-image");
+            img.style.display = "block";
+            setTimeout(() => {
+                img.style.width = "100px";
+                setTimeout(() => showTypingText(1), 2000);
+            }, 2000);
+        }
+
+        function showTypingText(index) {
+            if (index < typingText.length) {
+                typeEffect(document.getElementById("typing"), typingText[index], 50, () => {
+                    if (index === 3) {
+                        showCountdown();
+                    } else {
+                        showTypingText(index + 1);
+                    }
+                });
+            }
+        }
+
+        function showCountdown() {
+            let count = 3;
+            let countdown = document.getElementById("countdown");
+            countdown.style.display = "block";
+            let interval = setInterval(() => {
+                countdown.innerHTML = count;
+                count--;
+                if (count < 0) {
+                    clearInterval(interval);
+                    showLoadingMessages();
+                }
+            }, 1000);
+        }
+
+        function showLoadingMessages() {
+            let loadingDiv = document.getElementById("loading");
+            loadingDiv.style.display = "block";
+            let i = 0;
+            let interval = setInterval(() => {
+                loadingDiv.innerHTML = loadingMessages[i];
+                i++;
+                if (i === loadingMessages.length) {
+                    clearInterval(interval);
+                    setTimeout(showFlashEffect, 1000);
+                }
+            }, 1500);
+        }
+
+        function showFlashEffect() {
+            document.getElementById("flash").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("flash").style.display = "none";
+                showFinalImage();
+            }, 2000);
+        }
+
+        function showFinalImage() {
+            document.getElementById("final-image").style.display = "block";
+            typeEffect(document.getElementById("final-text"), "Now it's perfect! ❤️", 50);
+        }
+
+        // Start the sequence
+        typeEffect(document.getElementById("typing"), typingText[0], 50, showImage);
     </script>
+
 </body>
 </html>
