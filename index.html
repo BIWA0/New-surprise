@@ -3,29 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Kathlyn</title>
+    <title>Welcome, Kathlyn!</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
-        /* Basic Reset */
+        /* Universal Reset */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Background - Futuristic Dark Theme */
+        /* Background Animation */
         body {
             font-family: 'Orbitron', sans-serif;
             background: radial-gradient(circle, #0f0f0f, #000000);
             color: #00ffcc;
-            overflow: hidden;
-            text-align: center;
             height: 100vh;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            perspective: 800px;
+            position: relative;
         }
 
-        /* Floating Glitchy Title */
+        /* Glitchy Title */
         h1 {
             font-size: 50px;
             text-transform: uppercase;
@@ -38,91 +37,114 @@
             100% { transform: skewX(5deg); text-shadow: 5px 0 cyan, -5px 0 magenta; }
         }
 
-        /* Console-like Typing Animation */
-        .console {
-            font-size: 20px;
-            background: rgba(0, 255, 204, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 600px;
-            height: 200px;
-            overflow: hidden;
-            box-shadow: 0 0 20px #00ffcc;
-            text-align: left;
-            white-space: pre-wrap;
-            font-family: monospace;
+        /* Holographic Name Reveal */
+        .kathlyn-name {
+            font-size: 40px;
+            color: transparent;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 5px;
+            text-shadow: 0 0 0px rgba(255, 255, 255, 0);
+            animation: nameReveal 3s forwards;
         }
 
-        /* Hidden Secret Box */
-        #secret {
-            display: none;
+        @keyframes nameReveal {
+            0% { text-shadow: 0 0 10px transparent; color: transparent; }
+            100% { text-shadow: 0 0 20px cyan, 0 0 40px cyan; color: cyan; }
+        }
+
+        /* Accept Button */
+        .accept-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: black;
+            color: cyan;
+            border: 2px solid cyan;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .accept-btn:hover {
+            background: cyan;
+            color: black;
+            box-shadow: 0 0 10px cyan, 0 0 20px cyan;
+        }
+
+        /* Secret Message */
+        .secret {
             font-size: 30px;
             color: #ff00ff;
             text-shadow: 0 0 20px #ff00ff;
             margin-top: 20px;
+            display: none;
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            background: cyan;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: floatParticles 5s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatParticles {
+            0% { transform: translateY(0px); opacity: 0.3; }
+            100% { transform: translateY(-50px); opacity: 1; }
         }
 
     </style>
 </head>
 <body>
 
-    <h1>PROJECT KATHLYN</h1>
-    <div class="console" id="console"></div>
-    
-    <input type="text" id="command" placeholder="Type here and press Enter..." style="
-        margin-top: 20px;
-        padding: 10px;
-        font-size: 18px;
-        background: black;
-        color: #00ffcc;
-        border: 1px solid #00ffcc;
-        outline: none;
-        text-align: center;
-        width: 300px;
-        display: none;
-    ">
+    <h1>WELCOME TO THE LEGENDARY FRIENDSHIP</h1>
+    <div class="kathlyn-name">Kathlyn</div>
 
-    <div id="secret">ACCESS GRANTED ✅</div>
+    <button class="accept-btn" onclick="accept()">ACCEPT FRIENDSHIP</button>
+    
+    <div class="secret" id="secret">🔥 Friendship Bond Activated! 🔥</div>
 
     <script>
-        // Console Typing Effect
-        const messages = [
-            "[System Booting Up...]",
-            "Initializing AI Core...",
-            "Scanning User: KATHLYN",
-            "Processing Data...",
-            "Accessing Secure Server...",
-            "Analyzing Personality Matrix...",
-            "Warning: Too Much Swag Detected.",
-            "Finalizing Digital Flex Sequence...",
-            "Done. Welcome, Kathlyn."
-        ];
-        
-        let i = 0;
-        function typeNextMessage() {
-            if (i < messages.length) {
-                document.getElementById("console").innerHTML += messages[i] + "<br>";
-                i++;
-                setTimeout(typeNextMessage, 1500);
-            } else {
-                document.getElementById("command").style.display = "block";
+        // Create Floating Particles
+        function createParticles() {
+            for (let i = 0; i < 30; i++) {
+                let particle = document.createElement("div");
+                particle.classList.add("particle");
+                document.body.appendChild(particle);
+                particle.style.left = Math.random() * window.innerWidth + "px";
+                particle.style.top = Math.random() * window.innerHeight + "px";
+                particle.style.animationDuration = Math.random() * 5 + 3 + "s";
             }
         }
-        
-        setTimeout(typeNextMessage, 1000);
+        createParticles();
 
-        // Secret Command Input
-        document.getElementById("command").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                let input = event.target.value.toLowerCase();
-                if (input === "unlock") {
-                    document.getElementById("secret").style.display = "block";
-                } else {
-                    alert("INVALID COMMAND. TRY AGAIN.");
-                }
+        // Secret Friendship Activation
+        function accept() {
+            let secret = document.getElementById("secret");
+            secret.style.display = "block";
+            document.querySelector(".accept-btn").innerText = "✔️ Accepted!";
+            document.querySelector(".accept-btn").style.background = "lime";
+            document.querySelector(".accept-btn").style.color = "black";
+
+            // Fireworks effect
+            let confettiCount = 100;
+            for (let i = 0; i < confettiCount; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("particle");
+                document.body.appendChild(confetti);
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confetti.style.top = Math.random() * window.innerHeight + "px";
+                confetti.style.background = ["red", "blue", "yellow", "green", "purple"][Math.floor(Math.random() * 5)];
+                confetti.style.width = "10px";
+                confetti.style.height = "10px";
+                confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
             }
-        });
+        }
     </script>
 
 </body>
