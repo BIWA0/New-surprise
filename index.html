@@ -3,143 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biwa & Kathlyn - Legendary Flex</title>
+    <title>Project Kathlyn</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
+        /* Basic Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Background - Futuristic Dark Theme */
         body {
-            margin: 0;
-            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            background: radial-gradient(circle, #0f0f0f, #000000);
+            color: #00ffcc;
+            overflow: hidden;
+            text-align: center;
             height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             flex-direction: column;
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            background: black;
-            overflow: hidden;
-            position: relative;
+            perspective: 800px;
         }
 
-        /* Galaxy Background */
-        .background {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('https://media4.giphy.com/media/dYZuqJLDVsWMLWyIxJ/giphy.gif') no-repeat center center;
-            background-size: cover;
-            opacity: 0.3;
-        }
-
-        /* Glowing 3D Text */
-        .flex-text {
-            font-size: 80px;
-            font-weight: bold;
-            background: linear-gradient(90deg, cyan, magenta);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px cyan, 0 0 40px magenta;
-            animation: glitch 1.5s infinite alternate, rotate 6s infinite linear;
+        /* Floating Glitchy Title */
+        h1 {
+            font-size: 50px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+            animation: glitch 1.5s infinite alternate;
         }
 
         @keyframes glitch {
-            0% { text-shadow: 0 0 20px cyan, 0 0 40px magenta; }
-            100% { text-shadow: 0 0 40px cyan, 0 0 80px magenta; }
+            0% { transform: skewX(-5deg); text-shadow: -5px 0 cyan, 5px 0 magenta; }
+            100% { transform: skewX(5deg); text-shadow: 5px 0 cyan, -5px 0 magenta; }
         }
 
-        @keyframes rotate {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-
-        .subtitle {
-            font-size: 25px;
-            color: white;
-            opacity: 0.8;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-            animation: fadeIn 3s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Lightning Hover */
-        .container:hover {
-            background: url('https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif') no-repeat center;
-            background-size: cover;
-            opacity: 0.5;
-            transition: 0.5s;
-        }
-
-        /* Fire Click Effect */
-        .fire {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: url('https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif') no-repeat center;
-            background-size: cover;
-            animation: explosion 0.5s linear forwards;
-        }
-
-        @keyframes explosion {
-            0% { transform: scale(0.5); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
-        }
-
-        /* Secret Pop-up */
-        .secret-message {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
+        /* Console-like Typing Animation */
+        .console {
+            font-size: 20px;
+            background: rgba(0, 255, 204, 0.1);
             padding: 20px;
             border-radius: 10px;
-            font-size: 20px;
-            box-shadow: 0 0 15px cyan;
-            animation: popUp 0.5s ease-out;
+            width: 80%;
+            max-width: 600px;
+            height: 200px;
+            overflow: hidden;
+            box-shadow: 0 0 20px #00ffcc;
+            text-align: left;
+            white-space: pre-wrap;
+            font-family: monospace;
         }
 
-        @keyframes popUp {
-            0% { transform: translate(-50%, -60%) scale(0.8); opacity: 0; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        /* Hidden Secret Box */
+        #secret {
+            display: none;
+            font-size: 30px;
+            color: #ff00ff;
+            text-shadow: 0 0 20px #ff00ff;
+            margin-top: 20px;
         }
 
     </style>
 </head>
 <body>
 
-    <div class="background"></div>
+    <h1>PROJECT KATHLYN</h1>
+    <div class="console" id="console"></div>
+    
+    <input type="text" id="command" placeholder="Type here and press Enter..." style="
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 18px;
+        background: black;
+        color: #00ffcc;
+        border: 1px solid #00ffcc;
+        outline: none;
+        text-align: center;
+        width: 300px;
+        display: none;
+    ">
 
-    <div class="container">
-        <h1 class="flex-text">BIWA & KATHLYN</h1>
-        <p class="subtitle">This isn't just a page. It's **LEGENDARY.**</p>
-    </div>
-
-    <div id="secretMessage" class="secret-message">
-        Kathlyn, Biwa made this **JUST FOR YOU.**  
-        <br> You gotta admit, **this is EPIC.** 🔥
-    </div>
+    <div id="secret">ACCESS GRANTED ✅</div>
 
     <script>
-        // Fire Click Effect
-        document.body.addEventListener("click", function(e) {
-            let fire = document.createElement("div");
-            fire.classList.add("fire");
-            fire.style.left = e.clientX + "px";
-            fire.style.top = e.clientY + "px";
-            document.body.appendChild(fire);
-            setTimeout(() => fire.remove(), 500);
-        });
+        // Console Typing Effect
+        const messages = [
+            "[System Booting Up...]",
+            "Initializing AI Core...",
+            "Scanning User: KATHLYN",
+            "Processing Data...",
+            "Accessing Secure Server...",
+            "Analyzing Personality Matrix...",
+            "Warning: Too Much Swag Detected.",
+            "Finalizing Digital Flex Sequence...",
+            "Done. Welcome, Kathlyn."
+        ];
+        
+        let i = 0;
+        function typeNextMessage() {
+            if (i < messages.length) {
+                document.getElementById("console").innerHTML += messages[i] + "<br>";
+                i++;
+                setTimeout(typeNextMessage, 1500);
+            } else {
+                document.getElementById("command").style.display = "block";
+            }
+        }
+        
+        setTimeout(typeNextMessage, 1000);
 
-        // Secret Pop-up
-        document.querySelector(".container").addEventListener("click", function() {
-            document.getElementById("secretMessage").style.display = "block";
+        // Secret Command Input
+        document.getElementById("command").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                let input = event.target.value.toLowerCase();
+                if (input === "unlock") {
+                    document.getElementById("secret").style.display = "block";
+                } else {
+                    alert("INVALID COMMAND. TRY AGAIN.");
+                }
+            }
         });
     </script>
 
