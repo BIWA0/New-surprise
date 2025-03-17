@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biwa's Dreamscape</title>
+    <title>Biwa & Kathlyn - The Ultimate Flex</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
 
         body {
             margin: 0;
@@ -14,130 +14,136 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             text-align: center;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(120deg, #ff9a9e, #fad0c4);
-            transition: background 1s ease-in-out;
+            font-family: 'Orbitron', sans-serif;
+            background: black;
             overflow: hidden;
             position: relative;
         }
 
-        h1 {
-            font-size: 60px;
-            font-family: 'Dancing Script', cursive;
+        .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .names {
+            font-size: 70px;
+            font-weight: bold;
+            background: linear-gradient(90deg, cyan, magenta);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px cyan, 0 0 40px magenta;
+            animation: glow 1.5s infinite alternate, rotate 6s infinite linear;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 20px cyan, 0 0 40px magenta; }
+            100% { text-shadow: 0 0 40px cyan, 0 0 80px magenta; }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        .subtitle {
+            font-size: 20px;
             color: white;
-            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
-            opacity: 0;
-            animation: fadeIn 3s ease-in-out forwards, heartbeat 2s infinite alternate;
+            opacity: 0.8;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            animation: fadeIn 3s ease-in-out;
         }
 
         @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(-20px); }
+            0% { opacity: 0; transform: translateY(10px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.02); }
+        .background-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.gifer.com/origin/3f/3fbd0c9b9fc2e08f69eb4ac14a6b03fc_w200.gif') no-repeat center;
+            background-size: cover;
+            opacity: 0.1;
         }
 
-        .quote {
-            font-size: 24px;
-            color: white;
-            margin-top: 10px;
+        .lightning {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif') no-repeat center;
+            background-size: cover;
             opacity: 0;
-            animation: fadeIn 4s ease-in-out forwards;
+            transition: opacity 0.2s ease-in-out;
         }
 
-        .firefly {
+        .container:hover .lightning {
+            opacity: 0.5;
+        }
+
+        .fire {
             position: absolute;
-            width: 5px;
-            height: 5px;
-            background: yellow;
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: floatUp 3s infinite alternate ease-in-out;
+            width: 50px;
+            height: 50px;
+            background: url('https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif') no-repeat center;
+            background-size: cover;
+            animation: explosion 0.5s linear forwards;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(0); opacity: 0.7; }
-            100% { transform: translateY(-20px); opacity: 0.3; }
+        @keyframes explosion {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
         }
 
-        .toggle-btn {
+        .particles {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            width: 100%;
+            height: 100%;
+            background: url('https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif') repeat;
+            background-size: cover;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
         }
 
-        .toggle-btn:hover {
-            background: black;
-            color: white;
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-50px); }
+            100% { transform: translateY(0px); }
         }
 
-        @keyframes fireworks {
-            0% { transform: scale(0.3); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-        .firework {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: fireworks 0.5s ease-out forwards;
+        audio {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <button class="toggle-btn" onclick="toggleMode()">Toggle Mode</button>
+    <div class="background-animation"></div>
+    <div class="container">
+        <h1 class="names">BIWA & KATHLYN</h1>
+        <p class="subtitle">Legends Only.</p>
+    </div>
 
-    <h1>Biwa's Dreamscape</h1>
-    <p class="quote">"The dreamers of today create the wonders of tomorrow."</p>
+    <div class="lightning"></div>
+    <div class="particles"></div>
 
-    <audio id="bg-music" loop autoplay>
+    <audio id="bg-music" autoplay loop>
         <source src="your-music-file.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        function toggleMode() {
-            let body = document.body;
-            if (body.style.background.includes('ff9a9e')) {
-                body.style.background = "linear-gradient(120deg, #1f1c2c, #928dab)";
-            } else {
-                body.style.background = "linear-gradient(120deg, #ff9a9e, #fad0c4)";
-            }
-        }
-
-        function createFirefly() {
-            let firefly = document.createElement("div");
-            firefly.classList.add("firefly");
-            firefly.style.left = Math.random() * window.innerWidth + "px";
-            firefly.style.top = Math.random() * window.innerHeight + "px";
-            document.body.appendChild(firefly);
-            setTimeout(() => firefly.remove(), 3000);
-        }
-
-        setInterval(createFirefly, 800);
-
         document.body.addEventListener("click", function(e) {
-            let firework = document.createElement("div");
-            firework.classList.add("firework");
-            firework.style.left = e.clientX + "px";
-            firework.style.top = e.clientY + "px";
-            document.body.appendChild(firework);
-            setTimeout(() => firework.remove(), 500);
+            let fire = document.createElement("div");
+            fire.classList.add("fire");
+            fire.style.left = e.clientX + "px";
+            fire.style.top = e.clientY + "px";
+            document.body.appendChild(fire);
+            setTimeout(() => fire.remove(), 500);
         });
+
+        document.getElementById("bg-music").volume = 0.2;
     </script>
 
 </body>
