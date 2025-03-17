@@ -3,96 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biwa's Domain</title>
+    <title>Biwa's Dreamscape</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300&display=swap');
 
         body {
             margin: 0;
             padding: 0;
-            background: black;
-            color: #0f0;
-            font-family: 'Orbitron', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+            transition: background 1s ease-in-out;
             overflow: hidden;
-        }
-
-        .matrix {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: url('https://media.giphy.com/media/l3vRn393ne6emNsl6/giphy.gif');
-            background-size: cover;
-            opacity: 0.3;
-            z-index: -1;
+            position: relative;
         }
 
         h1 {
-            font-size: 50px;
-            text-transform: uppercase;
-            animation: glow 1.5s infinite alternate;
-        }
-
-        @keyframes glow {
-            0% { text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0; }
-            100% { text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0; }
-        }
-
-        .quote {
-            font-size: 20px;
-            margin-top: 20px;
+            font-size: 60px;
+            font-family: 'Dancing Script', cursive;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
             opacity: 0;
-            animation: fadeIn 3s ease-in-out forwards;
+            animation: fadeIn 3s ease-in-out forwards, heartbeat 2s infinite alternate;
         }
 
         @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        .glitch {
-            font-size: 25px;
-            position: relative;
-            display: inline-block;
-            color: #0f0;
-            animation: glitch 1s infinite;
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.02); }
         }
 
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(2px, -2px); }
-            60% { transform: translate(-2px, -2px); }
-            80% { transform: translate(2px, 2px); }
-            100% { transform: translate(0); }
+        .quote {
+            font-size: 24px;
+            color: white;
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeIn 4s ease-in-out forwards;
         }
 
-        .footer {
+        .firefly {
             position: absolute;
-            bottom: 10px;
-            width: 100%;
-            font-size: 14px;
+            width: 5px;
+            height: 5px;
+            background: yellow;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: floatUp 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 0.7; }
+            100% { transform: translateY(-20px); opacity: 0.3; }
+        }
+
+        .toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: black;
+            color: white;
+        }
+
+        @keyframes fireworks {
+            0% { transform: scale(0.3); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fireworks 0.5s ease-out forwards;
         }
     </style>
 </head>
 <body>
 
-    <div class="matrix"></div>
-    
-    <h1>Biwa's Domain</h1>
-    <p class="glitch">"I don't chase dreams, I build them."</p>
-    
-    <p class="quote">Welcome to my world. Enjoy the show.</p>
+    <button class="toggle-btn" onclick="toggleMode()">Toggle Mode</button>
 
-    <div class="footer">
-        &copy; 2025 Biwa | All Rights Reserved.
-    </div>
+    <h1>Biwa's Dreamscape</h1>
+    <p class="quote">"The dreamers of today create the wonders of tomorrow."</p>
 
-    <!-- Optional: Background Music -->
-    <audio autoplay loop>
+    <audio id="bg-music" loop autoplay>
         <source src="your-music-file.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
+
+    <script>
+        function toggleMode() {
+            let body = document.body;
+            if (body.style.background.includes('ff9a9e')) {
+                body.style.background = "linear-gradient(120deg, #1f1c2c, #928dab)";
+            } else {
+                body.style.background = "linear-gradient(120deg, #ff9a9e, #fad0c4)";
+            }
+        }
+
+        function createFirefly() {
+            let firefly = document.createElement("div");
+            firefly.classList.add("firefly");
+            firefly.style.left = Math.random() * window.innerWidth + "px";
+            firefly.style.top = Math.random() * window.innerHeight + "px";
+            document.body.appendChild(firefly);
+            setTimeout(() => firefly.remove(), 3000);
+        }
+
+        setInterval(createFirefly, 800);
+
+        document.body.addEventListener("click", function(e) {
+            let firework = document.createElement("div");
+            firework.classList.add("firework");
+            firework.style.left = e.clientX + "px";
+            firework.style.top = e.clientY + "px";
+            document.body.appendChild(firework);
+            setTimeout(() => firework.remove(), 500);
+        });
+    </script>
 
 </body>
 </html>
