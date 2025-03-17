@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biwa & Kathlyn - The Ultimate Flex</title>
+    <title>Biwa & Kathlyn - Legendary Flex</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
 
@@ -22,22 +22,28 @@
             position: relative;
         }
 
-        .container {
-            position: relative;
-            z-index: 2;
+        /* Galaxy Background */
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://media4.giphy.com/media/dYZuqJLDVsWMLWyIxJ/giphy.gif') no-repeat center center;
+            background-size: cover;
+            opacity: 0.3;
         }
 
-        .names {
-            font-size: 70px;
+        /* Glowing 3D Text */
+        .flex-text {
+            font-size: 80px;
             font-weight: bold;
             background: linear-gradient(90deg, cyan, magenta);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 20px cyan, 0 0 40px magenta;
-            animation: glow 1.5s infinite alternate, rotate 6s infinite linear;
+            animation: glitch 1.5s infinite alternate, rotate 6s infinite linear;
         }
 
-        @keyframes glow {
+        @keyframes glitch {
             0% { text-shadow: 0 0 20px cyan, 0 0 40px magenta; }
             100% { text-shadow: 0 0 40px cyan, 0 0 80px magenta; }
         }
@@ -48,7 +54,7 @@
         }
 
         .subtitle {
-            font-size: 20px;
+            font-size: 25px;
             color: white;
             opacity: 0.8;
             text-shadow: 0 0 10px rgba(255,255,255,0.5);
@@ -60,33 +66,19 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        .background-animation {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('https://i.gifer.com/origin/3f/3fbd0c9b9fc2e08f69eb4ac14a6b03fc_w200.gif') no-repeat center;
-            background-size: cover;
-            opacity: 0.1;
-        }
-
-        .lightning {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        /* Lightning Hover */
+        .container:hover {
             background: url('https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif') no-repeat center;
             background-size: cover;
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
-        }
-
-        .container:hover .lightning {
             opacity: 0.5;
+            transition: 0.5s;
         }
 
+        /* Fire Click Effect */
         .fire {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             background: url('https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif') no-repeat center;
             background-size: cover;
             animation: explosion 0.5s linear forwards;
@@ -97,43 +89,45 @@
             100% { transform: scale(2); opacity: 0; }
         }
 
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif') repeat;
-            background-size: cover;
-            opacity: 0.1;
-            animation: float 20s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-50px); }
-            100% { transform: translateY(0px); }
-        }
-
-        audio {
+        /* Secret Pop-up */
+        .secret-message {
             display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 20px;
+            box-shadow: 0 0 15px cyan;
+            animation: popUp 0.5s ease-out;
         }
+
+        @keyframes popUp {
+            0% { transform: translate(-50%, -60%) scale(0.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="background-animation"></div>
+    <div class="background"></div>
+
     <div class="container">
-        <h1 class="names">BIWA & KATHLYN</h1>
-        <p class="subtitle">Legends Only.</p>
+        <h1 class="flex-text">BIWA & KATHLYN</h1>
+        <p class="subtitle">This isn't just a page. It's **LEGENDARY.**</p>
     </div>
 
-    <div class="lightning"></div>
-    <div class="particles"></div>
-
-    <audio id="bg-music" autoplay loop>
-        <source src="your-music-file.mp3" type="audio/mpeg">
-    </audio>
+    <div id="secretMessage" class="secret-message">
+        Kathlyn, Biwa made this **JUST FOR YOU.**  
+        <br> You gotta admit, **this is EPIC.** 🔥
+    </div>
 
     <script>
+        // Fire Click Effect
         document.body.addEventListener("click", function(e) {
             let fire = document.createElement("div");
             fire.classList.add("fire");
@@ -143,7 +137,10 @@
             setTimeout(() => fire.remove(), 500);
         });
 
-        document.getElementById("bg-music").volume = 0.2;
+        // Secret Pop-up
+        document.querySelector(".container").addEventListener("click", function() {
+            document.getElementById("secretMessage").style.display = "block";
+        });
     </script>
 
 </body>
