@@ -3,149 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise for Niha</title>
+    <title>Biwa's Domain</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
         body {
-            background-color: black;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            font-size: 24px;
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: #0f0;
+            font-family: 'Orbitron', sans-serif;
             text-align: center;
             overflow: hidden;
         }
-        #container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        #text {
-            white-space: pre-wrap;
-            overflow: hidden;
-            border-right: 2px solid #00ff00;
-            width: fit-content;
-            font-weight: bold;
-        }
-        #first-image-container img, #final-image-container img {
-            width: 100%;
-            max-width: 1000px;
-        }
-        #first-image-container, #final-image-container {
-            display: none;
-            transition: opacity 1s ease-in-out;
-        }
-        #lighting {
-            position: absolute;
-            top: 0;
-            left: 0;
+
+        .matrix {
+            position: fixed;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0);
-            pointer-events: none;
-            display: none;
-            transition: background 0.3s ease-in-out;
+            background: url('https://media.giphy.com/media/l3vRn393ne6emNsl6/giphy.gif');
+            background-size: cover;
+            opacity: 0.3;
+            z-index: -1;
         }
-        .bold {
-            font-size: 36px;
-            font-weight: bold;
+
+        h1 {
+            font-size: 50px;
+            text-transform: uppercase;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0; }
+            100% { text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0; }
+        }
+
+        .quote {
+            font-size: 20px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 3s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .glitch {
+            font-size: 25px;
+            position: relative;
+            display: inline-block;
+            color: #0f0;
+            animation: glitch 1s infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+            100% { transform: translate(0); }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div id="lighting"></div>
-    <div id="container">
-        <div id="text"></div>
-        <div id="first-image-container">
-            <img src="297bc2a92e0b878fef4f34e73220a5d76f60d9cd_m.jpeg" alt="First Image">
-        </div>
-        <div id="final-image-container">
-            <img src="niha-surprise.jpg" alt="Niha's Surprise">
-            <p>Now it's perfect</p>
-        </div>
+
+    <div class="matrix"></div>
+    
+    <h1>Biwa's Domain</h1>
+    <p class="glitch">"I don't chase dreams, I build them."</p>
+    
+    <p class="quote">Welcome to my world. Enjoy the show.</p>
+
+    <div class="footer">
+        &copy; 2025 Biwa | All Rights Reserved.
     </div>
 
-    <script>
-        const textElement = document.getElementById("text");
-        const firstImageContainer = document.getElementById("first-image-container");
-        const finalImageContainer = document.getElementById("final-image-container");
-        const lighting = document.getElementById("lighting");
+    <!-- Optional: Background Music -->
+    <audio autoplay loop>
+        <source src="your-music-file.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-        const messages = [
-            "Hey Niha, want to see something?",
-            "",
-            "See, it's us!",
-            "", // First image appears here
-            "But something looks off...",
-            "They don’t look like us...",
-            "",
-            "Let’s get our first pic, baby!",
-            "Clearing disturbances...",
-            "Activating love from the universe...",
-            "Getting energy...",
-            "3", "2", "1",  // Countdown
-            "" // Lightning effect happens here, then final image
-        ];
-
-        let index = 0;
-        let charIndex = 0;
-        let deleting = false;
-
-        function showLightingEffect() {
-            lighting.style.display = "block";
-            lighting.style.background = "rgba(255, 255, 255, 0.8)";
-            setTimeout(() => {
-                lighting.style.background = "rgba(255, 255, 255, 0)";
-                setTimeout(() => { lighting.style.display = "none"; }, 500);
-            }, 300);
-        }
-
-        function typeEffect() {
-            if (index < messages.length) {
-                if (!deleting) {
-                    textElement.innerHTML = messages[index].substring(0, charIndex++);
-                    if (charIndex > messages[index].length) {
-                        deleting = true;
-
-                        if (index === 2) { // After "See, it's us!", show first image
-                            firstImageContainer.style.display = "block";
-                            firstImageContainer.style.opacity = 1;
-                            setTimeout(() => {
-                                firstImageContainer.style.opacity = 0;
-                                setTimeout(() => { firstImageContainer.style.display = "none"; }, 1000);
-                            }, 3000);
-                        }
-
-                        if (index === 14) { // After "1" (last countdown), show lightning
-                            showLightingEffect();
-                            setTimeout(() => {
-                                finalImageContainer.style.display = "block";
-                                finalImageContainer.style.opacity = 1;
-                            }, 1000);
-                        }
-
-                        if (index >= 11 && index <= 13) { // Make 3, 2, 1 bold
-                            textElement.innerHTML = `<span class="bold">${messages[index]}</span>`;
-                        }
-
-                        setTimeout(typeEffect, 1000);
-                    } else {
-                        setTimeout(typeEffect, 100);
-                    }
-                } else {
-                    textElement.innerHTML = messages[index].substring(0, charIndex--);
-                    if (charIndex < 0) {
-                        deleting = false;
-                        index++;
-                        setTimeout(typeEffect, 500);
-                    } else {
-                        setTimeout(typeEffect, 50);
-                    }
-                }
-            }
-        }
-
-        typeEffect();
-    </script>
 </body>
 </html>
