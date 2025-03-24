@@ -3,148 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome, Kathlyn!</title>
+    <title>Appy’s Apology</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
-
-        /* Universal Reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        /* Background Animation */
         body {
-            font-family: 'Orbitron', sans-serif;
-            background: radial-gradient(circle, #0f0f0f, #000000);
-            color: #00ffcc;
-            height: 100vh;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            position: relative;
         }
-
-        /* Glitchy Title */
-        h1 {
-            font-size: 50px;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
-            animation: glitch 1.5s infinite alternate;
+        #chat-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 80%;
         }
-
-        @keyframes glitch {
-            0% { transform: skewX(-5deg); text-shadow: -5px 0 cyan, 5px 0 magenta; }
-            100% { transform: skewX(5deg); text-shadow: 5px 0 cyan, -5px 0 magenta; }
-        }
-
-        /* Holographic Name Reveal */
-        .kathlyn-name {
-            font-size: 40px;
-            color: transparent;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 5px;
-            text-shadow: 0 0 0px rgba(255, 255, 255, 0);
-            animation: nameReveal 3s forwards;
-        }
-
-        @keyframes nameReveal {
-            0% { text-shadow: 0 0 10px transparent; color: transparent; }
-            100% { text-shadow: 0 0 20px cyan, 0 0 40px cyan; color: cyan; }
-        }
-
-        /* Accept Button */
-        .accept-btn {
-            margin-top: 20px;
-            padding: 15px 30px;
+        #appy-text {
             font-size: 18px;
             font-weight: bold;
-            text-transform: uppercase;
-            background: black;
-            color: cyan;
-            border: 2px solid cyan;
-            cursor: pointer;
-            transition: 0.3s;
+            display: inline-block;
         }
-
-        .accept-btn:hover {
-            background: cyan;
-            color: black;
-            box-shadow: 0 0 10px cyan, 0 0 20px cyan;
-        }
-
-        /* Secret Message */
-        .secret {
-            font-size: 30px;
-            color: #ff00ff;
-            text-shadow: 0 0 20px #ff00ff;
-            margin-top: 20px;
+        #forgive-btn {
             display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background: red;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
-
-        /* Floating Particles */
-        .particle {
+        #surprise-message {
+            display: none;
+            font-size: 20px;
+            margin-top: 20px;
+            animation: pop 1s ease-in-out;
+        }
+        @keyframes pop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+        /* Floating Hearts */
+        .heart {
             position: absolute;
-            background: cyan;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: floatParticles 5s infinite alternate ease-in-out;
+            color: red;
+            font-size: 24px;
+            animation: float 3s linear infinite;
+            opacity: 0.7;
         }
-
-        @keyframes floatParticles {
-            0% { transform: translateY(0px); opacity: 0.3; }
-            100% { transform: translateY(-50px); opacity: 1; }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
-
     </style>
 </head>
 <body>
 
-    <h1>WELCOME TO THE LEGENDARY FRIENDSHIP</h1>
-    <div class="kathlyn-name">Kathlyn</div>
+    <div id="chat-box">
+        <p id="appy-text">Nihaaa, please don’t be mad... 🥺</p>
+    </div>
 
-    <button class="accept-btn" onclick="accept()">ACCEPT FRIENDSHIP</button>
-    
-    <div class="secret" id="secret">🔥 Friendship Bond Activated! 🔥</div>
+    <button id="forgive-btn" onclick="showSurprise()">Forgive Bhargav?</button>
+
+    <p id="surprise-message">YAY! 🥰 Bhargav loves you more than anything! ❤️</p>
 
     <script>
-        // Create Floating Particles
-        function createParticles() {
-            for (let i = 0; i < 30; i++) {
-                let particle = document.createElement("div");
-                particle.classList.add("particle");
-                document.body.appendChild(particle);
-                particle.style.left = Math.random() * window.innerWidth + "px";
-                particle.style.top = Math.random() * window.innerHeight + "px";
-                particle.style.animationDuration = Math.random() * 5 + 3 + "s";
+        const messages = [
+            "Nihaaa, please don’t be mad... 🥺",
+            "Bhargav is really sorry and he misses you! 💔",
+            "He knows he messed up, but he loves you more than anything! ❤️",
+            "Will you forgive him? 🙈"
+        ];
+
+        let index = 0;
+        function showMessages() {
+            if (index < messages.length) {
+                document.getElementById("appy-text").innerText = messages[index];
+                index++;
+                setTimeout(showMessages, 2000);
+            } else {
+                document.getElementById("forgive-btn").style.display = "block";
             }
         }
-        createParticles();
+        showMessages();
 
-        // Secret Friendship Activation
-        function accept() {
-            let secret = document.getElementById("secret");
-            secret.style.display = "block";
-            document.querySelector(".accept-btn").innerText = "✔️ Accepted!";
-            document.querySelector(".accept-btn").style.background = "lime";
-            document.querySelector(".accept-btn").style.color = "black";
-
-            // Fireworks effect
-            let confettiCount = 100;
-            for (let i = 0; i < confettiCount; i++) {
-                let confetti = document.createElement("div");
-                confetti.classList.add("particle");
-                document.body.appendChild(confetti);
-                confetti.style.left = Math.random() * window.innerWidth + "px";
-                confetti.style.top = Math.random() * window.innerHeight + "px";
-                confetti.style.background = ["red", "blue", "yellow", "green", "purple"][Math.floor(Math.random() * 5)];
-                confetti.style.width = "10px";
-                confetti.style.height = "10px";
-                confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
-            }
+        function showSurprise() {
+            document.getElementById("surprise-message").style.display = "block";
         }
+
+        // Floating hearts effect
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 3000);
+        }
+        setInterval(createHeart, 500);
     </script>
 
 </body>
