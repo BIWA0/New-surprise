@@ -3,27 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appy’s Apology</title>
+    <title>Appy’s Apology for Bhagi</title>
     <style>
         body {
-            background-color: black;
+            background-color: #121212;
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
             padding: 20px;
-            overflow: hidden;
         }
-        #chat-box {
-            background: rgba(255, 255, 255, 0.2);
+        #chat-container {
+            max-width: 400px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
             padding: 15px;
             border-radius: 10px;
-            display: inline-block;
-            max-width: 80%;
+            text-align: left;
+            position: relative;
         }
-        #appy-text {
-            font-size: 18px;
-            font-weight: bold;
+        .appy-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            left: -60px;
+        }
+        .chat-bubble {
+            background: #333;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
             display: inline-block;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease-in-out;
+        }
+        .visible {
+            opacity: 1;
+            transform: scale(1);
         }
         #forgive-btn {
             display: none;
@@ -36,76 +54,50 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        #surprise-message {
+        #appy-reaction {
             display: none;
             font-size: 20px;
             margin-top: 20px;
-            animation: pop 1s ease-in-out;
-        }
-        @keyframes pop {
-            0% { transform: scale(0); }
-            100% { transform: scale(1); }
-        }
-        /* Floating Hearts */
-        .heart {
-            position: absolute;
-            color: red;
-            font-size: 24px;
-            animation: float 3s linear infinite;
-            opacity: 0.7;
-        }
-        @keyframes float {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100vh); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div id="chat-box">
-        <p id="appy-text">Nihaaa, please don’t be mad... 🥺</p>
+    <h2>Appy is here! 🐱‍💻</h2>
+    <div id="chat-container">
+        <img src="https://i.imgur.com/QlKXMTp.png" alt="Appy" class="appy-avatar">
+        <p class="chat-bubble" id="msg1">Hey Niha (or should I say Mom?) It’s me, Appy!</p>
+        <p class="chat-bubble" id="msg2">I know you’re mad at Bhagi… I AM TOO! 😡</p>
+        <p class="chat-bubble" id="msg3">I gave him an earful! 📢</p>
+        <p class="chat-bubble" id="msg4">He was in an emergency, but he **should have messaged you!**</p>
+        <p class="chat-bubble" id="msg5">So guess what? I **tortured** him all day with Alexa. 😈</p>
+        <p class="chat-bubble" id="msg6">Made him do **1000 sit-ups** while shouting **‘I love Niha!’** 😆</p>
+        <p class="chat-bubble" id="msg7">He was panting like a dog. 🐶</p>
+        <p class="chat-bubble" id="msg8">So… what do you say?</p>
+        <p class="chat-bubble" id="msg9">Will you **forgive this idiot** for now? 🤭</p>
     </div>
 
-    <button id="forgive-btn" onclick="showSurprise()">Forgive Bhargav?</button>
-
-    <p id="surprise-message">YAY! 🥰 Bhargav loves you more than anything! ❤️</p>
+    <button id="forgive-btn" onclick="showAppyReaction()">Forgive Bhagi? ❤️</button>
+    <p id="appy-reaction">YAY! 🎉 I promise I’ll keep Bhagi in check next time! 😆</p>
 
     <script>
-        const messages = [
-            "Nihaaa, please don’t be mad... 🥺",
-            "Bhargav is really sorry and he misses you! 💔",
-            "He knows he messed up, but he loves you more than anything! ❤️",
-            "Will you forgive him? 🙈"
-        ];
-
+        const messages = document.querySelectorAll('.chat-bubble');
         let index = 0;
+
         function showMessages() {
             if (index < messages.length) {
-                document.getElementById("appy-text").innerText = messages[index];
+                messages[index].classList.add('visible');
                 index++;
-                setTimeout(showMessages, 2000);
+                setTimeout(showMessages, 1500);
             } else {
                 document.getElementById("forgive-btn").style.display = "block";
             }
         }
         showMessages();
 
-        function showSurprise() {
-            document.getElementById("surprise-message").style.display = "block";
+        function showAppyReaction() {
+            document.getElementById("appy-reaction").style.display = "block";
         }
-
-        // Floating hearts effect
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
-            document.body.appendChild(heart);
-
-            setTimeout(() => heart.remove(), 3000);
-        }
-        setInterval(createHeart, 500);
     </script>
 
 </body>
