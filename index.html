@@ -5,74 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appy Talking to Niha</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
-        
         body {
-            background: linear-gradient(-45deg, #0d0d0d, #001f3f, #011627, #002233);
-            background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
+            background-color: black;
             color: cyan;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Courier New', monospace;
             text-align: center;
             padding: 20px;
             overflow: hidden;
         }
-        
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         .chat-box {
             width: 90%;
             max-width: 600px;
             margin: auto;
-            background: rgba(0, 255, 255, 0.15);
+            background: rgba(0, 255, 255, 0.1);
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 0 20px cyan;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
             animation: fadeIn 2s ease-in-out;
+            height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
-
         .appy-image {
             width: 120px;
             border-radius: 50%;
             animation: glow 1.5s infinite alternate, bounce 5s infinite;
         }
-
         @keyframes glow {
             from { box-shadow: 0 0 10px cyan; }
             to { box-shadow: 0 0 20px cyan; }
         }
-
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
-
         .message {
             font-size: 18px;
             opacity: 0;
-            display: inline-block;
+            display: block;
             background: rgba(0, 255, 255, 0.2);
             padding: 10px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
             margin: 10px;
-            transform: translateY(10px);
+            text-align: left;
+            max-width: 90%;
+            word-wrap: break-word;
             animation: fadeInUp 1s forwards;
         }
-
         @keyframes fadeInUp {
             to { opacity: 1; transform: translateY(0); }
         }
-
         .typing {
             display: inline-block;
             border-right: 3px solid cyan;
@@ -81,35 +70,44 @@
             width: 0;
             animation: typing 2s steps(30, end) forwards, blink 0.7s infinite;
         }
-
         @keyframes typing {
             to { width: 100%; }
         }
-
         @keyframes blink {
             50% { border-color: transparent; }
         }
-
-        /* Appy Blinking Animation */
-        .appy-image.blink {
-            animation: blinkAppy 0.3s 3;
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: black;
+            background-color: cyan;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 0 10px cyan;
+            animation: pulse 2s infinite;
         }
-
-        @keyframes blinkAppy {
-            50% { opacity: 0.5; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
-
+        .button:hover {
+            background-color: white;
+            color: cyan;
+        }
     </style>
 </head>
 <body>
 
-    <div class="chat-box">
-        <img id="appy" class="appy-image" src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy">
+    <div class="chat-box" id="chatBox">
+        <img class="appy-image" src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy">
         <h2>Appy</h2>
         <div id="chat"></div>
     </div>
 
-    <audio id="typingSound" src="https://www.fesliyanstudios.com/play-mp3/4387"></audio>
+    <button class="button" onclick="pokeAppy()">Poke Appy!</button>
 
     <script>
         const messages = [
@@ -130,18 +128,23 @@
             message.classList.add("message");
             message.innerHTML = `<span class="typing">${messages[index]}</span>`;
             chat.appendChild(message);
-
-            // Play typing sound
-            document.getElementById("typingSound").play();
-
-            // Make Appy blink randomly
-            if (Math.random() > 0.5) {
-                let appy = document.getElementById("appy");
-                appy.classList.add("blink");
-                setTimeout(() => appy.classList.remove("blink"), 900);
-            }
-
+            chat.scrollTop = chat.scrollHeight;
             setTimeout(() => typeMessage(index + 1), 2500);
+        }
+
+        function pokeAppy() {
+            const responses = [
+                "Ouch! What was that for? 😖",
+                "Hey! Hands off the AI! 🤖",
+                "Okay okay, I get it! Bhagi is in trouble! 😅",
+                "If you poke me again, I’ll make Bhagi do 100 more sit-ups! 💪"
+            ];
+            const chat = document.getElementById("chat");
+            let message = document.createElement("p");
+            message.classList.add("message");
+            message.innerHTML = responses[Math.floor(Math.random() * responses.length)];
+            chat.appendChild(message);
+            chat.scrollTop = chat.scrollHeight;
         }
 
         typeMessage(0);
