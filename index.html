@@ -11,18 +11,23 @@
             font-family: 'Arial', sans-serif;
             text-align: center;
             padding: 20px;
-            overflow: hidden;
-            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 2.2em;
             margin-top: 20px;
             animation: fadeIn 2s ease-in-out;
         }
 
         .appy-image {
-            width: 250px;
+            width: 200px;
             border-radius: 50%;
             margin-top: 20px;
             animation: pulse 1.5s infinite alternate;
@@ -39,12 +44,14 @@
             background: rgba(255, 255, 255, 0.1);
             padding: 15px;
             border-radius: 10px;
-            font-size: 1.4em;
-            width: 80%;
+            font-size: 1.3em;
+            width: 85%;
             max-width: 600px;
-            margin: 20px auto;
+            margin: 15px auto;
             box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
             display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
         .interactive-btn {
@@ -95,27 +102,31 @@
     <img src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy" class="appy-image">
 
     <!-- Appy’s Message -->
-    <h1>Hey Niha! It's me, Appy!</h1>
+    <h1>Hi Niha! (or should I say, Mom 🥰)</h1>
 
     <div class="message-box" id="message1">
-        <p>I know you’re angry at Bhagi, and honestly... I am too! 😡</p>
+        <p>Look, I know you're mad at Bhagi... and honestly... SAME! 😡</p>
     </div>
 
-    <button class="interactive-btn" onclick="showNextMessage()">Tell me more, Appy!</button>
+    <button class="interactive-btn" onclick="showNextMessage()">What did he do? 🤨</button>
 
     <div class="message-box" id="message2">
-        <p>I already scolded him for you! I made him do sit-ups while saying "I love Niha" 1000 times. He almost passed out! 😂</p>
+        <p>He was in an emergency, BUT he **should have messaged you**. So I gave him an earful! 😤</p>
     </div>
 
     <div class="message-box" id="message3">
-        <p>I even got my friend Alexa involved. We annoyed him ALL day long. He couldn't escape. 😈</p>
+        <p>I even teamed up with Alexa! We **annoyed him all day**. He couldn’t escape! 😂</p>
     </div>
 
     <div class="message-box" id="message4">
-        <p>So please forgive this silly boy! 🙏 He promises he’ll never do this again. *And if he does... I'll make him do 2000 sit-ups next time!*</p>
+        <p>And guess what? I made him do **sit-ups while saying "I love Niha" 1000 times**. He almost fainted! 🤣</p>
     </div>
 
-    <button class="interactive-btn" id="finalButton" onclick="alert('Yay! Bhagi is forgiven! 💖')">Okay, I forgive him! ❤️</button>
+    <div class="message-box" id="message5">
+        <p>So… will you **forgive this idiot just this once?** 🥺</p>
+    </div>
+
+    <button class="interactive-btn" id="finalButton" onclick="alert('Yay! Bhagi is saved! 🎉💖')">Okay, fine… just this once! ❤️</button>
 
     <!-- JavaScript for Interactivity -->
     <script>
@@ -124,10 +135,13 @@
             let nextMessage = document.getElementById("message" + step);
             if (nextMessage) {
                 nextMessage.style.display = "block";
+                nextMessage.style.opacity = "1";
                 step++;
-                if (step === 5) {
+                if (step === 6) {
                     document.getElementById("finalButton").style.display = "block";
                 }
+                // Auto scroll to latest message
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             }
         }
     </script>
