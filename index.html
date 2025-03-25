@@ -5,22 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appy's Apology Mission</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
         body {
             background: url('https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp') no-repeat center center/cover;
             font-family: 'Poppins', sans-serif;
             color: white;
             text-align: center;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
+
         #chatbox {
             width: 90%;
             max-width: 500px;
-            margin: auto;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+            max-height: 80vh;
         }
+
         .message {
             opacity: 0;
             transform: translateY(20px);
@@ -29,15 +38,33 @@
             padding: 10px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            font-size: 16px;
             text-align: left;
+            display: inline-block;
+            max-width: 80%;
+            word-wrap: break-word;
         }
+
+        .message.typing {
+            width: 30px;
+            height: 10px;
+            background: white;
+            border-radius: 5px;
+            display: inline-block;
+            animation: typingBlink 1s infinite;
+        }
+
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
         }
+
+        @keyframes typingBlink {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
         .button {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 20px;
             margin: 10px;
             background: pink;
             border-radius: 20px;
@@ -45,95 +72,79 @@
             font-weight: bold;
             color: black;
             transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
+
         .button:hover { background: hotpink; }
-        .button:active { transform: scale(0.9); } /* Smooth click effect */
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
     <div id="chatbox">
         <h2>Hi Niha! (or should I say, Mom 🥰)</h2>
-        <div class="message">Look, I know you're mad at Bhagi... and honestly... SAME! 😡</div>
-        <div class="message">He was in an emergency, BUT he **should have messaged you**. So I gave him an earful! 😤</div>
-        <div class="message">I told Alexa and **Siri**! We **annoyed him all day**. He couldn’t escape! 😂</div>
-        <div class="message">And guess what? I made him do **sit-ups while saying "I love Niha" 1000 times**. He almost cried. 😆</div>
-        <div class="message">So please, forgive the **big dummy** just this once? 🥺👉👈</div>
-        <div class="message"><b>P.S.</b> Next time, I will **zap him myself**. 😁⚡</div>
-<div id="buttons">
-    <button class="button" onclick="nextMessage('OMG tell me more!')">OMG tell me more! 🤩</button>
-    <button class="button" onclick="nextMessage('Wait... 1000 times?!')">Wait... 1000 times?! 😂</button>
-    <button class="button" onclick="nextMessage('Fine, I forgive him 😒')">Fine, I forgive him 😒</button>
-</div>
+        <div id="messages"></div>
+        <div id="buttons" class="hidden">
+            <div class="button" onclick="sendResponse(1)">OMG tell me more! 🤩</div>
+            <div class="button" onclick="sendResponse(2)">Wait... 1000 times?! 😂</div>
+            <div class="button" onclick="sendResponse(3)">Fine, I forgive him 😒</div>
+        </div>
+    </div>
 
-<script>
-    let messages = document.querySelectorAll(".message");
-    let index = 0;
+    <script>
+        const messages = [
+            "Look, I know you're mad at Bhagi... and honestly... SAME! 😡",
+            "He was in an emergency, BUT he **should have messaged you**. So I gave him an earful! 😤",
+            "I told Alexa and Siri! We **annoyed him all day**. He couldn’t escape! 😂",
+            "And guess what? I made him do **sit-ups while saying 'I love Niha' 1000 times**. He almost cried. 😆",
+            "So please, forgive the **big dummy** just this once?? 🥺👉👈",
+            "P.S. Next time, I will **zap him myself**. 😁⚡"
+        ];
 
-    function showMessage() {
-        if (index < messages.length) {
-            messages[index].style.animationDelay = (index * 0.8) + "s";
-            index++;
-        }
-    }
+        const responses = {
+            1: "Ohhh, you wanna hear more? Well... let's just say, he **almost passed out at 700 sit-ups**. I had to bribe him with a Niha selfie to keep going. 😂",
+            2: "Yep! **1000 times**! But between us, I stopped counting at 300. His face was priceless tho. 🤣",
+            3: "Aww! You forgave him? That means **mission successful**! 🥰 I promise, next time, I'll make him work even harder! 💪"
+        };
 
-    function nextMessage(reply) {
-        let chatbox = document.getElementById("chatbox");
-        
-        // Remove buttons after clicking
-        document.getElementById("buttons").innerHTML = "";  
-
-        let newMessage = document.createElement("div");
-        newMessage.className = "message";
-        newMessage.style.opacity = "0"; // Start hidden
-
-        if (reply.includes("tell me more")) {
-            newMessage.innerHTML = "Oh, you wanna hear more? Well, he also had to write 'I will always reply to Niha' 500 times! ✍️😂";
-        } else if (reply.includes("1000 times")) {
-            newMessage.innerHTML = "Yep, 1000 times! And by the end, his legs were shaking. Serves him right, right? 😆";
-        } else {
-            newMessage.innerHTML = "Aww, you're the best! He better not mess up again... or else. 😏⚡";
+        function sendMessage(text, delay = 1000) {
+            setTimeout(() => {
+                let chatbox = document.getElementById("messages");
+                let message = document.createElement("div");
+                message.classList.add("message");
+                message.innerHTML = text;
+                chatbox.appendChild(message);
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }, delay);
         }
 
-        chatbox.appendChild(newMessage);
+        function sendResponse(option) {
+            let chatbox = document.getElementById("messages");
+            let userResponse = document.createElement("div");
+            userResponse.classList.add("message");
+            userResponse.style.background = "rgba(255, 182, 193, 0.3)"; // Light pink for user response
+            userResponse.innerHTML = Object.values(document.querySelectorAll(".button"))[option - 1].innerHTML;
+            chatbox.appendChild(userResponse);
+            chatbox.scrollTop = chatbox.scrollHeight;
 
-        // Add animation delay so it appears smoothly
-        setTimeout(() => {
-            newMessage.style.animation = "fadeIn 0.8s forwards";
-        }, 500);
-    }
+            setTimeout(() => sendMessage(responses[option]), 1000);
+        }
 
-    setInterval(showMessage, 800);
-</script>
-        let messages = document.querySelectorAll(".message");
-        let index = 0;
-
-        function showMessage() {
-            if (index < messages.length) {
-                let message = messages[index];
-                message.style.animationDelay = (index * 0.8) + "s";
-
-                // Typing effect
-                let text = message.innerHTML;
-                message.innerHTML = "";
-                let i = 0;
-                function type() {
-                    if (i < text.length) {
-                        message.innerHTML += text.charAt(i);
-                        i++;
-                        setTimeout(type, 20);
-                    }
+        function startChat() {
+            let index = 0;
+            function showNextMessage() {
+                if (index < messages.length) {
+                    sendMessage(messages[index], index * 1500);
+                    index++;
+                    setTimeout(showNextMessage, 1500);
+                } else {
+                    setTimeout(() => document.getElementById("buttons").classList.remove("hidden"), 2000);
                 }
-                type();
-                
-                index++;
             }
+            showNextMessage();
         }
 
-        function nextMessage(reply) {
-            alert("Appy says: '" + reply + "'"); // Fun reaction to button click
-        }
-
-        setInterval(showMessage, 1000);
+        startChat();
     </script>
 </body>
 </html>
