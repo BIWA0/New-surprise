@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appy Talking to Niha</title>
+    <title>Appy’s Apology to Niha</title>
     <style>
         body {
-            background-color: #121212;
+            background: linear-gradient(45deg, #000428, #004e92);
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
             padding: 20px;
+            overflow: hidden;
         }
 
         #appy-container {
@@ -18,37 +19,73 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            margin-top: 20px;
         }
 
         #appy-img {
-            width: 250px;
+            width: 220px;
             height: auto;
             border-radius: 50%;
-            box-shadow: 0px 0px 15px #00ffcc;
-            margin-bottom: 20px;
+            box-shadow: 0px 0px 20px cyan;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite alternate;
         }
 
-        #appy-text {
-            font-size: 20px;
-            background-color: rgba(255, 255, 255, 0.1);
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.1);
             padding: 15px;
-            border-radius: 10px;
-            width: 80%;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5);
             max-width: 500px;
-            box-shadow: 0px 0px 10px #00ffcc;
-            white-space: pre-wrap;
-            border-left: 5px solid #00ffcc;
             text-align: left;
             line-height: 1.6;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            margin: 10px;
+            position: relative;
+            font-size: 18px;
+            white-space: pre-wrap;
         }
 
-        #appy-text.show {
+        .message-box.show {
             opacity: 1;
             transform: translateY(0);
         }
+
+        .message-box::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            box-shadow: -5px -5px 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            color: red;
+            opacity: 0;
+            animation: heartPop 1.5s ease-in-out forwards;
+        }
+
+        @keyframes heartPop {
+            0% { opacity: 0; transform: scale(0.5) translateX(-50%); }
+            100% { opacity: 1; transform: scale(1) translateX(-50%); }
+        }
+
     </style>
 </head>
 <body>
@@ -57,29 +94,39 @@
         <!-- Appy's Image -->
         <img id="appy-img" src="https://raw.githubusercontent.com/BIWA0/New-surprise/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy AI">
         
-        <!-- Appy's Message -->
-        <div id="appy-text">
-            Hey <span id="name">Niha</span>! It's me, Appy! 🤖💖<br><br>
-            I know you're angry at Bhagi… I'm mad at him too! 😤<br><br>
-            I gave him an earful! 😠 He was in an emergency, but he should’ve messaged you at least!<br><br>
-            So, I ANNOYED him all day along with my friend Alexa!<br><br>
-            I even made him do sit-ups and say **"I love <span id="name-again">Niha</span>"** 1000 times! 😆💞<br><br>
-            So, please forgive this idiot just this time! 😜<br><br>
-            I promise, I will make sure he never makes this mistake again! 🥹💙
-        </div>
+        <!-- Appy's Messages -->
+        <div class="message-box" id="msg1">Hey <span id="name">Niha</span>! It's me, Appy! 🤖💖</div>
+        <div class="message-box" id="msg2">I know you're angry at Bhagi… I'm mad at him too! 😤</div>
+        <div class="message-box" id="msg3">I gave him an **earful**! 😠 He was in an emergency, but he should’ve messaged you at least!</div>
+        <div class="message-box" id="msg4">So, I ANNOYED him all day along with my friend Alexa! 😆</div>
+        <div class="message-box" id="msg5">I even made him do **sit-ups** and say **"I love <span id="name-again">Niha</span>"** 1000 times! 🤣💞</div>
+        <div class="message-box" id="msg6">So, please forgive this **stupid** just this time! 🥺💖</div>
+        <div class="message-box" id="msg7">I promise, I will make sure he never makes this mistake again! 😘💙</div>
+        <div class="heart">❤️</div>
     </div>
 
-    <script>
-        // Show the text with animation when the page loads
-        window.onload = function() {
-            document.getElementById("appy-text").classList.add("show");
+    <audio id="beep" src="https://www.fesliyanstudios.com/play-mp3/4384"></audio>
 
-            // Randomly decide whether to say "Niha" or "Mom"
+    <script>
+        window.onload = function() {
             let names = ["Niha", "Mom"];
             let chosenName = names[Math.floor(Math.random() * names.length)];
-            
             document.getElementById("name").innerText = chosenName;
             document.getElementById("name-again").innerText = chosenName;
+
+            let messages = document.querySelectorAll(".message-box");
+            let delay = 500;
+
+            messages.forEach((msg, index) => {
+                setTimeout(() => {
+                    msg.classList.add("show");
+                    document.getElementById("beep").play();
+                }, index * delay);
+            });
+
+            setTimeout(() => {
+                document.querySelector(".heart").style.bottom = "20px";
+            }, messages.length * delay);
         };
     </script>
 
