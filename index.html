@@ -3,41 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appy’s Apology for Bhagi</title>
+    <title>Appy's Grand Apology</title>
     <style>
         body {
-            background-color: #121212;
+            background: linear-gradient(45deg, #1e1e1e, #3a3a3a);
             color: white;
             font-family: 'Arial', sans-serif;
             text-align: center;
             padding: 20px;
+            overflow: hidden;
         }
-        #chat-container {
-            max-width: 400px;
+        .chat-container {
+            max-width: 450px;
             margin: auto;
             background: rgba(255, 255, 255, 0.1);
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 15px;
             text-align: left;
             position: relative;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
         .appy-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             position: absolute;
-            top: 10px;
-            left: -60px;
+            top: -20px;
+            left: -70px;
+            transition: transform 0.3s;
         }
         .chat-bubble {
             background: #333;
-            padding: 10px;
-            border-radius: 10px;
-            margin: 10px 0;
+            padding: 12px;
+            border-radius: 15px;
+            margin: 12px 0;
             display: inline-block;
             opacity: 0;
             transform: scale(0.8);
-            transition: all 0.3s ease-in-out;
+            transition: all 0.4s ease-in-out;
+            white-space: pre-line;
         }
         .visible {
             opacity: 1;
@@ -46,57 +50,110 @@
         #forgive-btn {
             display: none;
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 12px 20px;
             font-size: 18px;
             color: white;
-            background: red;
+            background: crimson;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+        #forgive-btn:hover {
+            background: darkred;
         }
         #appy-reaction {
             display: none;
-            font-size: 20px;
+            font-size: 22px;
             margin-top: 20px;
+        }
+        .fireworks {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: gold;
+            border-radius: 50%;
+            position: fixed;
+            opacity: 0;
+            animation: explode 1s ease-out forwards;
+        }
+        @keyframes explode {
+            0% { opacity: 1; transform: scale(1) translate(0, 0); }
+            100% { opacity: 0; transform: scale(3) translate(var(--x), var(--y)); }
         }
     </style>
 </head>
 <body>
 
-    <h2>Appy is here! 🐱‍💻</h2>
-    <div id="chat-container">
-        <img src="https://i.imgur.com/QlKXMTp.png" alt="Appy" class="appy-avatar">
-        <p class="chat-bubble" id="msg1">Hey Niha (or should I say Mom?) It’s me, Appy!</p>
+    <h2>📢 **Appy’s Grand Apology** 🎭</h2>
+    <div class="chat-container">
+        <img src="https://i.imgur.com/QlKXMTp.png" alt="Appy" class="appy-avatar" id="appy-img">
+        <p class="chat-bubble" id="msg1">Hey Niha (or should I say **Mom**?) It’s me, Appy! 🐱‍💻</p>
         <p class="chat-bubble" id="msg2">I know you’re mad at Bhagi… I AM TOO! 😡</p>
-        <p class="chat-bubble" id="msg3">I gave him an earful! 📢</p>
-        <p class="chat-bubble" id="msg4">He was in an emergency, but he **should have messaged you!**</p>
-        <p class="chat-bubble" id="msg5">So guess what? I **tortured** him all day with Alexa. 😈</p>
+        <p class="chat-bubble" id="msg3">I gave him an **earful**! 🔊</p>
+        <p class="chat-bubble" id="msg4">He was in an emergency, **but he should’ve at least messaged you!**</p>
+        <p class="chat-bubble" id="msg5">So guess what? I **annoyed** him ALL DAY with Alexa. 😈</p>
         <p class="chat-bubble" id="msg6">Made him do **1000 sit-ups** while shouting **‘I love Niha!’** 😆</p>
         <p class="chat-bubble" id="msg7">He was panting like a dog. 🐶</p>
         <p class="chat-bubble" id="msg8">So… what do you say?</p>
-        <p class="chat-bubble" id="msg9">Will you **forgive this idiot** for now? 🤭</p>
+        <p class="chat-bubble" id="msg9">Will you **forgive this adorable idiot** for now? 🤭</p>
     </div>
 
     <button id="forgive-btn" onclick="showAppyReaction()">Forgive Bhagi? ❤️</button>
-    <p id="appy-reaction">YAY! 🎉 I promise I’ll keep Bhagi in check next time! 😆</p>
+    <p id="appy-reaction">🎉 **YAY! I promise to keep Bhagi in check next time!** 😆</p>
 
     <script>
         const messages = document.querySelectorAll('.chat-bubble');
+        const appyImg = document.getElementById("appy-img");
+        const sound = new Audio("https://www.myinstants.com/media/sounds/pop.mp3"); // Tiny "boop" sound
+
         let index = 0;
 
         function showMessages() {
             if (index < messages.length) {
                 messages[index].classList.add('visible');
+                messages[index].innerHTML = messages[index].innerHTML.replace(/ /g, "&nbsp;"); // Preserve spacing
+                typingEffect(messages[index]);
+                sound.play(); // Play sound effect
                 index++;
-                setTimeout(showMessages, 1500);
+                if (index === 3) appyImg.style.transform = "rotate(-10deg)"; // Make Appy "react"
+                if (index === 5) appyImg.style.transform = "rotate(10deg)";
+                setTimeout(showMessages, 2000);
             } else {
                 document.getElementById("forgive-btn").style.display = "block";
             }
         }
         showMessages();
 
+        function typingEffect(element) {
+            let text = element.innerText;
+            element.innerText = "";
+            let i = 0;
+            let interval = setInterval(() => {
+                if (i < text.length) {
+                    element.innerText += text[i];
+                    i++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 50);
+        }
+
         function showAppyReaction() {
             document.getElementById("appy-reaction").style.display = "block";
+            appyImg.style.transform = "rotate(360deg) scale(1.2)"; // Appy spins in happiness
+            launchFireworks();
+        }
+
+        function launchFireworks() {
+            for (let i = 0; i < 15; i++) {
+                let fw = document.createElement("div");
+                fw.classList.add("fireworks");
+                fw.style.setProperty("--x", `${Math.random() * 200 - 100}px`);
+                fw.style.setProperty("--y", `${Math.random() * 200 - 100}px`);
+                document.body.appendChild(fw);
+                setTimeout(() => fw.remove(), 1000);
+            }
         }
     </script>
 
