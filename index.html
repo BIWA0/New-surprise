@@ -38,20 +38,16 @@
             box-shadow: 0px 0px 10px #00ffcc;
             white-space: pre-wrap;
             border-left: 5px solid #00ffcc;
+            text-align: left;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
         }
 
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        .typewriter {
-            overflow: hidden;
-            display: inline-block;
-            white-space: nowrap;
-            border-right: 2px solid #00ffcc;
-            font-size: 18px;
-            animation: typing 3s steps(30, end) forwards;
+        #appy-text.show {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -63,18 +59,29 @@
         
         <!-- Appy's Message -->
         <div id="appy-text">
-            <span class="typewriter">
-                Hey Niha! It's me, Appy! 🤖💖  
-                I know you're angry at Bhagi… I'm mad at him too! 😤  
-                I gave him an earful! 😠  
-                He was in an emergency, but he should’ve messaged you at least!  
-                So, I ANNOYED him all day along with my friend Alexa!  
-                I even made him do sit-ups and say **"I love Niha"** 1000 times! 😆💞  
-                So, please forgive this idiot just this time! 😜  
-                I promise, I will make sure he never makes this mistake again! 🥹💙
-            </span>
+            Hey <span id="name">Niha</span>! It's me, Appy! 🤖💖<br><br>
+            I know you're angry at Bhagi… I'm mad at him too! 😤<br><br>
+            I gave him an earful! 😠 He was in an emergency, but he should’ve messaged you at least!<br><br>
+            So, I ANNOYED him all day along with my friend Alexa!<br><br>
+            I even made him do sit-ups and say **"I love <span id="name-again">Niha</span>"** 1000 times! 😆💞<br><br>
+            So, please forgive this idiot just this time! 😜<br><br>
+            I promise, I will make sure he never makes this mistake again! 🥹💙
         </div>
     </div>
+
+    <script>
+        // Show the text with animation when the page loads
+        window.onload = function() {
+            document.getElementById("appy-text").classList.add("show");
+
+            // Randomly decide whether to say "Niha" or "Mom"
+            let names = ["Niha", "Mom"];
+            let chosenName = names[Math.floor(Math.random() * names.length)];
+            
+            document.getElementById("name").innerText = chosenName;
+            document.getElementById("name-again").innerText = chosenName;
+        };
+    </script>
 
 </body>
 </html>
