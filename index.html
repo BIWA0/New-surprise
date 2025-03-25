@@ -3,48 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ Appy's Ultimate Apology ⚡</title>
+    <title>💙 Appy’s Grand Apology 💙</title>
     <style>
         body {
             background: black;
             color: white;
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
-            overflow: hidden;
         }
-        .holo-container {
-            position: relative;
-            width: 100%;
-            height: 300px;
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .holo-img {
             width: 200px;
+            margin: 20px 0;
             animation: flicker 1.5s infinite alternate;
-            filter: drop-shadow(0px 0px 15px cyan);
         }
         @keyframes flicker {
-            0% { opacity: 0.8; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.02); }
-        }
-        .glowing-text {
-            font-size: 24px;
-            color: cyan;
-            text-shadow: 0px 0px 10px cyan, 0px 0px 20px blue;
-            animation: glow 1s infinite alternate;
-        }
-        @keyframes glow {
-            0% { text-shadow: 0px 0px 10px cyan, 0px 0px 20px blue; }
-            100% { text-shadow: 0px 0px 15px white, 0px 0px 25px cyan; }
+            0% { opacity: 0.9; }
+            100% { opacity: 1; }
         }
         .chat-box {
             max-width: 500px;
-            margin: auto;
             background: rgba(255, 255, 255, 0.1);
             padding: 15px;
             border-radius: 10px;
             text-align: left;
-            position: relative;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
         .chat-bubble {
@@ -53,24 +40,10 @@
             border-radius: 10px;
             margin: 10px 0;
             opacity: 0;
-            transform: scale(0.8);
             transition: all 0.5s ease-in-out;
-            white-space: pre-line;
         }
         .visible {
             opacity: 1;
-            transform: scale(1);
-        }
-        .glitch {
-            font-size: 30px;
-            font-weight: bold;
-            color: cyan;
-            text-shadow: 2px 2px 10px cyan;
-            animation: glitch 0.8s infinite alternate;
-        }
-        @keyframes glitch {
-            0% { transform: skewX(3deg); }
-            100% { transform: skewX(-3deg); }
         }
         .apology-btn {
             display: none;
@@ -82,40 +55,31 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
-        }
-        .apology-btn:hover {
-            background: darkred;
         }
     </style>
 </head>
 <body>
 
-    <h2 class="glowing-text">✨ Hey **Niha**! **Appy** has something to say... ✨</h2>
+    <h2 style="color: cyan;">💙 Hey Niha, It’s Me, **Appy!** 💙</h2>
 
-    <div class="holo-container">
-        <img src="https://i.imgur.com/QlKXMTp.png" alt="Appy" class="holo-img">
+    <div class="container">
+        <img src="https://i.imgur.com/e1X6ueN.png" alt="Appy" class="holo-img"> <!-- Fixed Image -->
+        
+        <div class="chat-box">
+            <p class="chat-bubble" id="msg1">Hey **Niha**, it’s me, **Appy!** 🐱‍💻</p>
+            <p class="chat-bubble" id="msg2">I know you’re **angry at Bhagi**… I AM TOO! 😡</p>
+            <p class="chat-bubble" id="msg3">I scolded him NONSTOP! 🔊</p>
+            <p class="chat-bubble" id="msg4">He was busy, but **he should’ve messaged!**</p>
+            <p class="chat-bubble" id="msg5">So I teamed up with **Alexa** and annoyed him all day. 😈</p>
+            <p class="chat-bubble" id="msg6">I made him do **1000 sit-ups** shouting **‘I love Niha!’** 😆</p>
+            <p class="chat-bubble" id="msg7">He was panting like a puppy. 🐶</p>
+            <p class="chat-bubble" id="msg8">So… can you forgive him this time? 🥺</p>
+        </div>
+
+        <button id="forgive-btn" class="apology-btn" onclick="showForgiveness()">Forgive Bhagi? ❤️</button>
+
+        <p id="appy-reaction" style="display: none; color: gold; font-size: 22px;">🎉 **YAY! I promise he won’t mess up again!** 😆</p>
     </div>
-
-    <div class="chat-box">
-        <p class="chat-bubble" id="msg1">Hey Niha (or should I say **Mom**?) It's me, Appy! 🐱‍💻</p>
-        <p class="chat-bubble" id="msg2">I know you’re **mad** at Bhagi… I AM TOO! 😡</p>
-        <p class="chat-bubble" id="msg3">I gave him an **earful**! 🔊</p>
-        <p class="chat-bubble" id="msg4">He was in an emergency, **but he should’ve at least messaged you!**</p>
-        <p class="chat-bubble" id="msg5">So guess what? I **annoyed** him ALL DAY with Alexa. 😈</p>
-        <p class="chat-bubble" id="msg6">Made him do **1000 sit-ups** while shouting **‘I love Niha!’** 😆</p>
-        <p class="chat-bubble" id="msg7">He was panting like a dog. 🐶</p>
-        <p class="chat-bubble" id="msg8">So… what do you say?</p>
-        <p class="chat-bubble" id="msg9">Will you **forgive this adorable idiot** for now? 🤭</p>
-    </div>
-
-    <button id="forgive-btn" class="apology-btn" onclick="showSecretEnding()">Forgive Bhagi? ❤️</button>
-
-    <p id="appy-reaction" class="glitch" style="display: none;">🎉 **YAY! I promise to keep Bhagi in check next time!** 😆</p>
-
-    <audio id="appy-voice" autoplay>
-        <source src="https://your-audio-link.com/appy-voice.mp3" type="audio/mp3">
-    </audio>
 
     <script>
         const messages = document.querySelectorAll('.chat-bubble');
@@ -124,7 +88,7 @@
         function showMessages() {
             if (index < messages.length) {
                 messages[index].classList.add('visible');
-                setTimeout(showMessages, 2000);
+                setTimeout(showMessages, 1500);
                 index++;
             } else {
                 document.getElementById("forgive-btn").style.display = "block";
@@ -132,15 +96,8 @@
         }
         showMessages();
 
-        function showSecretEnding() {
+        function showForgiveness() {
             document.getElementById("appy-reaction").style.display = "block";
-            document.body.style.background = "gold";
-            let confetti = document.createElement("div");
-            confetti.innerHTML = "🎆🎇 FIREWORKS FOR NIHA 🎇🎆";
-            confetti.style.fontSize = "40px";
-            confetti.style.fontWeight = "bold";
-            confetti.style.color = "red";
-            document.body.appendChild(confetti);
         }
     </script>
 
