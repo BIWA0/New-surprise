@@ -3,122 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appy Talking to Niha</title>
+    <title>Appy’s Apology Mission</title>
     <style>
         body {
-            background-color: black;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: white;
             font-family: 'Arial', sans-serif;
             text-align: center;
-            padding: 50px;
+            padding: 20px;
             overflow: hidden;
+            position: relative;
         }
 
         h1 {
             font-size: 2.5em;
+            margin-top: 20px;
             animation: fadeIn 2s ease-in-out;
-            margin-top: 100px;
         }
 
-        .message {
-            animation: slideIn 2s ease-out;
-            font-size: 1.8em;
-            margin-top: 30px;
-        }
-
-        .appImage {
-            width: 200px;
+        .appy-image {
+            width: 250px;
             border-radius: 50%;
             margin-top: 20px;
-            animation: bounce 1.5s infinite;
+            animation: pulse 1.5s infinite alternate;
+            border: 5px solid #ff79c6;
+            box-shadow: 0px 0px 20px #ff79c6;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
         }
 
-        .balloon {
-            position: absolute;
-            bottom: 0;
-            font-size: 2em;
-            animation: float 6s ease-in-out infinite;
+        .message-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.4em;
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            display: inline-block;
         }
 
-        @keyframes float {
-            0% { bottom: -150px; left: 50%; }
-            50% { bottom: 150px; left: 60%; }
-            100% { bottom: -150px; left: 50%; }
+        .chat-text {
+            font-size: 1.3em;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid white;
+            animation: typing 4s steps(40) forwards, blink 1s infinite;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
         }
 
-        @keyframes slideIn {
-            from {
-                transform: translateY(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        @keyframes blink {
+            50% { border-color: transparent; }
         }
 
-        .firework {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            height: 100%;
-            background: url('fireworks.gif') no-repeat center center;
-            background-size: contain;
-            animation: fireworkShow 3s ease-out infinite;
-        }
-
-        @keyframes fireworkShow {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        .interactive {
-            margin-top: 40px;
-            font-size: 1.5em;
-            color: #ffb6c1;
+        .interactive-btn {
+            background: #ff79c6;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            animation: fadeIn 2s ease-in-out;
+            margin-top: 15px;
+            transition: transform 0.2s;
         }
 
-        .interactive:hover {
-            text-decoration: underline;
+        .interactive-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .stars {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            box-shadow: 0 0 5px white;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Fireworks Animation -->
-    <div class="firework"></div>
-    
-    <!-- Floating Balloons -->
-    <div class="balloon" style="animation-delay: 0s;">🎈</div>
-    <div class="balloon" style="animation-delay: 2s;">🎈</div>
-    <div class="balloon" style="animation-delay: 4s;">🎈</div>
+    <!-- Magical Star Background -->
+    <script>
+        for (let i = 0; i < 50; i++) {
+            let star = document.createElement("div");
+            star.classList.add("stars");
+            star.style.left = Math.random() * 100 + "vw";
+            star.style.top = Math.random() * 100 + "vh";
+            document.body.appendChild(star);
+        }
+    </script>
 
-    <!-- Appy Image -->
-    <img src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy" class="appImage">
+    <!-- Appy's Image -->
+    <img src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy" class="appy-image">
 
-    <!-- Appy Talking -->
-    <h1>Hey Niha, it's me, Appy!</h1>
-    <p class="message">I know you're angry at Bhagi, and I am too! 😡 I gave him an earful for not messaging you when he was stuck in an emergency! But hey, he could've at least told you something, right?</p>
+    <!-- Appy’s Message -->
+    <h1>Hey Niha! It's me, Appy!</h1>
 
-    <p class="message">So, I decided to make him do a few things. I got my friend Alexa involved, and we had a little fun with him. 😂 I made him do sit-ups and say "I love Niha" 1000 times! He was *so* embarrassed, but I did it for you!</p>
-
-    <p class="message">Please forgive this silly boy, Niha! 🙏 I promise I’ll make sure he doesn’t mess up like this again. 😇</p>
+    <div class="message-box">
+        <p class="chat-text" id="chat-message">I know you’re angry at Bhagi, and honestly... I am too! 😡</p>
+    </div>
 
     <!-- Interactive Button -->
-    <p class="interactive" onclick="alert('Thank you for forgiving him! 💖')">Click here to forgive Bhagi, okay? 🙏</p>
+    <button class="interactive-btn" onclick="showNextMessage()">Tell me more, Appy!</button>
+
+    <div class="message-box hidden" id="message2">
+        <p class="chat-text">I already scolded him for you! I made him do sit-ups while saying "I love Niha" 1000 times. He almost passed out! 😂</p>
+    </div>
+
+    <div class="message-box hidden" id="message3">
+        <p class="chat-text">I even got my friend Alexa involved. We annoyed him ALL day long. He couldn't escape. 😈</p>
+    </div>
+
+    <div class="message-box hidden" id="message4">
+        <p class="chat-text">So please forgive this silly boy! 🙏 He promises he’ll never do this again. *And if he does... I'll make him do 2000 sit-ups next time!*</p>
+    </div>
+
+    <button class="interactive-btn hidden" id="finalButton" onclick="alert('Yay! Bhagi is forgiven! 💖')">Okay, I forgive him! ❤️</button>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        let step = 1;
+        function showNextMessage() {
+            let nextMessage = document.getElementById("message" + step);
+            if (nextMessage) {
+                nextMessage.classList.remove("hidden");
+                step++;
+                if (step === 5) {
+                    document.getElementById("finalButton").classList.remove("hidden");
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
