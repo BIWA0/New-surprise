@@ -59,15 +59,51 @@
         <div class="message">And guess what? I made him do **sit-ups while saying "I love Niha" 1000 times**. He almost cried. 😆</div>
         <div class="message">So please, forgive the **big dummy** just this once? 🥺👉👈</div>
         <div class="message"><b>P.S.</b> Next time, I will **zap him myself**. 😁⚡</div>
-        
-        <div id="buttons">
-            <div class="button" onclick="nextMessage('OMG tell me more!')">OMG tell me more! 🤩</div>
-            <div class="button" onclick="nextMessage('Wait... 1000 times?!')">Wait... 1000 times?! 😂</div>
-            <div class="button" onclick="nextMessage('Fine, I forgive him 😒')">Fine, I forgive him 😒</div>
-        </div>
-    </div>
+<div id="buttons">
+    <button class="button" onclick="nextMessage('OMG tell me more!')">OMG tell me more! 🤩</button>
+    <button class="button" onclick="nextMessage('Wait... 1000 times?!')">Wait... 1000 times?! 😂</button>
+    <button class="button" onclick="nextMessage('Fine, I forgive him 😒')">Fine, I forgive him 😒</button>
+</div>
 
-    <script>
+<script>
+    let messages = document.querySelectorAll(".message");
+    let index = 0;
+
+    function showMessage() {
+        if (index < messages.length) {
+            messages[index].style.animationDelay = (index * 0.8) + "s";
+            index++;
+        }
+    }
+
+    function nextMessage(reply) {
+        let chatbox = document.getElementById("chatbox");
+        
+        // Remove buttons after clicking
+        document.getElementById("buttons").innerHTML = "";  
+
+        let newMessage = document.createElement("div");
+        newMessage.className = "message";
+        newMessage.style.opacity = "0"; // Start hidden
+
+        if (reply.includes("tell me more")) {
+            newMessage.innerHTML = "Oh, you wanna hear more? Well, he also had to write 'I will always reply to Niha' 500 times! ✍️😂";
+        } else if (reply.includes("1000 times")) {
+            newMessage.innerHTML = "Yep, 1000 times! And by the end, his legs were shaking. Serves him right, right? 😆";
+        } else {
+            newMessage.innerHTML = "Aww, you're the best! He better not mess up again... or else. 😏⚡";
+        }
+
+        chatbox.appendChild(newMessage);
+
+        // Add animation delay so it appears smoothly
+        setTimeout(() => {
+            newMessage.style.animation = "fadeIn 0.8s forwards";
+        }, 500);
+    }
+
+    setInterval(showMessage, 800);
+</script>
         let messages = document.querySelectorAll(".message");
         let index = 0;
 
