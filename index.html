@@ -3,64 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appy Talking to Niha</title>
+    <title>Appy’s Grand Surprise for Niha</title>
     <style>
-        /* Grand Cyberpunk Neon Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            background: radial-gradient(circle, rgba(0, 0, 20, 1) 0%, rgba(0, 0, 10, 1) 100%);
+            background: black;
             color: cyan;
             font-family: 'Courier New', monospace;
-            text-align: center;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             overflow: hidden;
         }
-
-        /* Glowing Chat Box */
-        .chat-box {
-            width: 90%;
-            max-width: 600px;
-            height: 400px;
-            overflow-y: auto;
-            scrollbar-width: none;
-            background: rgba(0, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
+        .container {
+            text-align: center;
+            width: 80%;
+            max-width: 700px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 20px;
             box-shadow: 0 0 20px cyan;
-            margin: auto;
+            position: relative;
             animation: fadeIn 2s ease-in-out;
         }
-
-        /* Glowing Appy Image */
-        .appy-image {
-            width: 120px;
-            border-radius: 50%;
-            animation: glow 1.5s infinite alternate, bounce 5s infinite;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
-
-        @keyframes glow {
+        .appy-img {
+            width: 150px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px cyan;
+            animation: pulse 1.5s infinite alternate, bounce 5s infinite;
+        }
+        @keyframes pulse {
             from { box-shadow: 0 0 15px cyan; }
             to { box-shadow: 0 0 30px cyan; }
         }
-
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-10px); }
         }
-
-        /* Chat Messages */
+        h2 {
+            font-size: 24px;
+            margin: 10px 0;
+            text-shadow: 0 0 10px cyan;
+        }
         .message {
             font-size: 18px;
             background: rgba(0, 255, 255, 0.2);
-            padding: 10px;
+            padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 0 10px cyan;
-            margin: 10px;
-            display: inline-block;
+            box-shadow: 0 0 15px cyan;
+            margin: 15px 0;
+            opacity: 0;
             transform: translateY(10px);
             animation: fadeInUp 1s forwards;
         }
-
-        /* Typing Animation */
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
         .typing {
             display: inline-block;
             border-right: 3px solid cyan;
@@ -69,44 +76,38 @@
             width: 0;
             animation: typing 2s steps(30, end) forwards, blink 0.7s infinite;
         }
-
         @keyframes typing {
             to { width: 100%; }
         }
-
         @keyframes blink {
             50% { border-color: transparent; }
         }
-
-        /* Button Effect */
-        .magic-button {
-            background: cyan;
-            color: black;
-            border: none;
+        .button {
+            display: inline-block;
+            margin-top: 20px;
             padding: 10px 20px;
             font-size: 18px;
+            border: none;
+            color: black;
+            background: cyan;
             border-radius: 10px;
-            box-shadow: 0 0 10px cyan;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: 0.3s;
         }
-
-        .magic-button:hover {
-            transform: scale(1.1);
+        .button:hover {
+            background: white;
             box-shadow: 0 0 20px cyan;
         }
-
     </style>
 </head>
 <body>
 
-    <div class="chat-box" id="chatBox">
-        <img class="appy-image" src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy">
+    <div class="container">
+        <img class="appy-img" src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy">
         <h2>Appy</h2>
         <div id="chat"></div>
+        <button class="button" onclick="replay()">Replay</button>
     </div>
-
-    <button class="magic-button" onclick="startChat()">Click Me for a Surprise</button>
 
     <script>
         const messages = [
@@ -120,25 +121,22 @@
             "I promise, next time, I’ll personally zap him if he messes up! ⚡"
         ];
 
-        function startChat() {
-            document.getElementById("chat").innerHTML = "";
-            let index = 0;
-            function typeMessage() {
-                if (index >= messages.length) return;
-                const chat = document.getElementById("chat");
-                let message = document.createElement("p");
-                message.classList.add("message");
-                message.innerHTML = `<span class="typing">${messages[index]}</span>`;
-                chat.appendChild(message);
-
-                // Auto-scroll chat to keep messages inside frame
-                document.getElementById("chatBox").scrollTop = document.getElementById("chatBox").scrollHeight;
-
-                index++;
-                setTimeout(typeMessage, 2500);
-            }
-            typeMessage();
+        function typeMessage(index) {
+            if (index >= messages.length) return;
+            const chat = document.getElementById("chat");
+            let message = document.createElement("p");
+            message.classList.add("message");
+            message.innerHTML = `<span class="typing">${messages[index]}</span>`;
+            chat.appendChild(message);
+            setTimeout(() => typeMessage(index + 1), 3000);
         }
+
+        function replay() {
+            document.getElementById("chat").innerHTML = "";
+            typeMessage(0);
+        }
+
+        typeMessage(0);
     </script>
 
 </body>
