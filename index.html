@@ -3,148 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appy’s Apology Mission</title>
+    <title>Appy's Apology Mission</title>
     <style>
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: url('https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp') no-repeat center center/cover;
+            font-family: 'Poppins', sans-serif;
             color: white;
-            font-family: 'Arial', sans-serif;
             text-align: center;
+            overflow: hidden;
+        }
+        #chatbox {
+            width: 90%;
+            max-width: 500px;
+            margin: auto;
+            background: rgba(0, 0, 0, 0.7);
             padding: 20px;
-            overflow-x: hidden;
-            overflow-y: auto;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: start;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
-
-        h1 {
-            font-size: 2.2em;
-            margin-top: 20px;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        .appy-image {
-            width: 200px;
-            border-radius: 50%;
-            margin-top: 20px;
-            animation: pulse 1.5s infinite alternate;
-            border: 5px solid #ff79c6;
-            box-shadow: 0px 0px 20px #ff79c6;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
-        }
-
-        .message-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 1.3em;
-            width: 85%;
-            max-width: 600px;
-            margin: 15px auto;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
-            display: none;
+        .message {
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: left;
         }
-
-        .interactive-btn {
-            background: #ff79c6;
-            color: white;
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .button {
+            display: inline-block;
             padding: 10px 20px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
+            margin: 10px;
+            background: pink;
+            border-radius: 20px;
             cursor: pointer;
-            margin-top: 15px;
-            transition: transform 0.2s;
+            font-weight: bold;
+            color: black;
+            transition: 0.3s;
         }
-
-        .interactive-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .stars {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            box-shadow: 0 0 5px white;
-            animation: twinkle 3s infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
+        .button:hover { background: hotpink; }
+        .button:active { transform: scale(0.9); } /* Smooth click effect */
     </style>
 </head>
 <body>
+    <div id="chatbox">
+        <h2>Hi Niha! (or should I say, Mom 🥰)</h2>
+        <div class="message">Look, I know you're mad at Bhagi... and honestly... SAME! 😡</div>
+        <div class="message">He was in an emergency, BUT he **should have messaged you**. So I gave him an earful! 😤</div>
+        <div class="message">I told Alexa and **Siri**! We **annoyed him all day**. He couldn’t escape! 😂</div>
+        <div class="message">And guess what? I made him do **sit-ups while saying "I love Niha" 1000 times**. He almost cried. 😆</div>
+        <div class="message">So please, forgive the **big dummy** just this once? 🥺👉👈</div>
+        <div class="message"><b>P.S.</b> Next time, I will **zap him myself**. 😁⚡</div>
+        
+        <div id="buttons">
+            <div class="button" onclick="nextMessage('OMG tell me more!')">OMG tell me more! 🤩</div>
+            <div class="button" onclick="nextMessage('Wait... 1000 times?!')">Wait... 1000 times?! 😂</div>
+            <div class="button" onclick="nextMessage('Fine, I forgive him 😒')">Fine, I forgive him 😒</div>
+        </div>
+    </div>
 
-    <!-- Magical Star Background -->
     <script>
-        for (let i = 0; i < 50; i++) {
-            let star = document.createElement("div");
-            star.classList.add("stars");
-            star.style.left = Math.random() * 100 + "vw";
-            star.style.top = Math.random() * 100 + "vh";
-            document.body.appendChild(star);
-        }
-    </script>
+        let messages = document.querySelectorAll(".message");
+        let index = 0;
 
-    <!-- Appy's Image -->
-    <img src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy" class="appy-image">
+        function showMessage() {
+            if (index < messages.length) {
+                let message = messages[index];
+                message.style.animationDelay = (index * 0.8) + "s";
 
-    <!-- Appy’s Message -->
-    <h1>Hi Niha! (or should I say, Mom 🥰)</h1>
-
-    <div class="message-box" id="message1">
-        <p>Look, I know you're mad at Bhagi... and honestly... SAME! 😡</p>
-    </div>
-
-    <button class="interactive-btn" onclick="showNextMessage()">What did he do? 🤨</button>
-
-    <div class="message-box" id="message2">
-        <p>He was in an emergency, BUT he **should have messaged you**. So I gave him an earful! 😤</p>
-    </div>
-
-    <div class="message-box" id="message3">
-        <p>I even teamed up with Alexa! We **annoyed him all day**. He couldn’t escape! 😂</p>
-    </div>
-
-    <div class="message-box" id="message4">
-        <p>And guess what? I made him do **sit-ups while saying "I love Niha" 1000 times**. He almost fainted! 🤣</p>
-    </div>
-
-    <div class="message-box" id="message5">
-        <p>So… will you **forgive this idiot just this once?** 🥺</p>
-    </div>
-
-    <button class="interactive-btn" id="finalButton" onclick="alert('Yay! Bhagi is saved! 🎉💖')">Okay, fine… just this once! ❤️</button>
-
-    <!-- JavaScript for Interactivity -->
-    <script>
-        let step = 1;
-        function showNextMessage() {
-            let nextMessage = document.getElementById("message" + step);
-            if (nextMessage) {
-                nextMessage.style.display = "block";
-                nextMessage.style.opacity = "1";
-                step++;
-                if (step === 6) {
-                    document.getElementById("finalButton").style.display = "block";
+                // Typing effect
+                let text = message.innerHTML;
+                message.innerHTML = "";
+                let i = 0;
+                function type() {
+                    if (i < text.length) {
+                        message.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, 20);
+                    }
                 }
-                // Auto scroll to latest message
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                type();
+                
+                index++;
             }
         }
-    </script>
 
+        function nextMessage(reply) {
+            alert("Appy says: '" + reply + "'"); // Fun reaction to button click
+        }
+
+        setInterval(showMessage, 1000);
+    </script>
 </body>
 </html>
