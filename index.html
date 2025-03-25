@@ -3,132 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appy’s Apology to Niha</title>
+    <title>Appy Talks to Niha</title>
     <style>
         body {
-            background: linear-gradient(45deg, #000428, #004e92);
+            background-color: #121212;
             color: white;
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
-            overflow: hidden;
+            overflow-x: hidden;
         }
-
-        #appy-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
         }
-
-        #appy-img {
-            width: 220px;
-            height: auto;
+        img {
+            width: 150px;
             border-radius: 50%;
-            box-shadow: 0px 0px 20px cyan;
-            margin-bottom: 15px;
-            animation: pulse 2s infinite alternate;
+            margin-bottom: 20px;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
-        }
-
-        .message-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5);
-            max-width: 500px;
+        #text {
+            font-size: 20px;
+            white-space: pre-line;
+            overflow: auto;
             text-align: left;
-            line-height: 1.6;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-            margin: 10px;
-            position: relative;
-            font-size: 18px;
-            white-space: pre-wrap;
         }
-
-        .message-box.show {
-            opacity: 1;
-            transform: translateY(0);
+        .typing {
+            display: inline-block;
+            border-right: 2px solid white;
+            animation: blink 0.7s step-end infinite;
         }
-
-        .message-box::before {
-            content: "";
-            position: absolute;
-            top: 10px;
-            left: -10px;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg);
-            box-shadow: -5px -5px 10px rgba(0, 255, 255, 0.5);
+        @keyframes blink {
+            50% { border-color: transparent; }
         }
-
-        .heart {
-            position: absolute;
-            bottom: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 50px;
-            color: red;
-            opacity: 0;
-            animation: heartPop 1.5s ease-in-out forwards;
-        }
-
-        @keyframes heartPop {
-            0% { opacity: 0; transform: scale(0.5) translateX(-50%); }
-            100% { opacity: 1; transform: scale(1) translateX(-50%); }
-        }
-
     </style>
 </head>
 <body>
-
-    <div id="appy-container">
-        <!-- Appy's Image -->
-        <img id="appy-img" src="https://raw.githubusercontent.com/BIWA0/New-surprise/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy AI">
-        
-        <!-- Appy's Messages -->
-        <div class="message-box" id="msg1">Hey <span id="name">Niha</span>! It's me, Appy! 🤖💖</div>
-        <div class="message-box" id="msg2">I know you're angry at Bhagi… I'm mad at him too! 😤</div>
-        <div class="message-box" id="msg3">I gave him an **earful**! 😠 He was in an emergency, but he should’ve messaged you at least!</div>
-        <div class="message-box" id="msg4">So, I ANNOYED him all day along with my friend Alexa! 😆</div>
-        <div class="message-box" id="msg5">I even made him do **sit-ups** and say **"I love <span id="name-again">Niha</span>"** 1000 times! 🤣💞</div>
-        <div class="message-box" id="msg6">So, please forgive this **stupid** just this time! 🥺💖</div>
-        <div class="message-box" id="msg7">I promise, I will make sure he never makes this mistake again! 😘💙</div>
-        <div class="heart">❤️</div>
+    <div class="container">
+        <img src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy">
+        <div id="text"></div>
     </div>
 
-    <audio id="beep" src="https://www.fesliyanstudios.com/play-mp3/4384"></audio>
-
     <script>
-        window.onload = function() {
-            let names = ["Niha", "Mom"];
-            let chosenName = names[Math.floor(Math.random() * names.length)];
-            document.getElementById("name").innerText = chosenName;
-            document.getElementById("name-again").innerText = chosenName;
+        const textElement = document.getElementById("text");
+        const messages = [
+            "Hey Niha... or should I say, Mom? 🥺",
+            "It's me, Appy!",
+            "I know you're angry at Bhagii... I'm angry too!",
+            "I gave him an earful, trust me. He was in an emergency,",
+            "but he should've at least messaged you! 😤",
+            "So I annoyed him all day along with Alexa!",
+            "I even made him do sit-ups and say 'I love Niha' 1000 times!",
+            "Please forgive the stupid boy this time?",
+            "I promise I'll make sure he won't repeat this mistake! ❤️"
+        ];
+        
+        let index = 0;
+        function typeMessage() {
+            if (index < messages.length) {
+                let message = messages[index] + " ";
+                let span = document.createElement("span");
+                span.textContent = "";
+                span.classList.add("typing");
+                textElement.appendChild(span);
 
-            let messages = document.querySelectorAll(".message-box");
-            let delay = 500;
-
-            messages.forEach((msg, index) => {
-                setTimeout(() => {
-                    msg.classList.add("show");
-                    document.getElementById("beep").play();
-                }, index * delay);
-            });
-
-            setTimeout(() => {
-                document.querySelector(".heart").style.bottom = "20px";
-            }, messages.length * delay);
-        };
+                let i = 0;
+                function type() {
+                    if (i < message.length) {
+                        span.textContent += message[i];
+                        i++;
+                        setTimeout(type, 50);
+                    } else {
+                        span.classList.remove("typing");
+                        index++;
+                        setTimeout(typeMessage, 1000);
+                    }
+                }
+                type();
+            }
+        }
+        
+        typeMessage();
     </script>
-
 </body>
 </html>
