@@ -3,141 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appy’s Grand Surprise for Niha</title>
+    <title>Appy Talking to Niha</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            background: black;
-            color: cyan;
-            font-family: 'Courier New', monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 50px;
             overflow: hidden;
         }
-        .container {
-            text-align: center;
-            width: 80%;
-            max-width: 700px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px cyan;
-            position: relative;
+
+        h1 {
+            font-size: 2.5em;
             animation: fadeIn 2s ease-in-out;
+            margin-top: 100px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+
+        .message {
+            animation: slideIn 2s ease-out;
+            font-size: 1.8em;
+            margin-top: 30px;
         }
-        .appy-img {
-            width: 150px;
+
+        .appImage {
+            width: 200px;
             border-radius: 50%;
-            box-shadow: 0 0 15px cyan;
-            animation: pulse 1.5s infinite alternate, bounce 5s infinite;
+            margin-top: 20px;
+            animation: bounce 1.5s infinite;
         }
-        @keyframes pulse {
-            from { box-shadow: 0 0 15px cyan; }
-            to { box-shadow: 0 0 30px cyan; }
-        }
+
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
         }
-        h2 {
-            font-size: 24px;
-            margin: 10px 0;
-            text-shadow: 0 0 10px cyan;
+
+        .balloon {
+            position: absolute;
+            bottom: 0;
+            font-size: 2em;
+            animation: float 6s ease-in-out infinite;
         }
-        .message {
-            font-size: 18px;
-            background: rgba(0, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px cyan;
-            margin: 15px 0;
-            opacity: 0;
-            transform: translateY(10px);
-            animation: fadeInUp 1s forwards;
+
+        @keyframes float {
+            0% { bottom: -150px; left: 50%; }
+            50% { bottom: 150px; left: 60%; }
+            100% { bottom: -150px; left: 50%; }
         }
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        .typing {
-            display: inline-block;
-            border-right: 3px solid cyan;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-            animation: typing 2s steps(30, end) forwards, blink 0.7s infinite;
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
-        @keyframes typing {
-            to { width: 100%; }
+
+        .firework {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            height: 100%;
+            background: url('fireworks.gif') no-repeat center center;
+            background-size: contain;
+            animation: fireworkShow 3s ease-out infinite;
         }
-        @keyframes blink {
-            50% { border-color: transparent; }
+
+        @keyframes fireworkShow {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
         }
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
-            border: none;
-            color: black;
-            background: cyan;
-            border-radius: 10px;
+
+        .interactive {
+            margin-top: 40px;
+            font-size: 1.5em;
+            color: #ffb6c1;
             cursor: pointer;
-            transition: 0.3s;
+            animation: fadeIn 2s ease-in-out;
         }
-        .button:hover {
-            background: white;
-            box-shadow: 0 0 20px cyan;
+
+        .interactive:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <img class="appy-img" src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy">
-        <h2>Appy</h2>
-        <div id="chat"></div>
-        <button class="button" onclick="replay()">Replay</button>
-    </div>
+    <!-- Fireworks Animation -->
+    <div class="firework"></div>
+    
+    <!-- Floating Balloons -->
+    <div class="balloon" style="animation-delay: 0s;">🎈</div>
+    <div class="balloon" style="animation-delay: 2s;">🎈</div>
+    <div class="balloon" style="animation-delay: 4s;">🎈</div>
 
-    <script>
-        const messages = [
-            "Hey Niha! Or should I say... Mom? 🥰",
-            "It's me, Appy! I know you're angry at Bhagi... I'm mad at him too! 😡",
-            "I gave him an earful! 📢",
-            "Yes, he had an emergency, but he *should* have messaged you! 💢",
-            "So, I teamed up with Alexa and annoyed him all day! 😈",
-            "Made him do sit-ups while saying 'I love Niha' 1000 times! 😂",
-            "Please forgive the stupid for this time... he really misses you. ❤️",
-            "I promise, next time, I’ll personally zap him if he messes up! ⚡"
-        ];
+    <!-- Appy Image -->
+    <img src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy" class="appImage">
 
-        function typeMessage(index) {
-            if (index >= messages.length) return;
-            const chat = document.getElementById("chat");
-            let message = document.createElement("p");
-            message.classList.add("message");
-            message.innerHTML = `<span class="typing">${messages[index]}</span>`;
-            chat.appendChild(message);
-            setTimeout(() => typeMessage(index + 1), 3000);
-        }
+    <!-- Appy Talking -->
+    <h1>Hey Niha, it's me, Appy!</h1>
+    <p class="message">I know you're angry at Bhagi, and I am too! 😡 I gave him an earful for not messaging you when he was stuck in an emergency! But hey, he could've at least told you something, right?</p>
 
-        function replay() {
-            document.getElementById("chat").innerHTML = "";
-            typeMessage(0);
-        }
+    <p class="message">So, I decided to make him do a few things. I got my friend Alexa involved, and we had a little fun with him. 😂 I made him do sit-ups and say "I love Niha" 1000 times! He was *so* embarrassed, but I did it for you!</p>
 
-        typeMessage(0);
-    </script>
+    <p class="message">Please forgive this silly boy, Niha! 🙏 I promise I’ll make sure he doesn’t mess up like this again. 😇</p>
+
+    <!-- Interactive Button -->
+    <p class="interactive" onclick="alert('Thank you for forgiving him! 💖')">Click here to forgive Bhagi, okay? 🙏</p>
 
 </body>
 </html>
