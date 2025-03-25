@@ -6,7 +6,7 @@
     <title>Appy Talking to Niha</title>
     <style>
         body {
-            background-color: black;
+            background: radial-gradient(circle, rgba(0, 0, 0, 1) 20%, rgba(0, 255, 255, 0.3) 90%);
             color: cyan;
             font-family: 'Courier New', monospace;
             text-align: center;
@@ -17,49 +17,45 @@
             width: 90%;
             max-width: 600px;
             margin: auto;
-            background: rgba(0, 255, 255, 0.1);
+            background: rgba(0, 255, 255, 0.15);
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+            box-shadow: 0 0 20px cyan;
             animation: fadeIn 2s ease-in-out;
-            height: 400px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            position: relative;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
         .appy-image {
-            width: 120px;
+            width: 150px;
             border-radius: 50%;
-            animation: glow 1.5s infinite alternate, bounce 5s infinite;
+            animation: glow 1.5s infinite alternate, bounce 4s infinite;
+            cursor: pointer;
         }
         @keyframes glow {
-            from { box-shadow: 0 0 10px cyan; }
-            to { box-shadow: 0 0 20px cyan; }
+            from { box-shadow: 0 0 15px cyan; }
+            to { box-shadow: 0 0 25px cyan; }
         }
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-8px); }
         }
         .message {
             font-size: 18px;
-            opacity: 0;
-            display: block;
             background: rgba(0, 255, 255, 0.2);
-            padding: 10px;
+            padding: 12px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-            margin: 10px;
-            text-align: left;
-            max-width: 90%;
+            margin: 10px auto;
             width: 90%;
-            word-wrap: break-word;
-            overflow-wrap: anywhere;
+            max-width: 500px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
             animation: fadeInUp 1s forwards;
+            overflow-wrap: break-word;
         }
         @keyframes fadeInUp {
             to { opacity: 1; transform: translateY(0); }
@@ -70,7 +66,7 @@
             white-space: nowrap;
             overflow: hidden;
             width: 0;
-            animation: typing 2s steps(30, end) forwards, blink 0.7s infinite;
+            animation: typing 1.8s steps(30, end) forwards, blink 0.7s infinite;
         }
         @keyframes typing {
             to { width: 100%; }
@@ -78,38 +74,28 @@
         @keyframes blink {
             50% { border-color: transparent; }
         }
-        .button {
+        .interaction {
+            font-size: 16px;
             margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
-            color: black;
-            background-color: cyan;
-            border: none;
-            border-radius: 5px;
+            color: yellow;
             cursor: pointer;
-            box-shadow: 0 0 10px cyan;
-            animation: pulse 2s infinite;
+            display: inline-block;
+            animation: pulse 2s infinite alternate;
         }
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        .button:hover {
-            background-color: white;
-            color: cyan;
+            from { transform: scale(1); }
+            to { transform: scale(1.1); color: gold; }
         }
     </style>
 </head>
 <body>
 
-    <div class="chat-box" id="chatBox">
-        <img class="appy-image" src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy">
+    <div class="chat-box">
+        <img id="appy" class="appy-image" src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy">
         <h2>Appy</h2>
         <div id="chat"></div>
+        <p class="interaction" onclick="appyReact()">Click me if you're still mad! 😢</p>
     </div>
-
-    <button class="button" onclick="pokeAppy()">Poke Appy!</button>
 
     <script>
         const messages = [
@@ -130,23 +116,14 @@
             message.classList.add("message");
             message.innerHTML = `<span class="typing">${messages[index]}</span>`;
             chat.appendChild(message);
-            chat.scrollTop = chat.scrollHeight;
             setTimeout(() => typeMessage(index + 1), 2500);
         }
 
-        function pokeAppy() {
-            const responses = [
-                "Ouch! What was that for? 😖",
-                "Hey! Hands off the AI! 🤖",
-                "Okay okay, I get it! Bhagi is in trouble! 😅",
-                "If you poke me again, I’ll make Bhagi do 100 more sit-ups! 💪"
-            ];
-            const chat = document.getElementById("chat");
-            let message = document.createElement("p");
-            message.classList.add("message");
-            message.innerHTML = responses[Math.floor(Math.random() * responses.length)];
-            chat.appendChild(message);
-            chat.scrollTop = chat.scrollHeight;
+        function appyReact() {
+            let appy = document.getElementById("appy");
+            appy.style.animation = "shake 0.5s";
+            setTimeout(() => appy.style.animation = "", 600);
+            alert("I love you, Niha! Please forgive Bhagi! 🥺💖");
         }
 
         typeMessage(0);
