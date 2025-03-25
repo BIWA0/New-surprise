@@ -3,51 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appy's Grand Apology</title>
+    <title>⚡ Appy's Ultimate Apology ⚡</title>
     <style>
         body {
-            background: linear-gradient(45deg, #1e1e1e, #3a3a3a);
+            background: black;
             color: white;
             font-family: 'Arial', sans-serif;
             text-align: center;
             padding: 20px;
             overflow: hidden;
         }
-        .chat-container {
-            max-width: 450px;
+        .holo-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+        .holo-img {
+            width: 200px;
+            animation: flicker 1.5s infinite alternate;
+            filter: drop-shadow(0px 0px 15px cyan);
+        }
+        @keyframes flicker {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+        .glowing-text {
+            font-size: 24px;
+            color: cyan;
+            text-shadow: 0px 0px 10px cyan, 0px 0px 20px blue;
+            animation: glow 1s infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0px 0px 10px cyan, 0px 0px 20px blue; }
+            100% { text-shadow: 0px 0px 15px white, 0px 0px 25px cyan; }
+        }
+        .chat-box {
+            max-width: 500px;
             margin: auto;
             background: rgba(255, 255, 255, 0.1);
             padding: 15px;
-            border-radius: 15px;
+            border-radius: 10px;
             text-align: left;
             position: relative;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        }
-        .appy-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            position: absolute;
-            top: -20px;
-            left: -70px;
-            transition: transform 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
         .chat-bubble {
-            background: #333;
-            padding: 12px;
-            border-radius: 15px;
-            margin: 12px 0;
-            display: inline-block;
+            background: rgba(0, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
             opacity: 0;
             transform: scale(0.8);
-            transition: all 0.4s ease-in-out;
+            transition: all 0.5s ease-in-out;
             white-space: pre-line;
         }
         .visible {
             opacity: 1;
             transform: scale(1);
         }
-        #forgive-btn {
+        .glitch {
+            font-size: 30px;
+            font-weight: bold;
+            color: cyan;
+            text-shadow: 2px 2px 10px cyan;
+            animation: glitch 0.8s infinite alternate;
+        }
+        @keyframes glitch {
+            0% { transform: skewX(3deg); }
+            100% { transform: skewX(-3deg); }
+        }
+        .apology-btn {
             display: none;
             margin-top: 20px;
             padding: 12px 20px;
@@ -59,37 +84,22 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-        #forgive-btn:hover {
+        .apology-btn:hover {
             background: darkred;
-        }
-        #appy-reaction {
-            display: none;
-            font-size: 22px;
-            margin-top: 20px;
-        }
-        .fireworks {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: gold;
-            border-radius: 50%;
-            position: fixed;
-            opacity: 0;
-            animation: explode 1s ease-out forwards;
-        }
-        @keyframes explode {
-            0% { opacity: 1; transform: scale(1) translate(0, 0); }
-            100% { opacity: 0; transform: scale(3) translate(var(--x), var(--y)); }
         }
     </style>
 </head>
 <body>
 
-    <h2>📢 **Appy’s Grand Apology** 🎭</h2>
-    <div class="chat-container">
-        <img src="https://i.imgur.com/QlKXMTp.png" alt="Appy" class="appy-avatar" id="appy-img">
-        <p class="chat-bubble" id="msg1">Hey Niha (or should I say **Mom**?) It’s me, Appy! 🐱‍💻</p>
-        <p class="chat-bubble" id="msg2">I know you’re mad at Bhagi… I AM TOO! 😡</p>
+    <h2 class="glowing-text">✨ Hey **Niha**! **Appy** has something to say... ✨</h2>
+
+    <div class="holo-container">
+        <img src="https://i.imgur.com/QlKXMTp.png" alt="Appy" class="holo-img">
+    </div>
+
+    <div class="chat-box">
+        <p class="chat-bubble" id="msg1">Hey Niha (or should I say **Mom**?) It's me, Appy! 🐱‍💻</p>
+        <p class="chat-bubble" id="msg2">I know you’re **mad** at Bhagi… I AM TOO! 😡</p>
         <p class="chat-bubble" id="msg3">I gave him an **earful**! 🔊</p>
         <p class="chat-bubble" id="msg4">He was in an emergency, **but he should’ve at least messaged you!**</p>
         <p class="chat-bubble" id="msg5">So guess what? I **annoyed** him ALL DAY with Alexa. 😈</p>
@@ -99,61 +109,38 @@
         <p class="chat-bubble" id="msg9">Will you **forgive this adorable idiot** for now? 🤭</p>
     </div>
 
-    <button id="forgive-btn" onclick="showAppyReaction()">Forgive Bhagi? ❤️</button>
-    <p id="appy-reaction">🎉 **YAY! I promise to keep Bhagi in check next time!** 😆</p>
+    <button id="forgive-btn" class="apology-btn" onclick="showSecretEnding()">Forgive Bhagi? ❤️</button>
+
+    <p id="appy-reaction" class="glitch" style="display: none;">🎉 **YAY! I promise to keep Bhagi in check next time!** 😆</p>
+
+    <audio id="appy-voice" autoplay>
+        <source src="https://your-audio-link.com/appy-voice.mp3" type="audio/mp3">
+    </audio>
 
     <script>
         const messages = document.querySelectorAll('.chat-bubble');
-        const appyImg = document.getElementById("appy-img");
-        const sound = new Audio("https://www.myinstants.com/media/sounds/pop.mp3"); // Tiny "boop" sound
-
         let index = 0;
 
         function showMessages() {
             if (index < messages.length) {
                 messages[index].classList.add('visible');
-                messages[index].innerHTML = messages[index].innerHTML.replace(/ /g, "&nbsp;"); // Preserve spacing
-                typingEffect(messages[index]);
-                sound.play(); // Play sound effect
-                index++;
-                if (index === 3) appyImg.style.transform = "rotate(-10deg)"; // Make Appy "react"
-                if (index === 5) appyImg.style.transform = "rotate(10deg)";
                 setTimeout(showMessages, 2000);
+                index++;
             } else {
                 document.getElementById("forgive-btn").style.display = "block";
             }
         }
         showMessages();
 
-        function typingEffect(element) {
-            let text = element.innerText;
-            element.innerText = "";
-            let i = 0;
-            let interval = setInterval(() => {
-                if (i < text.length) {
-                    element.innerText += text[i];
-                    i++;
-                } else {
-                    clearInterval(interval);
-                }
-            }, 50);
-        }
-
-        function showAppyReaction() {
+        function showSecretEnding() {
             document.getElementById("appy-reaction").style.display = "block";
-            appyImg.style.transform = "rotate(360deg) scale(1.2)"; // Appy spins in happiness
-            launchFireworks();
-        }
-
-        function launchFireworks() {
-            for (let i = 0; i < 15; i++) {
-                let fw = document.createElement("div");
-                fw.classList.add("fireworks");
-                fw.style.setProperty("--x", `${Math.random() * 200 - 100}px`);
-                fw.style.setProperty("--y", `${Math.random() * 200 - 100}px`);
-                document.body.appendChild(fw);
-                setTimeout(() => fw.remove(), 1000);
-            }
+            document.body.style.background = "gold";
+            let confetti = document.createElement("div");
+            confetti.innerHTML = "🎆🎇 FIREWORKS FOR NIHA 🎇🎆";
+            confetti.style.fontSize = "40px";
+            confetti.style.fontWeight = "bold";
+            confetti.style.color = "red";
+            document.body.appendChild(confetti);
         }
     </script>
 
