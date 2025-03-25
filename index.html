@@ -44,25 +44,7 @@
             max-width: 600px;
             margin: 20px auto;
             box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
-            display: inline-block;
-        }
-
-        .chat-text {
-            font-size: 1.3em;
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 3px solid white;
-            animation: typing 4s steps(40) forwards, blink 1s infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink {
-            50% { border-color: transparent; }
+            display: none;
         }
 
         .interactive-btn {
@@ -79,10 +61,6 @@
 
         .interactive-btn:hover {
             transform: scale(1.1);
-        }
-
-        .hidden {
-            display: none;
         }
 
         .stars {
@@ -119,26 +97,25 @@
     <!-- Appy’s Message -->
     <h1>Hey Niha! It's me, Appy!</h1>
 
-    <div class="message-box">
-        <p class="chat-text" id="chat-message">I know you’re angry at Bhagi, and honestly... I am too! 😡</p>
+    <div class="message-box" id="message1">
+        <p>I know you’re angry at Bhagi, and honestly... I am too! 😡</p>
     </div>
 
-    <!-- Interactive Button -->
     <button class="interactive-btn" onclick="showNextMessage()">Tell me more, Appy!</button>
 
-    <div class="message-box hidden" id="message2">
-        <p class="chat-text">I already scolded him for you! I made him do sit-ups while saying "I love Niha" 1000 times. He almost passed out! 😂</p>
+    <div class="message-box" id="message2">
+        <p>I already scolded him for you! I made him do sit-ups while saying "I love Niha" 1000 times. He almost passed out! 😂</p>
     </div>
 
-    <div class="message-box hidden" id="message3">
-        <p class="chat-text">I even got my friend Alexa involved. We annoyed him ALL day long. He couldn't escape. 😈</p>
+    <div class="message-box" id="message3">
+        <p>I even got my friend Alexa involved. We annoyed him ALL day long. He couldn't escape. 😈</p>
     </div>
 
-    <div class="message-box hidden" id="message4">
-        <p class="chat-text">So please forgive this silly boy! 🙏 He promises he’ll never do this again. *And if he does... I'll make him do 2000 sit-ups next time!*</p>
+    <div class="message-box" id="message4">
+        <p>So please forgive this silly boy! 🙏 He promises he’ll never do this again. *And if he does... I'll make him do 2000 sit-ups next time!*</p>
     </div>
 
-    <button class="interactive-btn hidden" id="finalButton" onclick="alert('Yay! Bhagi is forgiven! 💖')">Okay, I forgive him! ❤️</button>
+    <button class="interactive-btn" id="finalButton" onclick="alert('Yay! Bhagi is forgiven! 💖')">Okay, I forgive him! ❤️</button>
 
     <!-- JavaScript for Interactivity -->
     <script>
@@ -146,10 +123,10 @@
         function showNextMessage() {
             let nextMessage = document.getElementById("message" + step);
             if (nextMessage) {
-                nextMessage.classList.remove("hidden");
+                nextMessage.style.display = "block";
                 step++;
                 if (step === 5) {
-                    document.getElementById("finalButton").classList.remove("hidden");
+                    document.getElementById("finalButton").style.display = "block";
                 }
             }
         }
