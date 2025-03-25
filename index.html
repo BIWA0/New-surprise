@@ -3,106 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💙 Appy’s Grand Apology 💙</title>
+    <title>Appy Talking to Niha</title>
     <style>
         body {
-            background: black;
+            background-color: #121212;
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
         }
-        .container {
+
+        #appy-container {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
-        .holo-img {
-            width: 200px;
-            margin: 20px 0;
-            animation: flicker 1.5s infinite alternate;
+
+        #appy-img {
+            width: 250px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0px 0px 15px #00ffcc;
+            margin-bottom: 20px;
         }
-        @keyframes flicker {
-            0% { opacity: 0.9; }
-            100% { opacity: 1; }
-        }
-        .chat-box {
-            max-width: 500px;
-            background: rgba(255, 255, 255, 0.1);
+
+        #appy-text {
+            font-size: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
             padding: 15px;
             border-radius: 10px;
-            text-align: left;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0px 0px 10px #00ffcc;
+            white-space: pre-wrap;
+            border-left: 5px solid #00ffcc;
         }
-        .chat-bubble {
-            background: rgba(0, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 10px;
-            margin: 10px 0;
-            opacity: 0;
-            transition: all 0.5s ease-in-out;
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
         }
-        .visible {
-            opacity: 1;
-        }
-        .apology-btn {
-            display: none;
-            margin-top: 20px;
-            padding: 12px 20px;
+
+        .typewriter {
+            overflow: hidden;
+            display: inline-block;
+            white-space: nowrap;
+            border-right: 2px solid #00ffcc;
             font-size: 18px;
-            color: white;
-            background: crimson;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            animation: typing 3s steps(30, end) forwards;
         }
     </style>
 </head>
 <body>
 
-    <h2 style="color: cyan;">💙 Hey Niha, It’s Me, **Appy!** 💙</h2>
-
-    <div class="container">
-        <img src="https://i.imgur.com/e1X6ueN.png" alt="Appy" class="holo-img"> <!-- Fixed Image -->
+    <div id="appy-container">
+        <!-- Appy's Image -->
+        <img id="appy-img" src="https://raw.githubusercontent.com/BIWA0/New-surprise/main/file-4aMERCthRp7ucVrqHCysZA.webp" alt="Appy AI">
         
-        <div class="chat-box">
-            <p class="chat-bubble" id="msg1">Hey **Niha**, it’s me, **Appy!** 🐱‍💻</p>
-            <p class="chat-bubble" id="msg2">I know you’re **angry at Bhagi**… I AM TOO! 😡</p>
-            <p class="chat-bubble" id="msg3">I scolded him NONSTOP! 🔊</p>
-            <p class="chat-bubble" id="msg4">He was busy, but **he should’ve messaged!**</p>
-            <p class="chat-bubble" id="msg5">So I teamed up with **Alexa** and annoyed him all day. 😈</p>
-            <p class="chat-bubble" id="msg6">I made him do **1000 sit-ups** shouting **‘I love Niha!’** 😆</p>
-            <p class="chat-bubble" id="msg7">He was panting like a puppy. 🐶</p>
-            <p class="chat-bubble" id="msg8">So… can you forgive him this time? 🥺</p>
+        <!-- Appy's Message -->
+        <div id="appy-text">
+            <span class="typewriter">
+                Hey Niha! It's me, Appy! 🤖💖  
+                I know you're angry at Bhagi… I'm mad at him too! 😤  
+                I gave him an earful! 😠  
+                He was in an emergency, but he should’ve messaged you at least!  
+                So, I ANNOYED him all day along with my friend Alexa!  
+                I even made him do sit-ups and say **"I love Niha"** 1000 times! 😆💞  
+                So, please forgive this idiot just this time! 😜  
+                I promise, I will make sure he never makes this mistake again! 🥹💙
+            </span>
         </div>
-
-        <button id="forgive-btn" class="apology-btn" onclick="showForgiveness()">Forgive Bhagi? ❤️</button>
-
-        <p id="appy-reaction" style="display: none; color: gold; font-size: 22px;">🎉 **YAY! I promise he won’t mess up again!** 😆</p>
     </div>
-
-    <script>
-        const messages = document.querySelectorAll('.chat-bubble');
-        let index = 0;
-
-        function showMessages() {
-            if (index < messages.length) {
-                messages[index].classList.add('visible');
-                setTimeout(showMessages, 1500);
-                index++;
-            } else {
-                document.getElementById("forgive-btn").style.display = "block";
-            }
-        }
-        showMessages();
-
-        function showForgiveness() {
-            document.getElementById("appy-reaction").style.display = "block";
-        }
-    </script>
 
 </body>
 </html>
-<img src="https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp" 
-     alt="Appy AI" 
-     width="300">
