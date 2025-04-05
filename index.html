@@ -13,6 +13,7 @@
       background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
       color: #fff;
       overflow-x: hidden;
+      position: relative;
     }
 
     .scene {
@@ -21,6 +22,7 @@
       min-height: 100vh;
       text-align: center;
       position: relative;
+      z-index: 2;
     }
 
     .scene.active {
@@ -63,8 +65,18 @@
       width: 100%;
       height: 100%;
       background: transparent url('https://i.imgur.com/5WbzzJk.png') repeat;
-      z-index: -1;
+      z-index: -2;
       animation: moveStars 100s linear infinite;
+    }
+
+    .forest-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/1G4CPkG.jpg') no-repeat center center;
+      background-size: cover;
+      z-index: -3;
+      opacity: 0.3;
     }
 
     @keyframes moveStars {
@@ -77,26 +89,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    #secretMessage {
-      display: none;
-      font-style: italic;
-      font-size: 1.3em;
-      text-shadow: 0 0 10px #ffccff;
-      margin-top: 30px;
-    }
-
-    .forest-bg {
-      background: url('https://i.imgur.com/1G4CPkG.jpg') no-repeat center center;
-      background-size: cover;
-      opacity: 0.2;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-    }
-
     .tree, .wisp {
       margin: 30px auto;
       padding: 20px;
@@ -105,6 +97,8 @@
       max-width: 400px;
       cursor: pointer;
       transition: all 0.4s ease;
+      font-weight: bold;
+      font-size: 1.2em;
     }
 
     .tree {
@@ -122,8 +116,8 @@
     .wisp {
       background: rgba(173, 216, 230, 0.2);
       border: 2px solid #add8e6;
-      animation: floatWisp 6s ease-in-out infinite;
       box-shadow: 0 0 10px #ccffff;
+      animation: floatWisp 6s ease-in-out infinite;
     }
 
     .wisp:hover {
@@ -137,38 +131,37 @@
       50% { transform: translateY(-15px); }
     }
 
-    .glow-text {
-      animation: glow 1.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ff66cc, 0 0 20px #ff66cc, 0 0 30px #ff66cc; }
-      to { text-shadow: 0 0 20px #ff99cc, 0 0 30px #ff99cc, 0 0 40px #ff99cc; }
+    #secretMessage {
+      display: none;
+      font-style: italic;
+      font-size: 1.3em;
+      text-shadow: 0 0 10px #ffccff;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
+  <div class="forest-bg"></div>
   <div class="stars"></div>
 
-  <!-- Scene 1: Welcome -->
+  <!-- Scene 1 -->
   <div id="scene1" class="scene active">
-    <h1 class="glow-text">Welcome, Niha...</h1>
-    <p>The stars have written your name beside Bhargav’s in constellations only lovers can see.</p>
+    <h1>Welcome, Niha...</h1>
+    <p>Behind this magical gate lies a challenge only your heart can conquer.</p>
     <button onclick="goToScene(2)">Enter the Fantasy</button>
   </div>
 
-  <!-- Scene 2: Forest of Whispers -->
+  <!-- Scene 2 -->
   <div id="scene2" class="scene">
-    <div class="forest-bg"></div>
     <h2>The Forest of Whispers</h2>
-    <p>Soft moonlight falls on dream-soaked leaves. Every wisp carries a secret. Every tree remembers a feeling.</p>
-
-    <div class="wisp" onclick="revealMessage('A soft breeze wraps around you… whispering *“Bhargav dreams of you every night.”*')">
-      A glowing wisp floats by...
+    <p>You walk into a glowing forest where fireflies whisper secrets of love and dreams float like petals.</p>
+    
+    <div class="wisp" onclick="revealMessage('You followed the whisper... and the trees sighed, *Bhargav’s love for you is eternal.*')">
+      Follow the Whisper
     </div>
-
-    <div class="tree" onclick="revealMessage('You place your hand on the bark. It glows. The tree hums, *“Bhargav’s heart beats only for you.”*')">
-      A heart tree pulses gently...
+    
+    <div class="tree" onclick="revealMessage('You touched the glowing stone... it pulsed gently and whispered, *You are Bhargav’s only magic.*')">
+      Touch the Glowing Stone
     </div>
 
     <p id="secretMessage"></p>
@@ -177,8 +170,8 @@
 
   <!-- Scene 3 -->
   <div id="scene3" class="scene">
-    <h2>Scene 3: The River of Memories</h2>
-    <p>Coming soon... where ripples show your sweetest memories together and secret dreams float like lanterns.</p>
+    <h2>Scene 3 coming next...</h2>
+    <p>I’ll unlock the River of Memories soon...</p>
   </div>
 
   <script>
