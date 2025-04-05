@@ -13,7 +13,6 @@
       background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
       color: #fff;
       overflow-x: hidden;
-      position: relative;
     }
 
     .scene {
@@ -22,7 +21,6 @@
       min-height: 100vh;
       text-align: center;
       position: relative;
-      z-index: 2;
     }
 
     .scene.active {
@@ -64,19 +62,9 @@
       position: fixed;
       width: 100%;
       height: 100%;
-      background: transparent url('https://i.imgur.com/5WbzzJk.png') repeat;
-      z-index: -2;
+      background: transparent url('https://i.ibb.co/Kyxk4nD/stars-bg.png') repeat;
+      z-index: -1;
       animation: moveStars 100s linear infinite;
-    }
-
-    .forest-bg {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: url('https://i.imgur.com/1G4CPkG.jpg') no-repeat center center;
-      background-size: cover;
-      z-index: -3;
-      opacity: 0.3;
     }
 
     @keyframes moveStars {
@@ -89,6 +77,26 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    #secretMessage {
+      display: none;
+      font-style: italic;
+      font-size: 1.3em;
+      text-shadow: 0 0 10px #ffccff;
+      margin-top: 30px;
+    }
+
+    .forest-bg {
+      background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Mystical_forest_sunlight.jpg') no-repeat center center;
+      background-size: cover;
+      opacity: 0.25;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+
     .tree, .wisp {
       margin: 30px auto;
       padding: 20px;
@@ -97,8 +105,7 @@
       max-width: 400px;
       cursor: pointer;
       transition: all 0.4s ease;
-      font-weight: bold;
-      font-size: 1.2em;
+      box-shadow: 0 0 10px;
     }
 
     .tree {
@@ -130,45 +137,32 @@
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-15px); }
     }
-
-    #secretMessage {
-      display: none;
-      font-style: italic;
-      font-size: 1.3em;
-      text-shadow: 0 0 10px #ffccff;
-      margin-top: 30px;
-    }
   </style>
 </head>
 <body>
-  <div class="forest-bg"></div>
   <div class="stars"></div>
 
-  <!-- Scene 1 -->
+  <!-- Scene 1: Welcome -->
   <div id="scene1" class="scene active">
     <h1>Welcome, Niha...</h1>
     <p>Behind this magical gate lies a challenge only your heart can conquer.</p>
     <button onclick="goToScene(2)">Enter the Fantasy</button>
   </div>
 
-  <!-- Scene 2 -->
+  <!-- Scene 2: Forest of Whispers -->
   <div id="scene2" class="scene">
+    <div class="forest-bg"></div>
     <h2>The Forest of Whispers</h2>
     <p>You walk into a glowing forest where fireflies whisper secrets of love and dreams float like petals.</p>
     
-    <div class="wisp" onclick="revealMessage('You followed the whisper... and the trees sighed, *Bhargav’s love for you is eternal.*')">
-      Follow the Whisper
-    </div>
+    <div class="tree" onclick="revealMessage('You followed the whisper... and the trees sighed, *Bhargav’s love for you is eternal.*')">Follow the Whisper</div>
+    <div class="wisp" onclick="revealMessage('You touched the glowing stone... it pulsed gently and whispered, *You are Bhargav’s only magic.*')">Touch the Glowing Stone</div>
     
-    <div class="tree" onclick="revealMessage('You touched the glowing stone... it pulsed gently and whispered, *You are Bhargav’s only magic.*')">
-      Touch the Glowing Stone
-    </div>
-
     <p id="secretMessage"></p>
     <button onclick="goToScene(3)">Next Scene</button>
   </div>
 
-  <!-- Scene 3 -->
+  <!-- Scene 3 placeholder -->
   <div id="scene3" class="scene">
     <h2>Scene 3 coming next...</h2>
     <p>I’ll unlock the River of Memories soon...</p>
