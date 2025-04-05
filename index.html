@@ -1,192 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Niha's Fantasy Love Quest</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Niha's Fantasy Love Quest</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville&display=swap');
 
-    body {
-      margin: 0;
-      font-family: 'Libre Baskerville', serif;
-      background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
-      color: #fff;
-      overflow-x: hidden;
-    }
+    body {
+      margin: 0;
+      font-family: 'Libre Baskerville', serif;
+      background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
+      color: #fff;
+      overflow-x: hidden;
+    }
 
-    .scene {
-      display: none;
-      padding: 60px 20px;
-      min-height: 100vh;
-      text-align: center;
-      position: relative;
-    }
+    .scene {
+      display: none;
+      padding: 60px 20px;
+      min-height: 100vh;
+      text-align: center;
+      position: relative;
+    }
 
-    .scene.active {
-      display: block;
-      animation: fadeIn 2s ease-in;
-    }
+    .scene.active {
+      display: block;
+      animation: fadeIn 2s ease-in;
+    }
 
-    h1, h2 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.5em;
-      text-shadow: 0 0 10px #fff;
-    }
+    h1, h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5em;
+      text-shadow: 0 0 10px #fff;
+    }
 
-    p {
-      font-size: 1.2em;
-      margin: 20px auto;
-      max-width: 600px;
-      line-height: 1.6;
-    }
+    p {
+      font-size: 1.2em;
+      margin: 20px auto;
+      max-width: 600px;
+      line-height: 1.6;
+    }
 
-    button {
-      background: linear-gradient(to right, #ff0080, #7928ca);
-      border: none;
-      color: white;
-      padding: 14px 28px;
-      font-size: 1em;
-      border-radius: 30px;
-      cursor: pointer;
-      margin: 10px;
-      box-shadow: 0 0 10px #ff00cc;
-      transition: transform 0.3s;
-    }
+    button {
+      background: linear-gradient(to right, #ff0080, #7928ca);
+      border: none;
+      color: white;
+      padding: 14px 28px;
+      font-size: 1em;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+      box-shadow: 0 0 10px #ff00cc;
+      transition: transform 0.3s;
+    }
 
-    button:hover {
-      transform: scale(1.1);
-    }
+    button:hover {
+      transform: scale(1.1);
+    }
 
-    .stars {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: transparent url('https://i.imgur.com/5WbzzJk.png') repeat;
-      z-index: -1;
-      animation: moveStars 100s linear infinite;
-    }
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: transparent url('https://i.imgur.com/5WbzzJk.png') repeat;
+      z-index: -1;
+      animation: moveStars 100s linear infinite;
+    }
 
-    @keyframes moveStars {
-      from { background-position: 0 0; }
-      to { background-position: 10000px 5000px; }
-    }
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: 10000px 5000px; }
+    }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-    #secretMessage {
-      display: none;
-      font-style: italic;
-      font-size: 1.3em;
-      text-shadow: 0 0 10px #ffccff;
-      margin-top: 30px;
-    }
-.forest-bg {
-  background: url('https://i.imgur.com/1G4CPkG.jpg') no-repeat center center;
-  background-size: cover;
-  opacity: 0.25;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-}
+    #secretMessage {
+      display: none;
+      font-style: italic;
+      font-size: 1.3em;
+      text-shadow: 0 0 10px #ffccff;
+      margin-top: 30px;
+    }
 
-.tree {
-  margin: 30px auto;
-  padding: 20px;
-  background: rgba(34, 139, 34, 0.2);
-  border: 2px solid #66ff66;
-  border-radius: 20px;
-  width: 60%;
-  max-width: 400px;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  box-shadow: 0 0 10px #66ff66;
-}
+    .forest-bg {
+      background: url('https://i.imgur.com/1G4CPkG.jpg') no-repeat center center;
+      background-size: cover;
+      opacity: 0.2;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
 
-.tree:hover {
-  background: rgba(34, 139, 34, 0.4);
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #99ff99;
-}
+    .tree, .wisp {
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 20px;
+      width: 60%;
+      max-width: 400px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
 
-.wisp {
-  margin: 30px auto;
-  padding: 20px;
-  background: rgba(173, 216, 230, 0.2);
-  border: 2px solid #add8e6;
-  border-radius: 20px;
-  width: 60%;
-  max-width: 400px;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  animation: floatWisp 6s ease-in-out infinite;
-  box-shadow: 0 0 10px #ccffff;
-}
+    .tree {
+      background: rgba(34, 139, 34, 0.2);
+      border: 2px solid #66ff66;
+      box-shadow: 0 0 10px #66ff66;
+    }
 
-.wisp:hover {
-  background: rgba(173, 216, 230, 0.4);
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #ccffff;
-}
+    .tree:hover {
+      background: rgba(34, 139, 34, 0.4);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #99ff99;
+    }
 
-@keyframes floatWisp {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-}
-  </style>
+    .wisp {
+      background: rgba(173, 216, 230, 0.2);
+      border: 2px solid #add8e6;
+      animation: floatWisp 6s ease-in-out infinite;
+      box-shadow: 0 0 10px #ccffff;
+    }
+
+    .wisp:hover {
+      background: rgba(173, 216, 230, 0.4);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ccffff;
+    }
+
+    @keyframes floatWisp {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .glow-text {
+      animation: glow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff66cc, 0 0 20px #ff66cc, 0 0 30px #ff66cc; }
+      to { text-shadow: 0 0 20px #ff99cc, 0 0 30px #ff99cc, 0 0 40px #ff99cc; }
+    }
+  </style>
 </head>
 <body>
-  <div class="stars"></div>
+  <div class="stars"></div>
 
-  <!-- Scene 1: Welcome -->
-  <div id="scene1" class="scene active">
-    <h1>Welcome, Niha...</h1>
-    <p>Behind this magical gate lies a challenge only your heart can conquer.</p>
-    <button onclick="goToScene(2)">Enter the Fantasy</button>
-  </div>
+  <!-- Scene 1: Welcome -->
+  <div id="scene1" class="scene active">
+    <h1 class="glow-text">Welcome, Niha...</h1>
+    <p>The stars have written your name beside Bhargav’s in constellations only lovers can see.</p>
+    <button onclick="goToScene(2)">Enter the Fantasy</button>
+  </div>
 
-  <!-- Scene 2: Forest of Whispers -->
-  <div id="scene2" class="scene">
-    <h2>The Forest of Whispers</h2>
-    <p>You walk into a glowing forest where fireflies whisper secrets of love and dreams float like petals.</p>
-    <button onclick="revealMessage('You followed the whisper... and the trees sighed, *Bhargav’s love for you is eternal.*')">Follow the Whisper</button>
-    <button onclick="revealMessage('You touched the glowing stone... it pulsed gently and whispered, *You are Bhargav’s only magic.*')">Touch the Glowing Stone</button>
-    <p id="secretMessage"></p>
-    <button onclick="goToScene(3)">Next Scene</button>
-  </div>
+  <!-- Scene 2: Forest of Whispers -->
+  <div id="scene2" class="scene">
+    <div class="forest-bg"></div>
+    <h2>The Forest of Whispers</h2>
+    <p>Soft moonlight falls on dream-soaked leaves. Every wisp carries a secret. Every tree remembers a feeling.</p>
 
-  <!-- Scene 3 placeholder -->
-  <div id="scene3" class="scene">
-    <h2>Scene 3 coming next...</h2>
-    <p>I’ll unlock the River of Memories soon...</p>
-  </div>
+    <div class="wisp" onclick="revealMessage('A soft breeze wraps around you… whispering *“Bhargav dreams of you every night.”*')">
+      A glowing wisp floats by...
+    </div>
 
-  <script>
-    function goToScene(num) {
-      document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
-      document.getElementById('scene' + num).classList.add('active');
-    }
+    <div class="tree" onclick="revealMessage('You place your hand on the bark. It glows. The tree hums, *“Bhargav’s heart beats only for you.”*')">
+      A heart tree pulses gently...
+    </div>
 
-    function revealMessage(msg) {
-      const el = document.getElementById("secretMessage");
-      el.style.display = "block";
-      el.textContent = "";
-      let i = 0;
-      function type() {
-        if (i < msg.length) {
-          el.textContent += msg.charAt(i);
-          i++;
-          setTimeout(type, 40);
-        }
-      }
-      type();
-    }
-  </script>
+    <p id="secretMessage"></p>
+    <button onclick="goToScene(3)">Next Scene</button>
+  </div>
+
+  <!-- Scene 3 -->
+  <div id="scene3" class="scene">
+    <h2>Scene 3: The River of Memories</h2>
+    <p>Coming soon... where ripples show your sweetest memories together and secret dreams float like lanterns.</p>
+  </div>
+
+  <script>
+    function goToScene(num) {
+      document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+      document.getElementById('scene' + num).classList.add('active');
+    }
+
+    function revealMessage(msg) {
+      const el = document.getElementById("secretMessage");
+      el.style.display = "block";
+      el.textContent = "";
+      let i = 0;
+      function type() {
+        if (i < msg.length) {
+          el.textContent += msg.charAt(i);
+          i++;
+          setTimeout(type, 40);
+        }
+      }
+      type();
+    }
+  </script>
 </body>
 </html>
