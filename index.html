@@ -3,79 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Niha's Love Challenge</title>
+  <title>Niha's Fantasy Love Quest</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville&display=swap');
+
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Georgia', serif;
-      background-color: black;
-      color: white;
+      font-family: 'Libre Baskerville', serif;
+      background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
+      color: #fff;
+      overflow-x: hidden;
     }
-    section {
-      padding: 40px;
+
+    .scene {
+      display: none;
+      padding: 60px 20px;
       min-height: 100vh;
       text-align: center;
+      position: relative;
     }
+
+    .scene.active {
+      display: block;
+      animation: fadeIn 2s ease-in;
+    }
+
     h1, h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5em;
       text-shadow: 0 0 10px #fff;
     }
+
+    p {
+      font-size: 1.2em;
+      margin: 20px auto;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
     button {
-      margin: 10px;
-      padding: 12px 24px;
+      background: linear-gradient(to right, #ff0080, #7928ca);
       border: none;
-      border-radius: 25px;
-      font-size: 1em;
       color: white;
+      padding: 14px 28px;
+      font-size: 1em;
+      border-radius: 30px;
       cursor: pointer;
+      margin: 10px;
+      box-shadow: 0 0 10px #ff00cc;
+      transition: transform 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: transparent url('https://i.imgur.com/5WbzzJk.png') repeat;
+      z-index: -1;
+      animation: moveStars 100s linear infinite;
+    }
+
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: 10000px 5000px; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #secretMessage {
+      display: none;
+      font-style: italic;
+      font-size: 1.3em;
+      text-shadow: 0 0 10px #ffccff;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
+  <div class="stars"></div>
 
-<!-- Scene 1: Magical Gate -->
-<section id="scene1" style="background: linear-gradient(to right, #6a11cb, #2575fc);">
-  <h1>Welcome, Niha...</h1>
-  <p style="font-size: 1.2em;">Are you ready to take on the Love Challenge?</p>
-  <button style="background: #ff4081;" onclick="startChallenge()">Start Challenge</button>
-</section>
-
-<!-- Scene 2: Forest of Whispers -->
-<section id="scene2" style="display:none; background: url('https://i.imgur.com/jrFybYQ.jpg') no-repeat center center/cover;">
-  <h2 style="font-size: 2em; text-shadow: 0 0 10px #00f2ff;">Scene 2: The Forest of Whispers</h2>
-  <p style="margin: 20px auto; max-width: 500px; font-size: 1.2em; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 15px;">
-    You step into a glowing forest. Fireflies dance in the air. Gentle whispers seem to call Niha’s name from deep within the trees.
-  </p>
-
-  <div id="choices" style="margin-top: 30px;">
-    <button onclick="revealMessage('You follow the whisper... and find a glowing flower whispering: *I love you more with each heartbeat.*')" style="background: #00c8ff;">Follow the Whisper</button>
-    <button onclick="revealMessage('You touch the glowing stone... and it glows warmly: *Bhargav’s heart belongs only to you.*')" style="background: #ff5edb;">Touch the Glowing Stone</button>
+  <!-- Scene 1: Welcome -->
+  <div id="scene1" class="scene active">
+    <h1>Welcome, Niha...</h1>
+    <p>Behind this magical gate lies a challenge only your heart can conquer.</p>
+    <button onclick="goToScene(2)">Enter the Fantasy</button>
   </div>
 
-  <p id="secretMessage" style="margin-top: 30px; font-size: 1.3em; display:none; text-shadow: 0 0 5px #fff;"></p>
-</section>
+  <!-- Scene 2: Forest of Whispers -->
+  <div id="scene2" class="scene">
+    <h2>The Forest of Whispers</h2>
+    <p>You walk into a glowing forest where fireflies whisper secrets of love and dreams float like petals.</p>
+    <button onclick="revealMessage('You followed the whisper... and the trees sighed, *Bhargav’s love for you is eternal.*')">Follow the Whisper</button>
+    <button onclick="revealMessage('You touched the glowing stone... it pulsed gently and whispered, *You are Bhargav’s only magic.*')">Touch the Glowing Stone</button>
+    <p id="secretMessage"></p>
+    <button onclick="goToScene(3)">Next Scene</button>
+  </div>
 
-<script>
-  function startChallenge() {
-    document.getElementById("scene1").style.display = "none";
-    document.getElementById("scene2").style.display = "block";
-  }
+  <!-- Scene 3 placeholder -->
+  <div id="scene3" class="scene">
+    <h2>Scene 3 coming next...</h2>
+    <p>I’ll unlock the River of Memories soon...</p>
+  </div>
 
-  function revealMessage(msg) {
-    const text = document.getElementById("secretMessage");
-    text.innerHTML = "";
-    text.style.display = "block";
-    let i = 0;
-    function type() {
-      if (i < msg.length) {
-        text.innerHTML += msg.charAt(i);
-        i++;
-        setTimeout(type, 50);
-      }
+  <script>
+    function goToScene(num) {
+      document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+      document.getElementById('scene' + num).classList.add('active');
     }
-    type();
-  }
-</script>
 
+    function revealMessage(msg) {
+      const el = document.getElementById("secretMessage");
+      el.style.display = "block";
+      el.textContent = "";
+      let i = 0;
+      function type() {
+        if (i < msg.length) {
+          el.textContent += msg.charAt(i);
+          i++;
+          setTimeout(type, 40);
+        }
+      }
+      type();
+    }
+  </script>
 </body>
 </html>
