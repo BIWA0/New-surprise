@@ -2,119 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Love Challenge for Niha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Niha's Love Challenge</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
       background-color: black;
       color: white;
-      font-family: 'Comic Sans MS', cursive;
+    }
+    section {
+      padding: 40px;
+      min-height: 100vh;
       text-align: center;
-      padding: 20px;
     }
-
-    h1 {
-      color: pink;
-      font-size: 3em;
+    h1, h2 {
+      text-shadow: 0 0 10px #fff;
     }
-
-    button, .heart {
-      padding: 10px 20px;
-      font-size: 1.2em;
-      border-radius: 12px;
-      border: none;
+    button {
       margin: 10px;
-      cursor: pointer;
-    }
-
-    .start-btn, .next-btn {
-      background: hotpink;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1em;
       color: white;
-    }
-
-    .question, .love-notes, .final-message {
-      display: none;
-      margin-top: 30px;
-    }
-
-    .heart {
-      font-size: 2em;
-      background-color: transparent;
-      color: red;
-    }
-
-    .note {
-      font-size: 1.4em;
-      color: lightyellow;
-      margin-top: 10px;
-    }
-
-    .fireworks {
-      font-size: 2em;
-      color: gold;
-      animation: explode 1s ease-in-out infinite alternate;
-    }
-
-    @keyframes explode {
-      from { text-shadow: 0 0 5px yellow; }
-      to { text-shadow: 0 0 20px red; }
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+
+<!-- Scene 1: Magical Gate -->
+<section id="scene1" style="background: linear-gradient(to right, #6a11cb, #2575fc);">
   <h1>Welcome, Niha...</h1>
-  <p>Are you ready to take on the Love Challenge?</p>
-  <button class="start-btn" onclick="startChallenge()">Start Challenge</button>
+  <p style="font-size: 1.2em;">Are you ready to take on the Love Challenge?</p>
+  <button style="background: #ff4081;" onclick="startChallenge()">Start Challenge</button>
+</section>
 
-  <div class="question" id="quiz">
-    <h2>Challenge 1: Love Quiz</h2>
-    <p>When did Bhargav start falling for you?</p>
-    <button onclick="nextChallenge()">When he saw you in pink</button>
-    <button onclick="nextChallenge()">When you fought for food</button>
-    <button onclick="nextChallenge()">Since the first smile</button>
+<!-- Scene 2: Forest of Whispers -->
+<section id="scene2" style="display:none; background: url('https://i.imgur.com/jrFybYQ.jpg') no-repeat center center/cover;">
+  <h2 style="font-size: 2em; text-shadow: 0 0 10px #00f2ff;">Scene 2: The Forest of Whispers</h2>
+  <p style="margin: 20px auto; max-width: 500px; font-size: 1.2em; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 15px;">
+    You step into a glowing forest. Fireflies dance in the air. Gentle whispers seem to call Niha’s name from deep within the trees.
+  </p>
+
+  <div id="choices" style="margin-top: 30px;">
+    <button onclick="revealMessage('You follow the whisper... and find a glowing flower whispering: *I love you more with each heartbeat.*')" style="background: #00c8ff;">Follow the Whisper</button>
+    <button onclick="revealMessage('You touch the glowing stone... and it glows warmly: *Bhargav’s heart belongs only to you.*')" style="background: #ff5edb;">Touch the Glowing Stone</button>
   </div>
 
-  <div class="love-notes" id="hearts">
-    <h2>Challenge 2: Pick-a-Number</h2>
-    <p>Pick a heart to reveal a love note!</p>
-    <div>
-      <button class="heart" onclick="showNote(1)">1</button>
-      <button class="heart" onclick="showNote(2)">2</button>
-      <button class="heart" onclick="showNote(3)">3</button>
-    </div>
-    <p class="note" id="note"></p>
-    <button class="next-btn" onclick="finalMessage()">Final Message</button>
-  </div>
+  <p id="secretMessage" style="margin-top: 30px; font-size: 1.3em; display:none; text-shadow: 0 0 5px #fff;"></p>
+</section>
 
-  <div class="final-message" id="final">
-    <h2 class="fireworks">You did it, Niha!</h2>
-    <p>This love challenge is nothing compared to how much I adore you.</p>
-    <p>— Yours always, Bhargav</p>
-  </div>
+<script>
+  function startChallenge() {
+    document.getElementById("scene1").style.display = "none";
+    document.getElementById("scene2").style.display = "block";
+  }
 
-  <script>
-    function startChallenge() {
-      document.querySelector(".start-btn").style.display = "none";
-      document.getElementById("quiz").style.display = "block";
+  function revealMessage(msg) {
+    const text = document.getElementById("secretMessage");
+    text.innerHTML = "";
+    text.style.display = "block";
+    let i = 0;
+    function type() {
+      if (i < msg.length) {
+        text.innerHTML += msg.charAt(i);
+        i++;
+        setTimeout(type, 50);
+      }
     }
+    type();
+  }
+</script>
 
-    function nextChallenge() {
-      document.getElementById("quiz").style.display = "none";
-      document.getElementById("hearts").style.display = "block";
-    }
-
-    function showNote(num) {
-      let messages = {
-        1: "You’re the heartbeat I never knew I was missing.",
-        2: "Even in chaos, your smile calms me.",
-        3: "You make me fall for you more every single day."
-      };
-      document.getElementById("note").textContent = messages[num];
-    }
-
-    function finalMessage() {
-      document.getElementById("hearts").style.display = "none";
-      document.getElementById("final").style.display = "block";
-    }
-  </script>
 </body>
 </html>
