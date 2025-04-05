@@ -1,150 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appy's Apology Mission</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-        body {
-            background: url('https://github.com/BIWA0/New-surprise/raw/refs/heads/main/file-4aMERCthRp7ucVrqHCysZA.webp') no-repeat center center/cover;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-            text-align: center;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        #chatbox {
-            width: 90%;
-            max-width: 500px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            overflow-y: auto;
-            max-height: 80vh;
-        }
-
-        .message {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.8s forwards;
-            margin-bottom: 15px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            text-align: left;
-            display: inline-block;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-
-        .message.typing {
-            width: 30px;
-            height: 10px;
-            background: white;
-            border-radius: 5px;
-            display: inline-block;
-            animation: typingBlink 1s infinite;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes typingBlink {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        .button {
-            display: inline-block;
-            padding: 12px 20px;
-            margin: 10px;
-            background: pink;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            color: black;
-            transition: 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .button:hover { background: hotpink; }
-
-        .hidden { display: none; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhargav x Niha Love Challenge</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      overflow-x: hidden;
+    }
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+    .btn {
+      padding: 12px 24px;
+      background: #ff4081;
+      border: none;
+      color: white;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    .question {
+      padding: 20px;
+    }
+    .option {
+      background: #333;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .option:hover {
+      background: #ff4081;
+    }
+    .fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: url('https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif') center center / cover no-repeat;
+      z-index: 999;
+    }
+    .love-note {
+      font-size: 22px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      max-width: 90%;
+      margin: 20px auto;
+    }
+  </style>
 </head>
 <body>
-    <div id="chatbox">
-        <h2>Hi Niha! (or should I say, Mom 🥰)</h2>
-        <div id="messages"></div>
-        <div id="buttons" class="hidden">
-            <div class="button" onclick="sendResponse(1)">OMG tell me more! 🤩</div>
-            <div class="button" onclick="sendResponse(2)">Wait... 1000 times?! 😂</div>
-            <div class="button" onclick="sendResponse(3)">Fine, I forgive him 😒</div>
-        </div>
+  <div class="center" id="intro">
+    <h1>Welcome, Niha...</h1>
+    <p>Are you ready to take on the Love Challenge?</p>
+    <button class="btn" onclick="startChallenge()">Start Challenge</button>
+  </div>  <div class="center hidden" id="quiz">
+    <h2>Challenge 1: Love Quiz</h2>
+    <div class="question">When did Bhargav start falling for you?</div>
+    <div class="option" onclick="wrongAnswer(this)">When he saw you in pink</div>
+    <div class="option" onclick="wrongAnswer(this)">When you fought for food</div>
+    <div class="option" onclick="rightAnswer(this)">Since the first smile</div>
+  </div>  <div class="center hidden" id="numbers">
+    <h2>Challenge 2: Pick-a-Number</h2>
+    <p>Pick a heart to reveal a love note!</p>
+    <div>
+      <button class="btn" onclick="showNote(1)">1</button>
+      <button class="btn" onclick="showNote(2)">2</button>
+      <button class="btn" onclick="showNote(3)">3</button>
     </div>
+    <div id="note" class="love-note hidden"></div>
+  </div>  <div class="center hidden" id="final">
+    <h2>You did it, Niha!</h2>
+    <p>This love challenge is nothing compared to how much I adore you.</p>
+    <div class="fireworks"></div>
+    <audio controls autoplay>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+  </div>  <script>
+    function startChallenge() {
+      document.getElementById('intro').classList.add('hidden');
+      document.getElementById('quiz').classList.remove('hidden');
+    }
 
-    <script>
-        const messages = [
-            "Look, I know you're mad at Bhagi... and honestly... SAME! 😡",
-            "He was in an emergency, BUT he **should have messaged you**. So I gave him an earful! 😤",
-            "I told Alexa and Siri! We **annoyed him all day**. He couldn’t escape! 😂",
-            "And guess what? I made him do **sit-ups while saying 'I love Niha' 1000 times**. He almost cried. 😆",
-            "So please, forgive the **big dummy** just this once?? 🥺👉👈",
-            "P.S. Next time, I will **zap him myself**. 😁⚡"
-        ];
+    function wrongAnswer(el) {
+      el.style.background = 'darkred';
+      alert("Hehe! Try again cutie!");
+    }
 
-        const responses = {
-            1: "Ohhh, you wanna hear more? Well... let's just say, he **almost passed out at 700 sit-ups**. I had to bribe him with a Niha selfie to keep going. 😂",
-            2: "Yep! **1000 times**! But between us, I stopped counting at 300. His face was priceless tho. 🤣",
-            3: "Aww! You forgave him? That means **mission successful**! 🥰 I promise, next time, I'll make him work even harder! 💪"
-        };
+    function rightAnswer(el) {
+      el.style.background = 'green';
+      document.getElementById('quiz').classList.add('hidden');
+      setTimeout(() => {
+        document.getElementById('numbers').classList.remove('hidden');
+      }, 500);
+    }
 
-        function sendMessage(text, delay = 1000) {
-            setTimeout(() => {
-                let chatbox = document.getElementById("messages");
-                let message = document.createElement("div");
-                message.classList.add("message");
-                message.innerHTML = text;
-                chatbox.appendChild(message);
-                chatbox.scrollTop = chatbox.scrollHeight;
-            }, delay);
-        }
-
-        function sendResponse(option) {
-            let chatbox = document.getElementById("messages");
-            let userResponse = document.createElement("div");
-            userResponse.classList.add("message");
-            userResponse.style.background = "rgba(255, 182, 193, 0.3)"; // Light pink for user response
-            userResponse.innerHTML = Object.values(document.querySelectorAll(".button"))[option - 1].innerHTML;
-            chatbox.appendChild(userResponse);
-            chatbox.scrollTop = chatbox.scrollHeight;
-
-            setTimeout(() => sendMessage(responses[option]), 1000);
-        }
-
-        function startChat() {
-            let index = 0;
-            function showNextMessage() {
-                if (index < messages.length) {
-                    sendMessage(messages[index], index * 1500);
-                    index++;
-                    setTimeout(showNextMessage, 1500);
-                } else {
-                    setTimeout(() => document.getElementById("buttons").classList.remove("hidden"), 2000);
-                }
-            }
-            showNextMessage();
-        }
-
-        startChat();
-    </script>
-</body>
+    function showNote(num) {
+      const notes = [
+        "You're Bhargav's favorite notification.",
+        "Every second with you is his happy place.",
+        "You make his heart go dhak dhak forever."
+      ];
+      document.getElementById('note').textContent = notes[num - 1];
+      document.getElementById('note').classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('numbers').classList.add('hidden');
+        document.getElementById('final').classList.remove('hidden');
+      }, 3000);
+    }
+  </script></body>
 </html>
