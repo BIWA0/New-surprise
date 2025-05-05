@@ -1,81 +1,131 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waiting for You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I Miss Us</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: linear-gradient(#0a0f2c, #1a1e3f);
-      height: 100vh;
-      color: white;
       font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fce4ec;
       display: flex;
-      align-items: center;
       justify-content: center;
-      overflow: hidden;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
+
     .container {
-      text-align: center;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
       max-width: 600px;
-      animation: fadeIn 2s ease-in;
+      width: 100%;
     }
-    .text-line {
-      opacity: 0;
-      font-size: 1.5rem;
-      margin: 20px 0;
-      animation: showLine 1s forwards;
+
+    h1 {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 30px;
+      color: #ffccdd;
     }
-    @keyframes showLine {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
+
+    .msg-box {
+      margin-bottom: 20px;
+      cursor: pointer;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+
+    .main-line {
+      font-weight: bold;
+      font-size: 1.2em;
+      position: relative;
+      padding-right: 25px;
     }
-    .moon {
+
+    .arrow {
       position: absolute;
-      top: 50px;
-      right: 50px;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: #f4f4f4;
-      box-shadow: 0 0 20px #f4f4f4;
+      right: 0;
+      transition: transform 0.3s;
     }
-    .clock {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1.2rem;
-      color: #ccc;
+
+    .extra {
+      display: none;
+      margin-top: 10px;
+      font-size: 0.95em;
+      color: #f8bbd0;
+      line-height: 1.5;
+    }
+
+    .expanded .extra {
+      display: block;
+    }
+
+    .expanded .arrow {
+      transform: rotate(90deg);
     }
   </style>
 </head>
 <body>
-  <div class="moon"></div>
   <div class="container">
-    <div class="text-line" style="animation-delay: 0s">12 AM feels different now…</div>
-    <div class="text-line" style="animation-delay: 3s">You’re out there growing.</div>
-    <div class="text-line" style="animation-delay: 6s">I’m proud of you.</div>
-    <div class="text-line" style="animation-delay: 9s">But I miss the ‘every 2-hour’ you…</div>
-    <div class="text-line" style="animation-delay: 12s">I’ll wait here. Quiet, but loving.</div>
-  </div>
-  <div class="clock" id="clock"></div>  <script>
-    const lines = document.querySelectorAll('.text-line');
-    lines.forEach((line, index) => {
-      setTimeout(() => line.style.opacity = 1, index * 3000);
-    });
+    <h1>I miss us.</h1>
 
-    function updateClock() {
-      const now = new Date();
-      const time = now.toLocaleTimeString();
-      document.getElementById("clock").textContent = "Time now: " + time;
+    <div class="msg-box" onclick="toggleBox(this)">
+      <div class="main-line">
+        “Evenings feel different now…”
+        <span class="arrow">›</span>
+      </div>
+      <div class="extra">(Not sad. Just... quieter. Like something warm left the room.)</div>
+    </div>
+
+    <div class="msg-box" onclick="toggleBox(this)">
+      <div class="main-line">
+        “You’re out there growing.”
+        <span class="arrow">›</span>
+      </div>
+      <div class="extra">(New place. New people. New rhythm. I get it — and honestly, I’m glad.)</div>
+    </div>
+
+    <div class="msg-box" onclick="toggleBox(this)">
+      <div class="main-line">
+        “I’m proud of you.”
+        <span class="arrow">›</span>
+      </div>
+      <div class="extra">(For showing up, for adapting, for choosing your goals, and for getting out of those stress feelings.)</div>
+    </div>
+
+    <div class="msg-box" onclick="toggleBox(this)">
+      <div class="main-line">
+        “But I miss the ‘every 2-hour’ you…”
+        <span class="arrow">›</span>
+      </div>
+      <div class="extra">(The one who sends random messages, shared laughs with me, checked my progress, and assured me you're there sitting beside me.)</div>
+    </div>
+
+    <div class="msg-box" onclick="toggleBox(this)">
+      <div class="main-line">
+        “Now coffee breaks are quieter.”
+        <span class="arrow">›</span>
+      </div>
+      <div class="extra">(I sip mine alone, reading our past evening conversations, pretending we’re still talking now.)</div>
+    </div>
+
+    <div class="msg-box" onclick="toggleBox(this)">
+      <div class="main-line">
+        “I’ll wait here. Quiet, but loving.”
+        <span class="arrow">›</span>
+      </div>
+      <div class="extra">(I love you. I’ll wait for you. It’s just that… it became quieter around me after almost six months, since you’re the only person I’ve been talking to. But I’m so happy for you, love.)</div>
+    </div>
+  </div>
+
+  <script>
+    function toggleBox(element) {
+      element.classList.toggle("expanded");
     }
-    setInterval(updateClock, 1000);
-    updateClock();
-  </script></body>
+  </script>
+</body>
 </html>
