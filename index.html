@@ -2,186 +2,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Niha's Fantasy Love Quest</title>
+  <title>Waiting for You</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville&display=swap');body {
-  margin: 0;
-  font-family: 'Libre Baskerville', serif;
-  overflow-x: hidden;
-  color: #fff;
-}
-
-.scene {
-  display: none;
-  padding: 60px 20px;
-  min-height: 100vh;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-.scene.active {
-  display: block;
-  animation: fadeIn 2s ease-in;
-}
-
-h1, h2 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.5em;
-  text-shadow: 0 0 10px #fff;
-}
-
-p {
-  font-size: 1.2em;
-  margin: 20px auto;
-  max-width: 600px;
-  line-height: 1.6;
-}
-
-button {
-  background: linear-gradient(to right, #ff0080, #7928ca);
-  border: none;
-  color: white;
-  padding: 14px 28px;
-  font-size: 1em;
-  border-radius: 30px;
-  cursor: pointer;
-  margin: 10px;
-  box-shadow: 0 0 10px #ff00cc;
-  transition: transform 0.3s;
-}
-
-button:hover {
-  transform: scale(1.1);
-}
-
-.stars {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url(https://raw.githubusercontent.com/BIWA0/New-surprise/main/twinkle-little-star.gif) no-repeat center center fixed;
-  background-size: cover;
-  z-index: -2;
-  animation: twinkle 10s ease-in-out infinite;
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
-}
-
-.forest-bg {
-  background: url('https://cdn.pixabay.com/photo/2015/12/01/20/28/forest-1072828_1280.jpg') no-repeat center center fixed;
-  background-size: cover;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  opacity: 0.9;
-}
-
-.glow, .wisp, .stone {
-  margin: 30px auto;
-  padding: 20px;
-  border-radius: 20px;
-  width: 60%;
-  max-width: 400px;
-  cursor: pointer;
-  transition: all 0.4s ease;
-}
-
-.glow {
-  background: rgba(34, 139, 34, 0.3);
-  border: 2px solid #66ff66;
-  box-shadow: 0 0 15px #66ff66;
-}
-
-.glow:hover {
-  background: rgba(34, 139, 34, 0.5);
-  transform: scale(1.05);
-}
-
-.wisp {
-  background: rgba(173, 216, 230, 0.3);
-  border: 2px solid #add8e6;
-  animation: floatWisp 6s ease-in-out infinite;
-  box-shadow: 0 0 10px #ccffff;
-}
-
-.wisp:hover {
-  transform: scale(1.05);
-}
-
-.stone {
-  background: rgba(255, 182, 193, 0.3);
-  border: 2px solid #ffb6c1;
-  box-shadow: 0 0 10px #ffc0cb;
-}
-
-.stone:hover {
-  background: rgba(255, 182, 193, 0.5);
-  transform: scale(1.05);
-}
-
-@keyframes floatWisp {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-#secretMessage {
-  display: none;
-  font-style: italic;
-  font-size: 1.3em;
-  text-shadow: 0 0 10px #ffccff;
-  margin-top: 30px;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(#0a0f2c, #1a1e3f);
+      height: 100vh;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      max-width: 600px;
+      animation: fadeIn 2s ease-in;
+    }
+    .text-line {
+      opacity: 0;
+      font-size: 1.5rem;
+      margin: 20px 0;
+      animation: showLine 1s forwards;
+    }
+    @keyframes showLine {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .moon {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #f4f4f4;
+      box-shadow: 0 0 20px #f4f4f4;
+    }
+    .clock {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      color: #ccc;
+    }
   </style>
 </head>
 <body>
-  <div class="stars"></div>  <!-- Scene 1: Welcome -->  <div id="scene1" class="scene active">
-    <h1>Welcome, Niha...</h1>
-    <p>Behind this magical gate lies a challenge only your heart can conquer.</p>
-    <button onclick="goToScene(2)">Enter the Fantasy</button>
-  </div>  <!-- Scene 2: Forest of Whispers -->  <div id="scene2" class="scene">
-    <div class="forest-bg"></div>
-    <h2>The Forest of Whispers</h2>
-    <div class="glow" onclick="revealMessage('The trees whispered: *Bhargav’s love for you is eternal.*')">Glowing Tree</div>
-    <div class="wisp" onclick="revealMessage('The whisper floated to your ear: *You are Bhargav’s only magic.*')">Whisper</div>
-    <div class="stone" onclick="revealMessage('The stone shimmered and said: *You are my universe, Niha.*')">Touch Glowing Stone</div>
-    <p id="secretMessage"></p>
-    <button onclick="goToScene(3)">Next Scene</button>
-  </div>  <!-- Scene 3: Coming Soon -->  <div id="scene3" class="scene">
-    <h2>Scene 3 coming soon...</h2>
-    <p>The River of Memories awaits...</p>
-  </div>  <script>
-    function goToScene(num) {
-      document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
-      document.getElementById('scene' + num).classList.add('active');
-    }
+  <div class="moon"></div>
+  <div class="container">
+    <div class="text-line" style="animation-delay: 0s">12 AM feels different now…</div>
+    <div class="text-line" style="animation-delay: 3s">You’re out there growing.</div>
+    <div class="text-line" style="animation-delay: 6s">I’m proud of you.</div>
+    <div class="text-line" style="animation-delay: 9s">But I miss the ‘every 2-hour’ you…</div>
+    <div class="text-line" style="animation-delay: 12s">I’ll wait here. Quiet, but loving.</div>
+  </div>
+  <div class="clock" id="clock"></div>  <script>
+    const lines = document.querySelectorAll('.text-line');
+    lines.forEach((line, index) => {
+      setTimeout(() => line.style.opacity = 1, index * 3000);
+    });
 
-    function revealMessage(msg) {
-      const el = document.getElementById("secretMessage");
-      el.style.display = "block";
-      el.textContent = "";
-      let i = 0;
-      function type() {
-        if (i < msg.length) {
-          el.textContent += msg.charAt(i);
-          i++;
-          setTimeout(type, 40);
-        }
-      }
-      type();
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      document.getElementById("clock").textContent = "Time now: " + time;
     }
+    setInterval(updateClock, 1000);
+    updateClock();
   </script></body>
 </html>
